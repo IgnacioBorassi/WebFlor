@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=24">
+  <link rel="stylesheet" href="css/styles.css?v=27">
 </head>
 <body>
 
@@ -18,6 +18,7 @@
     <button class="bar__toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
     <nav class="bar__nav" id="menu">
       <a href="#presentacion">Presentación</a>
+      <a href="#escuela">La escuela</a>
       <a href="#primer-ciclo">1er ciclo</a>
       <a href="#segundo-ciclo">2do ciclo</a>
       <a href="#carta">Carta</a>
@@ -56,7 +57,7 @@
 
     <!-- ===================== PRESENTACIÓN PERSONAL ===================== -->
     <div class="chapter" id="presentacion">
-      <section class="block">
+      <section class="block block--alt">
         <div class="chapter-head fade">
           <span class="chapter-num">01</span>
           <h2>¿Quién soy?</h2>
@@ -76,11 +77,40 @@
       </section>
     </div>
 
+    <!-- ===================== LA ESCUELA ===================== -->
+    <div class="chapter" id="escuela">
+      <section class="block">
+        <div class="chapter-head fade">
+          <span class="chapter-num">02</span>
+          <h2>La escuela</h2>
+        </div>
+        <div class="foto-texto">
+          <figure class="foto-texto__foto fade">
+            <img src="img/escuela.webp" alt="Frente de la Escuela Argentina Gral. Belgrano">
+          </figure>
+          <div>
+            <div class="escuela fade">
+              <img class="escuela__logo" src="img/logo-escuela.png" alt="Escudo de la Escuela Argentina Gral. Belgrano">
+              <div>
+                <strong>Escuela Argentina Gral. Belgrano</strong>
+                <span>Belgrano, CABA</span>
+              </div>
+            </div>
+            <div class="texto-justificado">
+              <!-- EDITAR -->
+              <p class="fade">Presentación de la escuela: su historia, su proyecto institucional, los niveles que ofrece y qué la caracteriza.</p>
+              <p class="fade">Contá también cómo es la comunidad educativa y cómo fue tu llegada a la institución.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
     <!-- ===================== 1ER CICLO (todavía vacío) ===================== -->
     <div class="chapter" id="primer-ciclo">
       <section class="block block--alt">
         <div class="chapter-head chapter-head--center fade">
-          <span class="chapter-num">02</span>
+          <span class="chapter-num">03</span>
           <h2>1er ciclo</h2>
         </div>
         <div class="wip fade">
@@ -94,37 +124,23 @@
     <!-- ===================== 2DO CICLO ===================== -->
     <div class="chapter" id="segundo-ciclo">
 
-      <!-- Escuela y curso: fotos una al lado de la otra -->
+      <!-- El curso -->
       <section class="block">
         <div class="chapter-head fade">
-          <span class="chapter-num">03</span>
+          <span class="chapter-num">04</span>
           <h2>2do ciclo</h2>
         </div>
-
-        <div class="escuela fade">
-          <img class="escuela__logo" src="img/logo-escuela.png" alt="Escudo de la Escuela Argentina Gral. Belgrano">
-          <div>
-            <strong>Escuela Argentina Gral. Belgrano</strong>
-            <span>Belgrano, CABA</span>
-          </div>
-        </div>
-
-        <div class="duo">
-          <figure class="duo__item fade">
-            <img src="img/escuela.webp" alt="Frente de la Escuela Argentina Gral. Belgrano">
-            <figcaption>La escuela</figcaption>
-          </figure>
-          <figure class="duo__item fade">
+        <div class="foto-texto foto-texto--reverse">
+          <figure class="foto-texto__foto fade">
             <!-- EDITAR: <img src="img/curso.jpg" alt="El curso"> -->
             <div class="ph">Foto del curso</div>
             <figcaption>[5.° grado “B”]</figcaption>
           </figure>
-        </div>
-
-        <div class="narrow duo__text">
-          <!-- EDITAR -->
-          <p class="lead fade">Una frase que resuma cómo fue tu experiencia en el 2do ciclo.</p>
-          <p class="fade">Una breve descripción del curso: cuántos son, cómo es el grupo, qué los caracteriza.</p>
+          <div class="texto-justificado">
+            <!-- EDITAR -->
+            <p class="lead fade">Una frase que resuma cómo fue tu experiencia en el 2do ciclo.</p>
+            <p class="fade">Una breve descripción del curso: cuántos son, cómo es el grupo, qué los caracteriza.</p>
+          </div>
         </div>
       </section>
 
@@ -161,7 +177,7 @@
     <div class="chapter" id="carta">
       <section class="block block--alt">
         <div class="chapter-head chapter-head--center fade">
-          <span class="chapter-num">04</span>
+          <span class="chapter-num">05</span>
           <h2>Carta personal</h2>
         </div>
         <article class="letter fade">
@@ -180,7 +196,7 @@
       <div class="chapter" id="proyeccion">
         <section class="block block--dark-head">
           <div class="chapter-head chapter-head--center fade">
-            <span class="chapter-num">05</span>
+            <span class="chapter-num">06</span>
             <h2>Proyección profesional</h2>
           </div>
         </section>
@@ -198,7 +214,7 @@
       <div class="chapter" id="autoevaluacion">
         <section class="block">
           <div class="chapter-head chapter-head--center fade">
-            <span class="chapter-num">06</span>
+            <span class="chapter-num">07</span>
             <h2>Autoevaluación</h2>
           </div>
           <div class="stack">
@@ -234,8 +250,8 @@
 
   </main>
 
-  <script src="js/datos.js?v=24"></script>
-  <script src="js/comun.js?v=24"></script>
-  <script src="js/main.js?v=24"></script>
+  <script src="js/datos.js?v=27"></script>
+  <script src="js/comun.js?v=27"></script>
+  <script src="js/main.js?v=27"></script>
 </body>
 </html>

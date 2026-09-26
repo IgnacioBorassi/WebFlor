@@ -23,3 +23,12 @@ function observarFades() {
   );
   document.querySelectorAll('.fade').forEach((el) => obs.observe(el));
 }
+
+// Barra superior: al bajar se achica y se vuelve una cápsula flotante
+(function barraCompacta() {
+  const bar = document.querySelector('.bar');
+  if (!bar) return;
+  const actualizar = () => bar.classList.toggle('is-compact', scrollY > 60);
+  addEventListener('scroll', actualizar, { passive: true });
+  actualizar();
+})();
