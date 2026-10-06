@@ -266,6 +266,14 @@ p + p { margin-top: 1em; }
 /* El curso (2do ciclo) */
 .curso .h-lg { margin-bottom: 1.25rem; }
 .curso p:not(.kicker) + p { margin-top: 1em; }
+.curso__fotos {
+  max-width: 1100px; margin: 6vh auto;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem;
+}
+.curso__fotos figure { margin: 0; }
+.curso__fotos img, .curso__fotos .ph { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+.curso__perfil > div + div { margin-top: 2.5rem; }
+.curso__perfil .pill { margin-bottom: .75rem; }
 
 /* Mi residencia: intro + línea que baja hasta "La escuela" */
 .residencia { padding-bottom: 0; }
@@ -616,6 +624,7 @@ a.path-card:hover .path-card__more span { transform: translateX(4px); }
   .path__legend { display: flex; }
   .foto-texto { grid-template-columns: 1fr; }
   .foto-texto--reverse .foto-texto__foto { order: 0; }
+  .curso__fotos { grid-template-columns: 1fr; }
   .objetivos__lista { grid-template-columns: 1fr; gap: 1.5rem; }
   .objetivos__lista::before { top: 23px; bottom: 23px; left: 22px; right: auto; width: 2px; height: auto; }
   .objetivos__lista li { flex-direction: row; align-items: flex-start; gap: 1rem; }
