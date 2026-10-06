@@ -27,7 +27,7 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; } /* el deslizamiento lo hace js/comun.js */
 
 body {
   background: var(--bg);
@@ -69,6 +69,29 @@ p + p { margin-top: 1em; }
 }
 .btn:hover { transform: scale(1.04); }
 .btn:active { transform: scale(.97); }
+
+/* Botón y visor del CV (Presentación) */
+.btn--cv {
+  display: inline-flex; align-items: center; gap: .55rem;
+  margin-top: 1rem; background: var(--destacado); color: #fff;
+}
+.cv-modal {
+  width: min(900px, 100% - 2rem); height: min(92vh, 1200px); max-width: none; max-height: none;
+  margin: auto; padding: 0; border: 0; border-radius: 20px; overflow: hidden;
+  background: var(--card); box-shadow: 0 30px 80px rgba(0, 0, 0, .35);
+  display: none; flex-direction: column;
+}
+.cv-modal[open] { display: flex; animation: viewIn .35s cubic-bezier(.2, .7, .2, 1); }
+.cv-modal::backdrop { background: rgba(12, 12, 16, .7); backdrop-filter: blur(4px); }
+.cv-modal__bar {
+  display: flex; align-items: center; gap: .75rem;
+  padding: .75rem .75rem .75rem 1.25rem; border-bottom: 1px solid var(--line);
+}
+.cv-modal__bar strong { margin-right: auto; font-weight: 800; }
+.cv-modal__bar .btn--cv { margin-top: 0; padding: .6rem 1.2rem; font-size: .95rem; }
+.cv-modal__close { width: 2.5rem; height: 2.5rem; border-radius: 50%; font-size: 1.8rem; line-height: 1; color: var(--ink-2); }
+.cv-modal__close:hover { background: var(--bg-2); color: var(--ink); }
+.cv-modal__pdf { flex: 1; width: 100%; border: 0; background: var(--bg-2); }
 
 .pill {
   display: inline-block; align-self: flex-start;
@@ -239,6 +262,57 @@ p + p { margin-top: 1em; }
 .foto-texto__foto figcaption { margin-top: .7rem; font-weight: 800; color: var(--ink-2); }
 .foto-texto .texto-justificado p:not(.lead) { font-size: 1.15rem; color: var(--ink-2); }
 .escuela { margin-bottom: 1.5rem; }
+
+/* El curso (2do ciclo) */
+.curso .h-lg { margin-bottom: 1.25rem; }
+.curso p:not(.kicker) + p { margin-top: 1em; }
+
+/* Mi residencia: intro + línea que baja hasta "La escuela" */
+.residencia { padding-bottom: 0; }
+.residencia .narrow p + p { margin-top: 1.2em; }
+.seguime {
+  margin-top: 3rem; text-align: center;
+  color: var(--destacado); font-weight: 900; font-size: clamp(1.4rem, 3vw, 2rem); letter-spacing: -0.02em;
+}
+.conector {
+  position: relative; width: 2px; height: 16vh; margin: 1.25rem auto 0;
+  background: linear-gradient(var(--destacado), color-mix(in srgb, var(--destacado) 25%, transparent));
+}
+.conector::after {
+  content: ""; position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%);
+  width: 12px; height: 12px; border-radius: 50%; background: var(--destacado);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--destacado) 18%, transparent);
+}
+/* La línea "se dibuja" de arriba hacia abajo al aparecer */
+.conector.fade { opacity: 1; transform: scaleY(0); transform-origin: top; transition: transform 1.2s cubic-bezier(.2, .7, .2, 1); }
+.conector.fade.is-visible { transform: none; }
+.escuela-block { padding-top: 4vh; }
+
+/* Objetivos institucionales: tres citas unidas por una línea */
+.objetivos { max-width: 1100px; margin: 8vh auto 0; }
+.objetivos__intro { text-align: center; font-size: 1.15rem; font-weight: 700; margin-bottom: 2.5rem; }
+.objetivos__intro span { color: var(--ink-2); font-weight: 600; }
+.objetivos__lista {
+  position: relative; list-style: none; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem;
+}
+/* Línea horizontal que pasa por los tres números */
+.objetivos__lista::before {
+  content: ""; position: absolute; top: 22px; left: 16.66%; right: 16.66%; height: 2px;
+  background: color-mix(in srgb, var(--destacado) 35%, transparent);
+}
+.objetivos__lista li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+.objetivos__num {
+  position: relative; z-index: 1; display: grid; place-items: center;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--destacado); color: #fff; font-weight: 900; font-size: 1.1rem;
+  box-shadow: 0 0 0 8px var(--bg);
+}
+.objetivos blockquote {
+  flex: 1; margin: 0; padding: 1.75rem; border-radius: var(--radius);
+  background: var(--card); box-shadow: 0 0 0 1px var(--line);
+  font-size: 1.05rem; line-height: 1.6; font-style: italic; color: var(--ink-2);
+}
 
 /* =========================================================
    2do ciclo · Planificación
@@ -542,6 +616,11 @@ a.path-card:hover .path-card__more span { transform: translateX(4px); }
   .path__legend { display: flex; }
   .foto-texto { grid-template-columns: 1fr; }
   .foto-texto--reverse .foto-texto__foto { order: 0; }
+  .objetivos__lista { grid-template-columns: 1fr; gap: 1.5rem; }
+  .objetivos__lista::before { top: 23px; bottom: 23px; left: 22px; right: auto; width: 2px; height: auto; }
+  .objetivos__lista li { flex-direction: row; align-items: flex-start; gap: 1rem; }
+  .objetivos__num { flex-shrink: 0; }
+  .objetivos blockquote { padding: 1.25rem; }
 
   .clase-cover__frame { aspect-ratio: 4 / 3; }
   .mini-path__dots { gap: .35rem; }

@@ -246,3 +246,22 @@ wipBtn.addEventListener('click', () => {
   }, 250);
 });
 wipCone.addEventListener('animationend', () => wipCone.classList.remove('is-wobbling'));
+
+// =========================================================
+// Ver CV: abre el PDF en un visor con botón de descarga.
+// En celulares (donde los PDF no se ven bien embebidos) el enlace
+// abre el PDF directo en otra pestaña.
+// =========================================================
+const cvBtn = document.getElementById('cvBtn');
+const cvModal = document.getElementById('cvModal');
+const cvFrame = document.getElementById('cvFrame');
+if (cvBtn && cvModal.showModal && !matchMedia('(pointer: coarse)').matches) {
+  cvBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!cvFrame.src) cvFrame.src = cvBtn.getAttribute('href') + '#navpanes=0&view=FitH';
+    cvModal.showModal();
+  });
+  document.getElementById('cvClose').addEventListener('click', () => cvModal.close());
+  // Cerrar al hacer clic afuera del visor
+  cvModal.addEventListener('click', (e) => { if (e.target === cvModal) cvModal.close(); });
+}

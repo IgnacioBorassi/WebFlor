@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=27">
+  <link rel="stylesheet" href="css/styles.css?v=37">
 </head>
 <body>
 
@@ -21,6 +21,7 @@
     <a href="#inicio" class="bar__logo">Flor<span>.</span></a>
     <button class="bar__toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
     <nav class="bar__nav" id="menu">
+      <a href="#inicio">Inicio</a>
       <a href="#presentacion">Presentación</a>
       <a href="#escuela">La escuela</a>
       <a href="#primer-ciclo">1er ciclo</a>
@@ -76,17 +77,51 @@
             <p class="fade">Soy Florencia Pérez Fernández, tengo 24 años y podría definirme como una curiosa incurable. Desde chica me encanta aprender, hacerme preguntas y descubrir cosas nuevas. Encontré una pasión especial en las ciencias naturales, una facilidad con los números y un espacio de refugio en la lectura. Pero hay algo que siempre disfruté tanto como aprender: compartir con otros lo que sé y ayudarlos a comprender aquello que les resulta difícil.</p>
             <p class="fade">Al terminar el colegio, mi camino comenzó en Medicina, carrera que estudié durante dos años. Al mismo tiempo, trabajaba dando clases particulares a chicos de primaria y secundaria y, casi sin darme cuenta, enseñar empezó a ocupar un lugar cada vez más importante en mi vida. Disfrutaba enseñarles, buscar distintas formas de acercarlos a aquello que estaban aprendiendo y acompañarlos en cada logro. Al mismo tiempo, cada clase era también una oportunidad para que yo siguiera aprendiendo: nuevas formas de explicar, de acompañar y de enseñar. Fue en ese intercambio donde empecé a descubrir que había encontrado una profesión en la que mi amor por aprender y por enseñar podían ir de la mano.</p>
             <p class="fade">Así llegué al Profesorado de Educación Primaria. Una profesión que logró reunir muchas partes de quien soy: mi curiosidad, mis ganas de seguir aprendiendo, el amor por enseñar y el deseo de contagiar en otros ese entusiasmo por conocer. Hoy no sé si fui yo quien eligió la docencia o si, de alguna manera, ella ya me venía eligiendo a mí.</p>
+            <a class="btn btn--cv fade" id="cvBtn" href="docs/cv-florencia-perez-fernandez.pdf" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>
+              Ver mi CV
+            </a>
           </div>
         </div>
       </section>
     </div>
 
-    <!-- ===================== LA ESCUELA ===================== -->
+    <!-- Visor del CV -->
+    <dialog class="cv-modal" id="cvModal" aria-label="Currículum Vitae">
+      <div class="cv-modal__bar">
+        <strong>Currículum Vitae</strong>
+        <a class="btn btn--cv" href="docs/cv-florencia-perez-fernandez.pdf" download="CV - Florencia Pérez Fernández.pdf">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+          Descargar
+        </a>
+        <button class="cv-modal__close" id="cvClose" aria-label="Cerrar">×</button>
+      </div>
+      <iframe class="cv-modal__pdf" id="cvFrame" title="CV de Florencia Pérez Fernández"></iframe>
+    </dialog>
+
+    <!-- ===================== MI RESIDENCIA + LA ESCUELA ===================== -->
     <div class="chapter" id="escuela">
-      <section class="block">
-        <div class="chapter-head fade">
+
+      <!-- Introducción a la residencia -->
+      <section class="block residencia">
+        <div class="chapter-head chapter-head--center fade">
           <span class="chapter-num">02</span>
-          <h2>La escuela</h2>
+          <h2>Mi residencia</h2>
+        </div>
+        <div class="narrow texto-justificado">
+          <p class="fade">En este apartado te invito a conocer mi recorrido por la Residencia Docente, realizada en la Escuela Argentina General Belgrano. A lo largo de esta experiencia transité por Primer y Segundo Ciclo, dos escenarios diferentes que me permitieron seguir aprendiendo y construyendo mi identidad como docente.</p>
+          <p class="fade">Aquí comparto las propuestas de aprendizaje que diseñé e implementé durante mis prácticas, junto con evidencias y huellas de aprendizaje que permiten hacer visible no solo el recorrido de los estudiantes, sino también el mío como docente.</p>
+          <p class="fade">Por último, analizo mi propia práctica a partir de las aptitudes docentes propuestas por el Modelo AIE de la UCA. A través de ellas recupero las decisiones que fui tomando, los aprendizajes construidos y también aquellos aspectos en los que todavía puedo seguir creciendo.</p>
+        </div>
+        <p class="seguime fade">¡Seguime por acá!</p>
+        <!-- Línea que baja y conecta con "La escuela" -->
+        <div class="conector fade" aria-hidden="true"></div>
+      </section>
+
+      <!-- La escuela -->
+      <section class="block escuela-block">
+        <div class="chapter-head chapter-head--center fade">
+          <h2 class="h-lg">La escuela</h2>
         </div>
         <div class="foto-texto">
           <figure class="foto-texto__foto fade">
@@ -97,15 +132,32 @@
               <img class="escuela__logo" src="img/logo-escuela.png" alt="Escudo de la Escuela Argentina Gral. Belgrano">
               <div>
                 <strong>Escuela Argentina Gral. Belgrano</strong>
-                <span>Belgrano, CABA</span>
+                <span>Villa Urquiza, CABA</span>
               </div>
             </div>
             <div class="texto-justificado">
-              <!-- EDITAR -->
-              <p class="fade">Presentación de la escuela: su historia, su proyecto institucional, los niveles que ofrece y qué la caracteriza.</p>
-              <p class="fade">Contá también cómo es la comunidad educativa y cómo fue tu llegada a la institución.</p>
+              <p class="fade">La Escuela Argentina General Belgrano, ubicada en Villa Urquiza, es una institución privada, laica y de jornada completa que acompaña a sus estudiantes desde el Nivel Inicial hasta el Secundario. Su misión parte de considerar al alumno como una persona integral, contemplando sus dimensiones intelectuales, morales, afectivas y físicas. Desde esta mirada, busca despertar la curiosidad, recuperar el error como parte necesaria del aprendizaje y formar estudiantes participativos y protagonistas de su propio proceso.</p>
             </div>
           </div>
+        </div>
+
+        <!-- Objetivos institucionales, unidos por una línea -->
+        <div class="objetivos">
+          <p class="objetivos__intro fade">La institución se propone tres objetivos fundamentales <span>(citados de Escuela Argentina General Belgrano, s. f.)</span>:</p>
+          <ol class="objetivos__lista">
+            <li class="fade">
+              <span class="objetivos__num">1</span>
+              <blockquote>“Preparar a nuestros niños y jóvenes para vivir plenamente el mundo de las comunicaciones, los idiomas, la preeminencia del conocimiento, la competencia y la eficacia.”</blockquote>
+            </li>
+            <li class="fade">
+              <span class="objetivos__num">2</span>
+              <blockquote>“Hacer un colegio cálido y acogedor, pleno de estímulos, vivido con alegría, con orgullo de pertenecer y entusiasmo por participar; un colegio con espacios propicios para el crecimiento individual en un clima de libertad creadora y ordenada convivencia.”</blockquote>
+            </li>
+            <li class="fade">
+              <span class="objetivos__num">3</span>
+              <blockquote>“Ofrecer el marco necesario para la preservación de los valores éticos, la formación espiritual sólida, las pautas de comunicación franca y las relaciones de mutua confianza.”</blockquote>
+            </li>
+          </ol>
         </div>
       </section>
     </div>
@@ -138,12 +190,14 @@
           <figure class="foto-texto__foto fade">
             <!-- EDITAR: <img src="img/curso.jpg" alt="El curso"> -->
             <div class="ph">Foto del curso</div>
-            <figcaption>[5.° grado “B”]</figcaption>
+            <figcaption>6.º grado · 34 estudiantes</figcaption>
           </figure>
-          <div class="texto-justificado">
-            <!-- EDITAR -->
-            <p class="lead fade">Una frase que resuma cómo fue tu experiencia en el 2do ciclo.</p>
-            <p class="fade">Una breve descripción del curso: cuántos son, cómo es el grupo, qué los caracteriza.</p>
+          <div class="texto-justificado curso">
+            <p class="kicker fade">El curso</p>
+            <h3 class="h-lg fade">Sexto grado</h3>
+            <p class="fade">Mi residencia en Segundo Ciclo la realicé en 6.º grado, un grupo formado por 34 estudiantes. Se caracteriza por ser un grupo cálido y curioso, con mucho interés por aprender y una gran predisposición a participar. Disfrutan de hacer preguntas, compartir lo que saben y conocer más sobre los fenómenos que los rodean.</p>
+            <p class="fade">Es un grupo heterogéneo, con diferentes ritmos y formas de aprender, por lo que resulta importante ofrecer distintos desafíos que permitan que todos puedan participar y avanzar en sus aprendizajes.</p>
+            <p class="fade">En los trabajos grupales suelen desenvolverse con bastante autonomía: se escuchan, comparten los materiales y logran organizarse y llegar a acuerdos sin requerir constantemente la intervención de la docente.</p>
           </div>
         </div>
       </section>
@@ -254,8 +308,8 @@
 
   </main>
 
-  <script src="js/datos.js?v=27"></script>
-  <script src="js/comun.js?v=27"></script>
-  <script src="js/main.js?v=27"></script>
+  <script src="js/datos.js?v=37"></script>
+  <script src="js/comun.js?v=37"></script>
+  <script src="js/main.js?v=37"></script>
 </body>
 </html>

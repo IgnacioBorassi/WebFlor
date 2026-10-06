@@ -32,3 +32,38 @@ function observarFades() {
   addEventListener('scroll', actualizar, { passive: true });
   actualizar();
 })();
+
+// Links internos (#seccion): desplazamiento suave hecho a mano, para que
+// deslice siempre, aunque el navegador o el sistema no lo hagan solos
+(function desplazamientoSuave() {
+  const easeInOut = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  let animacion = 0;
+
+  function irA(y) {
+    const desde = scrollY;
+    const distancia = y - desde;
+    const duracion = clamp(Math.abs(distancia) / 4, 500, 1200);
+    const t0 = performance.now();
+    cancelAnimationFrame(animacion);
+    const paso = (ahora) => {
+      const t = clamp((ahora - t0) / duracion);
+      window.scrollTo(0, desde + distancia * easeInOut(t));
+      if (t < 1) animacion = requestAnimationFrame(paso);
+    };
+    animacion = requestAnimationFrame(paso);
+  }
+
+  // Si la persona usa la rueda o toca la pantalla, se corta la animación
+  ['wheel', 'touchstart'].forEach((ev) => addEventListener(ev, () => cancelAnimationFrame(animacion), { passive: true }));
+
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href^="#"]');
+    if (!link || e.defaultPrevented) return;
+    const destino = document.querySelector(link.getAttribute('href'));
+    if (!destino) return;
+    e.preventDefault();
+    const y = link.getAttribute('href') === '#inicio' ? 0 : destino.getBoundingClientRect().top + scrollY;
+    irA(y);
+    history.pushState(null, '', link.getAttribute('href'));
+  });
+})();
