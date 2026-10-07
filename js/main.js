@@ -10,6 +10,14 @@ document.querySelectorAll('[data-words]').forEach((el) => {
 const plan = document.getElementById('plan');
 const P = planificacion;
 
+// Íconos de las tarjetas del resumen
+const svg = (d) => `<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const ICONOS = {
+  check: svg('<circle cx="12" cy="12" r="10"/><path d="m8 12.5 2.5 2.5L16 9.5"/>'),
+  foco: svg('<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>'),
+  lupa: svg('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8.5 11h5M11 8.5v5"/>'),
+};
+
 // Separa la cita final "(CABA, 2024, p. 143)" del texto del contenido
 const conCita = (txt) => {
   const m = txt.match(/^(.*?)\s*(\([^()]*\d{4}[^()]*\))\.?$/);
@@ -28,19 +36,23 @@ plan.innerHTML = `
         <h4>Hilo conductor</h4>
         <p>${esc(P.hiloConductor)}</p>
       </article>
+      <span class="plan-flecha" aria-hidden="true"></span>
       <article class="plan-card plan-card--recorte">
         <h4>Recorte didáctico</h4>
         <p>${esc(P.recorte)}</p>
       </article>
     </div>
 
-    <article class="plan-card">
-      <div class="plan-card__head">
-        <h4>Objetivos</h4>
-        <div class="plan-capacidades"><span>Capacidades:</span>${P.capacidades.map((c) => `<span class="chip">${esc(c)}</span>`).join('')}</div>
-      </div>
-      <ol class="plan-objetivos">${P.objetivos.map((o, i) => `<li><span class="plan-card__num">${i + 1}</span><p>${esc(o)}</p></li>`).join('')}</ol>
-    </article>
+    <div class="plan-fila">
+      <article class="plan-card">
+        <h4 class="plan-card__titulo">${ICONOS.check} Objetivos</h4>
+        <ol class="plan-objetivos">${P.objetivos.map((o, i) => `<li><span class="plan-card__num">${i + 1}</span><p>${esc(o)}</p></li>`).join('')}</ol>
+      </article>
+      <article class="plan-card plan-card--capacidades">
+        <h4>Capacidades</h4>
+        <ul class="plan-capacidades">${P.capacidades.map((c, i) => `<li><span class="plan-capacidades__icono">${i === 0 ? ICONOS.foco : ICONOS.lupa}</span>${esc(c)}</li>`).join('')}</ul>
+      </article>
+    </div>
 
     <article class="plan-card">
       <h4>Contenidos</h4>
