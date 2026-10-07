@@ -449,7 +449,15 @@ p + p { margin-top: 1em; }
 .plan-doc { max-width: 1100px; margin: 2rem auto 0; text-align: center; }
 
 /* Marcos teóricos */
-.marco .h-lg { margin-bottom: 1.5rem; }
+/* Título en dos niveles: frase chica arriba y "Marcos teóricos" grande */
+.marco__titulo { text-align: center; margin-bottom: 2.5rem; }
+.marco__titulo span { display: block; }
+.marco__titulo span:first-child { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 700; color: var(--ink-2); letter-spacing: -0.01em; margin-bottom: .35rem; }
+.marco__titulo .destacado { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; }
+.marco__titulo::after {
+  content: ""; display: block; width: 64px; height: 4px; margin: 1.4rem auto 0; border-radius: 4px;
+  background: linear-gradient(90deg, var(--destacado), var(--accent-2));
+}
 .marco p + p { margin-top: 1.2em; }
 
 /* =========================================================
@@ -702,6 +710,8 @@ a.path-card:hover .path-card__more span { transform: translateX(4px); }
 }
 
 @media (max-width: 760px) {
+  /* En pantallas angostas el texto justificado deja huecos grandes entre palabras */
+  .texto-justificado p, .manifesto p, .plan-table th, .plan-table td { text-align: left; }
   .block { padding: 8vh var(--gutter); }
   .intro { grid-template-columns: 1fr; }
   .intro__photo { max-width: 420px; }
