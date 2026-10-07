@@ -8,28 +8,60 @@ document.querySelectorAll('[data-words]').forEach((el) => {
 // Planificación: vista linda / cuadro
 // =========================================================
 const plan = document.getElementById('plan');
-const metaEntries = Object.entries(planificacion.datos);
+const P = planificacion;
+
+// Separa la cita final "(CABA, 2024, p. 143)" del texto del contenido
+const conCita = (txt) => {
+  const m = txt.match(/^(.*?)\s*(\([^()]*\d{4}[^()]*\))\.?$/);
+  return m ? `${esc(m[1])} <cite>${esc(m[2])}</cite>` : esc(txt);
+};
+
+// Recuadro con áreas y ejes (arriba de las dos vistas)
+document.getElementById('planMeta').innerHTML = `
+  <div><span class="plan-meta__label">Áreas</span>${P.areas.map((a) => `<span class="chip">${esc(a)}</span>`).join('')}</div>
+  <div><span class="plan-meta__label">Ejes</span>${P.ejes.map((e) => `<span class="chip chip--soft">${esc(e)}</span>`).join('')}</div>`;
 
 plan.innerHTML = `
   <div class="plan__view" data-view="cards">
-    <dl class="plan-meta">
-      ${metaEntries.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}
-    </dl>
-    <div class="plan-cards">
-      ${planificacion.bloques.map((b, i) => `
-        <article class="plan-card">
-          <span class="plan-card__num">${i + 1}</span>
-          <h4>${esc(b.titulo)}</h4>
-          <ul>${b.items.map((it) => `<li>${esc(it)}</li>`).join('')}</ul>
-        </article>`).join('')}
+    <div class="plan-hilo">
+      <article class="plan-card plan-card--hilo">
+        <h4>Hilo conductor</h4>
+        <p>${esc(P.hiloConductor)}</p>
+      </article>
+      <article class="plan-card plan-card--recorte">
+        <h4>Recorte didáctico</h4>
+        <p>${esc(P.recorte)}</p>
+      </article>
     </div>
+
+    <article class="plan-card">
+      <div class="plan-card__head">
+        <h4>Objetivos</h4>
+        <div class="plan-capacidades"><span>Capacidades:</span>${P.capacidades.map((c) => `<span class="chip">${esc(c)}</span>`).join('')}</div>
+      </div>
+      <ol class="plan-objetivos">${P.objetivos.map((o, i) => `<li><span class="plan-card__num">${i + 1}</span><p>${esc(o)}</p></li>`).join('')}</ol>
+    </article>
+
+    <article class="plan-card">
+      <h4>Contenidos</h4>
+      <ul class="plan-contenidos">${P.contenidos.map((c) => `<li>${conCita(c)}</li>`).join('')}</ul>
+    </article>
   </div>
+
   <div class="plan__view" data-view="table" hidden>
     <div class="plan-table-wrap">
       <table class="plan-table">
-        <caption>${metaEntries.map(([k, v]) => `<span><strong>${esc(k)}:</strong> ${esc(v)}</span>`).join('')}</caption>
-        <thead><tr>${planificacion.bloques.map((b) => `<th>${esc(b.titulo)}</th>`).join('')}</tr></thead>
-        <tbody><tr>${planificacion.bloques.map((b) => `<td><ul>${b.items.map((it) => `<li>${esc(it)}</li>`).join('')}</ul></td>`).join('')}</tr></tbody>
+        <caption>
+          <span><strong>Áreas:</strong> ${esc(P.areas.join(', '))}</span>
+          <span><strong>Ejes:</strong> ${esc(P.ejes.join('; '))}</span>
+        </caption>
+        <tbody>
+          <tr><th scope="row">Contenidos</th><td><ul>${P.contenidos.map((c) => `<li>${esc(c)}</li>`).join('')}</ul></td></tr>
+          <tr><th scope="row">Capacidades</th><td>${esc(P.capacidades.join(' y '))}</td></tr>
+          <tr><th scope="row">Objetivos</th><td><ol>${P.objetivos.map((o) => `<li>${esc(o)}</li>`).join('')}</ol></td></tr>
+          <tr><th scope="row">Hilo Conductor</th><td>${esc(P.hiloConductor)}</td></tr>
+          <tr><th scope="row">Recorte Didáctico</th><td>${esc(P.recorte)}</td></tr>
+        </tbody>
       </table>
     </div>
   </div>`;
@@ -114,6 +146,7 @@ const scenes = {
     const hero = scene.querySelector('[data-hero]');
     hero.style.opacity = 1 - out;
     hero.style.transform = `translateY(${-out * 60}px) scale(${1 - out * 0.15})`;
+    scene.querySelector('[data-blobs]').style.opacity = 1 - out;
     scene.querySelector('[data-hint]').style.opacity = 1 - range(p, 0, 0.12);
   },
 

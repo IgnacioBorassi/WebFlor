@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=38">
+  <link rel="stylesheet" href="css/styles.css?v=47">
 </head>
 <body>
 
@@ -39,6 +39,13 @@
     <div class="chapter" id="inicio">
       <section class="scene" data-scene="hero" style="--h: 150vh">
         <div class="sticky">
+          <!-- Manchas de color de fondo (solo decorativas) -->
+          <div class="blobs" data-blobs aria-hidden="true">
+            <span class="blob blob--1"></span>
+            <span class="blob blob--2"></span>
+            <span class="blob blob--3"></span>
+            <span class="blob blob--4"></span>
+          </div>
           <div class="hero" data-hero>
             <p class="kicker">Profesorado Universitario de Educación Primaria · 2026</p>
             <h1 class="hero__title hero__title--long"><span class="destacado">¡Bienvenidos a mi portfolio integrador!</span></h1>
@@ -194,27 +201,22 @@
             <p class="fade">Es un grupo heterogéneo, con diferentes ritmos y formas de aprender, por lo que resulta importante ofrecer distintos desafíos que permitan que todos puedan participar y avanzar en sus aprendizajes.</p>
           </div>
 
-          <!-- EDITAR: reemplazá cada div.ph por <img src="img/curso-1.jpg" alt="..."> -->
           <div class="curso__fotos">
-            <figure class="fade"><div class="ph">Foto 1</div></figure>
-            <figure class="fade"><div class="ph">Foto 2</div></figure>
+            <figure class="fade"><img src="img/curso-1.webp" alt="Estudiantes de 6.º grado dibujando sentados en el piso del patio" loading="lazy"></figure>
+            <figure class="fade"><img src="img/curso-2.webp" alt="Estudiantes de 6.º grado trabajando en sus bancos dentro del aula" loading="lazy"></figure>
           </div>
 
           <div class="narrow texto-justificado curso__perfil">
             <div class="fade">
-              <span class="pill">Desarrollo cognitivo · Piaget</span>
               <p>En relación con el perfil teórico de los niños, desde la perspectiva de Piaget, los estudiantes de esta edad transitan el final de la etapa de las operaciones concretas y comienzan a aproximarse al pensamiento formal. Mientras que las operaciones concretas permiten razonar lógicamente sobre situaciones concretas, el pensamiento formal supone avanzar progresivamente hacia formas de razonamiento más abstractas, reflexivas y analíticas. Teniendo en cuenta esta transición, en las propuestas de enseñanza decidí partir de situaciones, ejemplos y recursos concretos para avanzar progresivamente hacia relaciones y conceptualizaciones más abstractas.</p>
             </div>
             <div class="fade">
-              <span class="pill">Trabajo en grupo · Vygotsky</span>
               <p>En los trabajos grupales suelen desenvolverse con bastante autonomía. Logran organizarse, distribuir roles, compartir los materiales y llegar a acuerdos sin requerir constantemente la intervención de un adulto. Además, cuando algún integrante presenta dificultades para comprender una consigna o contenido, suelen ayudarse entre ellos. Esta característica puede vincularse con los aportes de Vygotsky acerca del carácter social del aprendizaje y la Zona de Desarrollo Próximo, entendida como la distancia entre aquello que un estudiante puede resolver de manera independiente y aquello que puede alcanzar con la guía de un adulto o en colaboración con un compañero.</p>
             </div>
             <div class="fade">
-              <span class="pill">Vínculos</span>
               <p>En cuanto a los vínculos, se observan grupos de pertenencia y amistad bastante definidos. Esto puede vincularse con la importancia que adquiere el grupo de pares en esta etapa particular del desarrollo (Arancibia, Herrera y Strasser, 2008). En este grado en particular, los alumnos suelen agruparse principalmente por sexo y, entre las niñas, se distinguen diferentes subgrupos con mayor claridad.</p>
             </div>
             <div class="fade">
-              <span class="pill">Características del grupo</span>
               <p>En cuanto a algunas características que presenta este grupo en particular, se observa una buena disposición de los niños en los intercambios orales y la construcción colectiva de ideas. Los estudiantes suelen participar activamente y desarrollar sus razonamientos cuando tienen la posibilidad de explicarlos oralmente. Sin embargo, presentan mayores dificultades al momento de expresar y fundamentar esas mismas ideas por escrito.</p>
             </div>
           </div>
@@ -223,17 +225,43 @@
 
       <!-- Planificación (se completa desde js/datos.js) -->
       <section class="block block--alt">
-        <div class="plan-head fade">
-          <div>
-            <p class="kicker">Planificación</p>
-            <h3 class="h-lg">La propuesta, en detalle.</h3>
+        <div class="plan-intro">
+          <p class="kicker fade">Planificación</p>
+          <h3 class="h-lg fade">Propuesta de enseñanza</h3>
+          <div class="texto-justificado">
+            <p class="fade">A continuación, se presenta una de las secuencias didácticas implementadas durante mi residencia, en la que se articularon contenidos de Ciencias Naturales y Ciencias Sociales. En primer lugar, se explicitan los contenidos, las capacidades y los objetivos que orientaron la propuesta, junto con el hilo conductor y el recorte didáctico.</p>
+            <p class="fade">Luego, se presenta una ruta que permite recorrer las distintas etapas del proceso de aprendizaje. En cada parada se recuperan las preguntas que guiaron la propuesta y se presentan distintas huellas de aprendizaje que permiten hacer visible el recorrido construido por los estudiantes desde la exploración hasta el desempeño de síntesis.</p>
+            <p class="fade">Finalmente, se incluye una reflexión sobre mi propia práctica a partir del análisis de estas evidencias, reconociendo fortalezas, aspectos a revisar y aprendizajes construidos durante la implementación de la secuencia.</p>
           </div>
+        </div>
+        <div class="plan-head fade">
+          <div class="plan-meta" id="planMeta"></div>
           <div class="switch" role="group" aria-label="Formato de la planificación">
             <button class="switch__btn is-active" data-view="cards" aria-pressed="true">Vista linda</button>
             <button class="switch__btn" data-view="table" aria-pressed="false">Cuadro</button>
           </div>
         </div>
         <div class="plan" id="plan"></div>
+        <div class="plan-doc fade">
+          <a class="btn btn--cv" href="https://docs.google.com/document/d/1JCw1x9GQuauGVeQMQvZYcD9rOQG-HNDt/edit?usp=sharing&amp;ouid=101111947899605011022&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>
+            Ver la planificación completa
+          </a>
+        </div>
+      </section>
+
+      <!-- Marcos teóricos -->
+      <section class="block marco">
+        <div class="narrow">
+          <p class="kicker fade">Fundamentación</p>
+          <h3 class="h-lg fade">Marcos teóricos</h3>
+          <div class="texto-justificado">
+            <p class="fade">La secuencia didáctica propone abordar la Educación Ambiental a partir de la articulación entre Ciencias Naturales y Ciencias Sociales, tomando como recorte “El aire que respiramos en nuestro barrio, la atmósfera que compartimos en el planeta: ¿Cómo nuestras formas de vivir pueden transformarla?”. Este recorte resulta pertinente curricularmente porque permite articular contenidos propuestos por el Diseño Curricular de CABA para segundo ciclo vinculados con la atmósfera terrestre, el clima y su variabilidad debido a causas naturales y humanas, las relaciones entre las sociedades y la naturaleza y el análisis de los problemas ambientales como resultado de múltiples interacciones. Además, es relevante para los estudiantes porque parte de actividades que forman parte de su vida cotidiana para problematizar cómo nuestras formas de vivir se relacionan con las transformaciones de la atmósfera. De esta manera, se busca avanzar desde situaciones cercanas hacia la comprensión de una problemática ambiental compleja, estableciendo relaciones entre aspectos naturales y sociales evitando presentar el ambiente como una realidad fragmentada (Rodríguez y Rodríguez Villoldo, 2025).</p>
+            <p class="fade">Desde las Ciencias Naturales, se propone que los estudiantes no se limiten a reconocer los componentes de la atmósfera solamente, sino que puedan avanzar hacia la construcción de explicaciones acerca de cómo esta hace posible la vida y cómo puede transformarse. Para ello, se abordarán su composición y carácter dinámico, el efecto invernadero como fenómeno natural necesario para la vida y su intensificación a partir del aumento de determinados gases, estableciendo progresivamente relaciones con el cambio climático. Para acompañar la construcción de estas explicaciones, la secuencia se organiza a partir de la pregunta “¿Cómo se relacionan las actividades que realizamos todos los días con los cambios que ocurren en la composición del aire?”. Esta pregunta permitirá recuperar las ideas iniciales de los estudiantes y retomarlas a lo largo del recorrido para revisarlas y complejizarlas a partir de nuevas evidencias. En este proceso, los textos, gráficos, noticias e imágenes no se presentarán únicamente como fuentes de información, sino como recursos para formular hipótesis, establecer relaciones y construir explicaciones fundamentadas. Como plantea Gellon (2005), las hipótesis se construyen a partir de la experiencia previa y de los datos disponibles, por ello, se buscará que los estudiantes puedan poner sus primeras ideas en diálogo con las evidencias que encuentren durante la investigación.</p>
+            <p class="fade">Desde las Ciencias Sociales, se buscará ampliar esta explicación incorporando los conceptos de multicausalidad y actores sociales. Para comprender las transformaciones actuales de la atmósfera no alcanza con conocer los procesos naturales involucrados, sino que también es necesario analizar cómo las formas de producir, utilizar energía y transportarse fueron cambiando a lo largo del tiempo. Además, el abordaje de los actores sociales permitirá problematizar la idea de que todas las personas tienen la misma responsabilidad frente al cambio climático. Se propondrá que los estudiantes analicen y comparen las responsabilidades y posibilidades de acción de diversos actores, reconociendo que son diferentes. De esta forma, se espera superar una mirada centrada únicamente en las acciones individuales y favorecer la construcción de una posición propia fundamentada en evidencias frente a la problemática ambiental. La construcción de esta posición implica también asumir una mirada ética frente al problema, que permita a los estudiantes no sólo comprenderlo, sino también reflexionar sobre las responsabilidades que tienen los distintos actores y las respuestas posibles frente a él.</p>
+            <p class="fade">Para realizar todo lo mencionado anteriormente, se trabajará desde el desarrollo de las capacidades de resolución de problemas y pensamiento crítico, mediante el análisis de fuentes, la construcción de relaciones entre evidencias y la fundamentación de ideas y posiciones frente a la problemática. Finalmente, el desempeño de síntesis permitirá integrar estos aprendizajes en una infografía en la que los estudiantes deberán establecer relaciones entre los procesos naturales y sociales, utilizando evidencias para explicar y fundamentar sus opiniones.</p>
+          </div>
+        </div>
       </section>
 
       <!-- Trayectoria (se completa desde js/datos.js) -->
@@ -327,8 +355,8 @@
 
   </main>
 
-  <script src="js/datos.js?v=38"></script>
-  <script src="js/comun.js?v=38"></script>
-  <script src="js/main.js?v=38"></script>
+  <script src="js/datos.js?v=47"></script>
+  <script src="js/comun.js?v=47"></script>
+  <script src="js/main.js?v=47"></script>
 </body>
 </html>

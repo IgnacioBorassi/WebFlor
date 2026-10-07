@@ -4,20 +4,28 @@
 
 // ---------- 2do ciclo · Planificación ----------
 // Se muestra como tarjetas ("vista linda") o como cuadro clásico (botón "Cuadro").
+// En los contenidos, la cita final entre paréntesis (CABA, ...) se muestra más chica.
 const planificacion = {
-  datos: {
-    'Área': '[Ciencias Naturales]',
-    'Grado': '[5.° grado “B”]',
-    'Duración': '[8 clases]',
-    'Tema': '[Tema de la secuencia]',
-  },
-  bloques: [
-    { titulo: 'Propósitos', items: ['[Propósito 1]', '[Propósito 2]'] },
-    { titulo: 'Objetivos', items: ['[Objetivo 1]', '[Objetivo 2]', '[Objetivo 3]'] },
-    { titulo: 'Contenidos', items: ['[Contenido 1]', '[Contenido 2]'] },
-    { titulo: 'Actividades', items: ['[Actividad de inicio]', '[Actividad de desarrollo]', '[Actividad de cierre]'] },
-    { titulo: 'Recursos', items: ['[Recurso 1]', '[Recurso 2]'] },
-    { titulo: 'Evaluación', items: ['[Criterio 1]', '[Instrumento de evaluación]'] },
+  areas: ['Educación Ambiental', 'Ciencias Naturales', 'Ciencias Sociales'],
+  ejes: ['Relaciones entre sociedades y naturaleza', 'La Tierra un Lugar en el Universo', 'Espacio y Sociedad'],
+  hiloConductor: '¿Qué hace posible la vida en nuestro planeta y cuál es nuestra responsabilidad en su cuidado?',
+  recorte: 'El aire que respiramos en nuestro barrio, la atmósfera que compartimos en el planeta: ¿Cómo nuestras formas de vivir pueden transformarla?',
+  capacidades: ['Resolución de Problemas', 'Pensamiento Crítico y Reflexivo'],
+  objetivos: [
+    'Comprender las principales características y la composición de la atmósfera, reconociendo su carácter dinámico y su importancia para la vida a partir de la búsqueda y el análisis de información científica.',
+    'Relacionar los cambios en las formas de producir, utilizar energía y transportarse desde la Revolución Industrial hasta la actualidad con las transformaciones producidas sobre la atmósfera.',
+    'Conocer las responsabilidades de diferentes actores sociales y las posibles respuestas frente al cambio climático, para construir y fundamentar una posición propia acerca de quiénes pueden actuar, de qué manera y con qué alcances.',
+    'Explicar, mediante la construcción y utilización de modelos, cómo determinadas actividades humanas pueden transformar la atmósfera, relacionando el aumento de gases de efecto invernadero con la intensificación del efecto invernadero y el cambio climático y fundamentando una posición ética frente a estas problemáticas.',
+  ],
+  contenidos: [
+    'El ambiente como un sistema complejo conformado por las interacciones entre los sistemas naturales y socioculturales. Los problemas ambientales, entendidos como las alteraciones del equilibrio dinámico de un territorio que resultan de las interacciones entre una población humana y el subsistema natural. (CABA, 2024, p. 482)',
+    'Características de la atmósfera terrestre en las que se desarrollan distintos fenómenos. (CABA, 2024, p. 143)',
+    'Clima, su variabilidad natural y debida a las acciones humanas. Estrategias de mitigación y adaptación al cambio climático. (CABA, 2024, p. 143)',
+    'Procesos que contribuyen a aumentar la concentración de gases de efecto invernadero en la atmósfera y su relación con el cambio climático. (CABA, 2024, p. 143)',
+    'Otras formas en las que las actividades humanas afectan la atmósfera (“agujero” de ozono, contaminación atmosférica). (CABA, 2024, p. 143)',
+    'Problemáticas ambientales relacionadas con el manejo de recursos naturales. Identificación de causas, actores sociales involucrados y sus diferentes grados de responsabilidad. (CABA, 2024, p. 178)',
+    'Reconocimiento de las diferentes escalas de análisis que tienen los problemas ambientales estudiados. Problemáticas ambientales locales, regionales y globales. (CABA, 2024, p. 178)',
+    'Los principales riesgos naturales que afectan a las poblaciones de Argentina y a la Ciudad Autónoma de Buenos Aires. Medidas de mitigación y gestión ambiental: reducción de emisiones de gases de efecto invernadero (GEI), gestión integral de cuencas hidrográficas, consumo responsable y reducción de huella de carbono, planificación estratégica para la construcción y movilidad sustentable. (CABA, 2024, p. 178)',
   ],
 };
 

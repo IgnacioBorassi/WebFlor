@@ -15,11 +15,17 @@ const fotoHTML = (foto, extra = '') => foto.src
   ? `<img src="${esc(foto.src)}" alt="${esc(foto.pie || '')}" loading="lazy" ${extra}>`
   : `<div class="ph" ${extra}>Foto</div>`;
 
-// Elementos .fade: aparecen al entrar en pantalla y se van al salir
+// Elementos .fade: aparecen al entrar en pantalla y se reinician al salir por abajo.
+// Al salir por arriba se quedan visibles: si se ocultaran, el corrimiento de la
+// animación los volvería a meter en pantalla y quedarían "vibrando" en el borde.
 function observarFades() {
   const obs = new IntersectionObserver(
-    (entries) => entries.forEach((e) => e.target.classList.toggle('is-visible', e.isIntersecting)),
-    { threshold: 0.15 }
+    (entries) => entries.forEach((e) => {
+      // (la segunda condición cubre bloques muy altos, que nunca llegan al 15 %)
+      if (e.intersectionRatio >= 0.15 || e.intersectionRect.height > innerHeight * 0.3) e.target.classList.add('is-visible');
+      else if (!e.isIntersecting && e.boundingClientRect.top > 0) e.target.classList.remove('is-visible');
+    }),
+    { threshold: [0, 0.05, 0.1, 0.15] }
   );
   document.querySelectorAll('.fade').forEach((el) => obs.observe(el));
 }
