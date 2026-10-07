@@ -14,12 +14,12 @@ const planificacion = {
     {
       nombre: 'Resolución de Problemas',
       icono: 'img/capacidades/resolucion-problemas.png',
-      descripcion: 'Se les propondrá a los estudiantes situaciones en las que deberán recuperar sus conocimientos, formular hipótesis, buscar y analizar información de diferentes fuentes y establecer relaciones entre distintas evidencias para construir explicaciones sobre las transformaciones de la atmósfera y sus posibles causas.',
+      descripcion: 'Se les propusieron a los estudiantes situaciones en las que debieron recuperar sus conocimientos, formular hipótesis, buscar y analizar información de diferentes fuentes y establecer relaciones entre distintas evidencias para construir explicaciones sobre las transformaciones de la atmósfera y sus posibles causas.',
     },
     {
       nombre: 'Pensamiento crítico y reflexivo',
       icono: 'img/capacidades/pensamiento-critico.png',
-      descripcion: 'Se les propondrá a los estudiantes analizar y contrastar diferentes fuentes y perspectivas, fundamentar sus ideas a partir de evidencias y reconocer las distintas responsabilidades y posibilidades de acción de los actores sociales frente a las problemáticas ambientales, para construir una posición ética frente a la problemática.',
+      descripcion: 'Se les propuso a los estudiantes analizar y contrastar diferentes fuentes y perspectivas, fundamentar sus ideas a partir de evidencias y reconocer las distintas responsabilidades y posibilidades de acción de los actores sociales frente a las problemáticas ambientales, para construir una posición ética frente a la problemática.',
     },
   ],
   objetivos: [

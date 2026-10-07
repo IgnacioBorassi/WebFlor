@@ -350,16 +350,20 @@ menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
 }));
 
 const menuLinks = [...menu.querySelectorAll('a')];
-// Marca en el menú la sección que está en el medio de la pantalla.
-// Si hay una sección anidada con su propio link (data-nav, ej. los desempeños dentro
-// de 2do ciclo), gana la más específica: la última en el orden de la página.
+const subnav = document.getElementById('subnav');
+const subnavLinks = [...subnav.querySelectorAll('a')];
+// Marca en el menú la sección que está en el medio de la pantalla. El submenú de
+// 2do ciclo (a la derecha) se muestra solo dentro de ese capítulo y marca su subsección.
 const navTargets = [...document.querySelectorAll('.chapter, [data-nav]')];
 const enElMedio = new Set();
 const chapterObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((e) => (e.isIntersecting ? enElMedio.add(e.target) : enElMedio.delete(e.target)));
-    const actual = navTargets.filter((el) => enElMedio.has(el)).pop();
-    if (actual) menuLinks.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === `#${actual.id}`));
+    if (!enElMedio.size) return;
+    const enMedio = (a) => [...enElMedio].some((el) => `#${el.id}` === a.getAttribute('href'));
+    menuLinks.forEach((a) => a.classList.toggle('is-active', enMedio(a)));
+    subnavLinks.forEach((a) => a.classList.toggle('is-active', enMedio(a)));
+    subnav.classList.toggle('is-visible', [...enElMedio].some((el) => el.id === 'segundo-ciclo'));
   },
   { rootMargin: '-50% 0px -50% 0px' }
 );
