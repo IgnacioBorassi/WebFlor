@@ -112,12 +112,22 @@ path.innerHTML = `
     ${fases.map((f) => `<span style="--c:${colorFase(f)}">${esc(f)}</span>`).join('')}
   </div>
   ${trayectoria.map((t, i) => `
-    <button class="path__dot" style="--c:${colorFase(t.fase)}; grid-column: ${i + 1}" data-i="${i}" aria-label="Clase ${i + 1}: ${esc(t.tema)}">${i + 1}</button>`).join('')}`;
+    <button class="path__dot" style="--c:${colorFase(t.fase)}; grid-column: ${i + 1}" data-i="${i}" aria-label="Parada ${i + 1}: ${esc(t.titulo || t.fase)}">${i + 1}</button>`).join('')}`;
 
 const dots = [...path.querySelectorAll('.path__dot')];
 const phaseEls = [...path.querySelectorAll('.path__phase')];
 const fill = path.querySelector('.path__fill');
 let activePoint = -1;
+
+// Todas las paradas van apiladas en la misma tarjeta y solo se ve la activa.
+// La tarjeta toma el alto de la parada activa con una transición suave.
+pathCard.innerHTML = trayectoria.map((t, i) => `
+  <div class="path-card__parada" style="--c:${colorFase(t.fase)}" aria-hidden="true">
+    <div class="path-card__top"><span class="pill">${esc(t.fase)}</span><small>Parada ${i + 1} de ${n}</small></div>
+    ${t.titulo ? `<h4>${esc(t.titulo)}</h4>` : ''}
+    <p>${esc(t.texto)}</p>
+  </div>`).join('');
+const paradasCard = [...pathCard.querySelectorAll('.path-card__parada')];
 
 function setPoint(i) {
   if (i === activePoint) return;
@@ -129,16 +139,18 @@ function setPoint(i) {
   });
   phaseEls.forEach((el) => el.classList.toggle('is-active', el.dataset.fase === t.fase));
   fill.style.transform = `scaleX(${n > 1 ? i / (n - 1) : 1})`;
-  pathCard.style.setProperty('--c', colorFase(t.fase));
-  pathCard.href = `clase.html?n=${i + 1}`;
-  pathCard.innerHTML = `
-    <div class="path-card__top"><span class="pill">${esc(t.fase)}</span><small>Clase ${i + 1} de ${n}</small></div>
-    <h4>${esc(t.tema)}</h4>
-    <p>${esc(t.resumen)}</p>
-    <span class="path-card__more">Ver la clase <span aria-hidden="true">→</span></span>`;
-  pathCard.classList.remove('is-in');
-  void pathCard.offsetWidth; // reinicia la animación
-  pathCard.classList.add('is-in');
+  paradasCard.forEach((el, j) => {
+    el.classList.toggle('is-active', j === i);
+    el.setAttribute('aria-hidden', j !== i);
+  });
+  ajustarAltoCard();
+}
+
+function ajustarAltoCard() {
+  const activa = paradasCard[activePoint];
+  if (!activa) return;
+  const cs = getComputedStyle(pathCard);
+  pathCard.style.height = `${activa.offsetHeight + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)}px`;
 }
 
 // Posición de scroll en la que la trayectoria muestra la clase i
@@ -150,7 +162,7 @@ dots.forEach((d, i) => d.addEventListener('click', () => {
 }));
 
 function sizePath() {
-  pathScene.style.height = `${innerHeight + n * innerHeight * 0.3}px`;
+  pathScene.style.height = `${innerHeight + n * innerHeight * 0.5}px`;
 }
 
 // =========================================================
@@ -261,16 +273,10 @@ function requestUpdate() {
 }
 
 addEventListener('scroll', requestUpdate, { passive: true });
-addEventListener('resize', () => { sizePath(); requestUpdate(); });
+addEventListener('resize', () => { sizePath(); ajustarAltoCard(); requestUpdate(); });
 sizePath();
 setPoint(0);
 
-// Al volver desde una clase (index.html#clase-3) se retoma la trayectoria en esa clase
-const volverA = location.hash.match(/^#clase-(\d+)$/);
-if (volverA) {
-  const i = clamp(Number(volverA[1]) - 1, 0, n - 1);
-  scrollTo({ top: pointScrollTop(i), behavior: 'instant' });
-}
 
 update();
 observarFades();

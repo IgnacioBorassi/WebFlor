@@ -39,82 +39,46 @@ const planificacion = {
 };
 
 // ---------- 2do ciclo · Trayectoria ----------
-// Un objeto por clase. Los colores se asignan solos según la fase.
-//   tema:     nombre del tema (título grande)
-//   resumen:  1 o 2 líneas para la tarjeta de la página principal
-//   texto:    párrafos de la página de la clase (uno por string)
-//   fotos:    fotos de la página de la clase. La primera es la de portada.
-//             { src: 'img/clase-1/foto1.jpg', pie: 'Descripción' }
-//             Si src queda vacío se muestra un recuadro de ejemplo.
-const FOTOS_EJEMPLO = [
-  { src: '', pie: 'Descripción de la foto' },
-  { src: '', pie: 'Descripción de la foto' },
-  { src: '', pie: 'Descripción de la foto' },
-  { src: '', pie: 'Descripción de la foto' },
-  { src: '', pie: 'Descripción de la foto' },
-];
-const TEXTO_EJEMPLO = [
-  'Primer párrafo: se muestra más grande, como introducción a la clase.',
-  'Contá qué se hizo, cómo respondió el grupo, qué pasó que no esperabas y qué aprendiste vos.',
-  'Podés escribir todos los párrafos que quieras: cada string de esta lista es un párrafo nuevo.',
-];
-
+// Una parada por etapa de la secuencia. Los colores se asignan solos según la fase.
+// Al bajar, la tarjeta muestra el texto completo de cada parada.
+//   fase:    etapa de la secuencia (Exploración, Investigación guiada, Síntesis)
+//   titulo:  pregunta que guió la parada (puede quedar vacío '')
+//   texto:   qué hicieron los estudiantes
 const trayectoria = [
   {
     fase: 'Exploración',
-    tema: '[Tema de la clase 1]',
-    resumen: 'Breve descripción de lo que se hizo en esta clase.',
-    texto: TEXTO_EJEMPLO,
-    fotos: FOTOS_EJEMPLO,
+    titulo: '',
+    texto: 'En esta primera clase, los estudiantes exploraron distintas fuentes vinculadas con las actividades humanas y las transformaciones de la atmósfera, entre ellas imágenes, noticias, gráficos y testimonios. A partir de la rutina Conecto – Pienso – Me pregunto, registraron sus primeras ideas, establecieron relaciones entre la información presentada y formularon preguntas sobre aquello que les generaba curiosidad.',
+  },
+  {
+    fase: 'Exploración',
+    titulo: '',
+    texto: 'A partir de las ideas que surgieron durante la exploración, los estudiantes retomaron algunas de las fuentes analizadas y profundizaron las relaciones que habían comenzado a establecer. Este trabajo permitió construir colectivamente una hipótesis acerca de cómo algunas actividades humanas pueden modificar la composición del aire y formular nuevas preguntas que orientarían la investigación posterior.',
   },
   {
     fase: 'Investigación guiada',
-    tema: '[Tema de la clase 2]',
-    resumen: 'Breve descripción de lo que se hizo en esta clase.',
-    texto: TEXTO_EJEMPLO,
-    fotos: FOTOS_EJEMPLO,
+    titulo: '¿Cómo la atmósfera hace posible la vida en nuestro planeta?',
+    texto: 'Los estudiantes partieron de sus ideas iniciales acerca de la importancia de la atmósfera y, organizados en grupos, investigaron diferentes características y funciones a partir de diversas fuentes. Luego, pusieron en común lo investigado y construyeron relaciones entre la composición de la atmósfera, la protección frente a la radiación ultravioleta y el efecto invernadero natural como condiciones que hacen posible la vida en nuestro planeta.',
   },
   {
     fase: 'Investigación guiada',
-    tema: '[Tema de la clase 3]',
-    resumen: 'Breve descripción de lo que se hizo en esta clase.',
-    texto: TEXTO_EJEMPLO,
-    fotos: FOTOS_EJEMPLO,
+    titulo: '¿Cómo modificó la Revolución Industrial las formas de producir, utilizar energía y transportarse de las sociedades?',
+    texto: 'Los niños investigaron diferentes transformaciones vinculadas con la Revolución Industrial a partir del análisis de distintos casos, como la producción textil, la minería del carbón, el ferrocarril y el crecimiento de las ciudades industriales. A través de un cuadro y del intercambio colectivo, compararon las formas de producir, utilizar energía y transportarse antes y después de este proceso y establecieron relaciones entre los diferentes cambios.',
   },
   {
     fase: 'Investigación guiada',
-    tema: '[Tema de la clase 4]',
-    resumen: 'Breve descripción de lo que se hizo en esta clase.',
-    texto: TEXTO_EJEMPLO,
-    fotos: FOTOS_EJEMPLO,
+    titulo: '¿Por qué no todos los actores sociales tienen el mismo grado de responsabilidad en las transformaciones actuales de la atmósfera?',
+    texto: 'Los alumnos analizaron la problemática ambiental desde la perspectiva de distintos actores sociales, considerando sus intereses, necesidades, responsabilidades y posibilidades de acción. A partir de este trabajo, construyeron redes de relaciones y comenzaron a problematizar la idea de que todos los actores tienen la misma responsabilidad o las mismas posibilidades de intervenir frente a las transformaciones de la atmósfera.',
   },
   {
     fase: 'Investigación guiada',
-    tema: '[Tema de la clase 5]',
-    resumen: 'Breve descripción de lo que se hizo en esta clase.',
-    texto: TEXTO_EJEMPLO,
-    fotos: FOTOS_EJEMPLO,
-  },
-  {
-    fase: 'Investigación guiada',
-    tema: '[Tema de la clase 6]',
-    resumen: 'Breve descripción de lo que se hizo en esta clase.',
-    texto: TEXTO_EJEMPLO,
-    fotos: FOTOS_EJEMPLO,
+    titulo: '¿Cómo podemos satisfacer nuestras necesidades de manera sostenible para el planeta?',
+    texto: 'Los estudiantes investigaron diferentes actividades vinculadas con la satisfacción de nuestras necesidades, como la producción de alimentos, el transporte, la generación de electricidad, la agricultura, la construcción y el uso del plástico. A partir de la lectura y selección de información, elaboraron mapas conceptuales en los que relacionaron estas actividades con sus efectos sobre el ambiente y analizaron posibles transformaciones hacia formas más sostenibles de producir y consumir.',
   },
   {
     fase: 'Síntesis',
-    tema: '[Tema de la clase 7]',
-    resumen: 'Breve descripción de lo que se hizo en esta clase.',
-    texto: TEXTO_EJEMPLO,
-    fotos: FOTOS_EJEMPLO,
-  },
-  {
-    fase: 'Síntesis',
-    tema: '[Tema de la clase 8]',
-    resumen: 'Breve descripción de lo que se hizo en esta clase.',
-    texto: TEXTO_EJEMPLO,
-    fotos: FOTOS_EJEMPLO,
+    titulo: '',
+    texto: 'Como cierre de la secuencia, los alumnos recuperaron las investigaciones y producciones realizadas a lo largo del recorrido para elaborar una infografía grupal. Primero realizaron un boceto, luego intercambiaron sus producciones con otros grupos para recibir retroalimentación y, finalmente, revisaron sus decisiones y elaboraron una versión final en la que integraron y relacionaron los principales aprendizajes construidos.',
   },
 ];
 
