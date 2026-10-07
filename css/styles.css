@@ -683,6 +683,21 @@ p + p { margin-top: 1em; }
   font-size: clamp(1.9rem, 4.2vw, 3.1rem); letter-spacing: -0.03em; line-height: 1.12;
   text-align: center; margin-bottom: 2.5rem;
 }
+/* Guardapolvo en trazo: se dibuja la silueta y después brota la flor bordada */
+.manifesto { position: relative; isolation: isolate; }
+.guardapolvo {
+  position: absolute; z-index: -1; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  height: min(100%, 760px); width: auto; max-width: 100%; overflow: visible; pointer-events: none;
+}
+.guardapolvo.fade, .guardapolvo.fade.is-visible { opacity: .16; transform: translate(-50%, -50%); }
+.guardapolvo path, .guardapolvo circle {
+  fill: none; stroke: var(--ink); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 2.4s cubic-bezier(.6,0,.2,1) .2s;
+}
+.guardapolvo__botones circle { stroke-dasharray: none; stroke-dashoffset: 0; fill: var(--ink-2); stroke: none; opacity: 0; transition: opacity .6s 2.2s; }
+.guardapolvo__flor path, .guardapolvo__flor circle { stroke: var(--destacado); stroke-width: 1; transition-duration: 1.2s; transition-delay: 2.4s; }
+.guardapolvo.is-visible path, .guardapolvo.is-visible circle { stroke-dashoffset: 0; }
+.guardapolvo.is-visible .guardapolvo__botones circle { opacity: 1; }
 .manifesto p {
   font-size: clamp(1.15rem, 1.8vw, 1.35rem); line-height: 1.75;
   text-align: justify; hyphens: auto; -webkit-hyphens: auto;
