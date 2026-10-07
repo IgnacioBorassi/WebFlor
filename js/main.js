@@ -98,7 +98,7 @@ document.querySelectorAll('.switch__btn').forEach((btn) => {
 // =========================================================
 const path = document.getElementById('path');
 const pathCard = document.getElementById('pathCard');
-const pathScene = document.getElementById('trayectoria');
+const pathScene = document.getElementById('desempenos');
 const n = trayectoria.length;
 
 path.style.setProperty('--n', n);
@@ -234,15 +234,20 @@ menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
 }));
 
 const menuLinks = [...menu.querySelectorAll('a')];
+// Marca en el menú la sección que está en el medio de la pantalla.
+// Si hay una sección anidada con su propio link (data-nav, ej. los desempeños dentro
+// de 2do ciclo), gana la más específica: la última en el orden de la página.
+const navTargets = [...document.querySelectorAll('.chapter, [data-nav]')];
+const enElMedio = new Set();
 const chapterObserver = new IntersectionObserver(
-  (entries) => entries.forEach((e) => {
-    if (e.isIntersecting) {
-      menuLinks.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === `#${e.target.id}`));
-    }
-  }),
+  (entries) => {
+    entries.forEach((e) => (e.isIntersecting ? enElMedio.add(e.target) : enElMedio.delete(e.target)));
+    const actual = navTargets.filter((el) => enElMedio.has(el)).pop();
+    if (actual) menuLinks.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === `#${actual.id}`));
+  },
   { rootMargin: '-50% 0px -50% 0px' }
 );
-document.querySelectorAll('.chapter').forEach((c) => chapterObserver.observe(c));
+navTargets.forEach((c) => chapterObserver.observe(c));
 
 // =========================================================
 // Loop principal

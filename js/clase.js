@@ -3,7 +3,7 @@ const total = trayectoria.length;
 const num = Number(new URLSearchParams(location.search).get('n'));
 
 if (!Number.isInteger(num) || num < 1 || num > total) {
-  location.replace('index.html#trayectoria');
+  location.replace('index.html#desempenos');
   throw new Error('Clase inexistente');
 }
 
