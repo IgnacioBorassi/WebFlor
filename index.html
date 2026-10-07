@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=79">
+  <link rel="stylesheet" href="css/styles.css?v=80">
 </head>
 <body>
 
@@ -33,11 +33,14 @@
     <div class="bar__progress" id="progress"></div>
   </header>
 
-  <!-- Submenú de 2do ciclo: aparece a la derecha mientras estás en esa sección -->
+  <!-- Submenú de 2do ciclo: puntitos a la derecha mientras estás en esa sección -->
   <nav class="subnav" id="subnav" aria-label="Secciones de 2do ciclo">
-    <span class="subnav__titulo">2do ciclo</span>
-    <a href="#desempenos"><span class="subnav__punto" aria-hidden="true"></span>Desempeños</a>
-    <a href="#huellas"><span class="subnav__punto" aria-hidden="true"></span>Huellas</a>
+    <a href="#curso"><span class="subnav__texto">El curso</span></a>
+    <a href="#planificacion"><span class="subnav__texto">Planificación</span></a>
+    <a href="#marcos"><span class="subnav__texto">Marcos teóricos</span></a>
+    <a href="#desempenos"><span class="subnav__texto">Desempeños</span></a>
+    <a href="#huellas"><span class="subnav__texto">Huellas</span></a>
+    <a href="#reflexion"><span class="subnav__texto">Reflexión</span></a>
   </nav>
 
   <main>
@@ -195,7 +198,7 @@
     <div class="chapter" id="segundo-ciclo">
 
       <!-- El curso -->
-      <section class="block">
+      <section class="block" id="curso" data-nav>
         <div class="chapter-head fade">
           <span class="chapter-num">04</span>
           <h2>2do ciclo</h2>
@@ -231,7 +234,7 @@
       </section>
 
       <!-- Planificación (se completa desde js/datos.js) -->
-      <section class="block block--alt">
+      <section class="block block--alt" id="planificacion" data-nav>
         <div class="plan-intro">
           <p class="kicker fade">Planificación</p>
           <h3 class="h-lg fade">Propuesta de enseñanza</h3>
@@ -258,9 +261,9 @@
       </section>
 
       <!-- Marcos teóricos -->
-      <section class="block marco">
+      <section class="block marco" id="marcos" data-nav>
         <div class="narrow">
-          <h3 class="marco__titulo fade"><span>Fundamentación Desde Los</span> <span class="destacado">Marcos Teóricos</span></h3>
+          <h3 class="marco__titulo fade"><span>Fundamentación desde los</span> <span class="destacado">Marcos Teóricos</span></h3>
           <div class="texto-justificado">
             <p class="fade">La secuencia didáctica propuso abordar la Educación Ambiental a partir de la articulación entre Ciencias Naturales y Ciencias Sociales, tomando como recorte “El aire que respiramos en nuestro barrio, la atmósfera que compartimos en el planeta: ¿Cómo nuestras formas de vivir pueden transformarla?”. Este recorte resultó pertinente curricularmente porque permitió articular contenidos propuestos por el Diseño Curricular de CABA para segundo ciclo vinculados con la atmósfera terrestre, el clima y su variabilidad debido a causas naturales y humanas, las relaciones entre las sociedades y la naturaleza y el análisis de los problemas ambientales como resultado de múltiples interacciones. Además, fue relevante para los estudiantes porque partió de actividades que forman parte de su vida cotidiana para problematizar cómo nuestras formas de vivir se relacionan con las transformaciones de la atmósfera. De esta manera, se buscó avanzar desde situaciones cercanas hacia la comprensión de una problemática ambiental compleja, estableciendo relaciones entre aspectos naturales y sociales evitando presentar el ambiente como una realidad fragmentada (Rodríguez y Rodríguez Villoldo, 2025).</p>
             <p class="fade">Desde las Ciencias Naturales, se propuso que los estudiantes no se limitaran a reconocer los componentes de la atmósfera solamente, sino que pudieran avanzar hacia la construcción de explicaciones acerca de cómo esta hace posible la vida y cómo puede transformarse. Para ello, se abordaron su composición y carácter dinámico, el efecto invernadero como fenómeno natural necesario para la vida y su intensificación a partir del aumento de determinados gases, estableciendo progresivamente relaciones con el cambio climático. Para acompañar la construcción de estas explicaciones, la secuencia se organizó a partir de la pregunta “¿Cómo se relacionan las actividades que realizamos todos los días con los cambios que ocurren en la composición del aire?”. Esta pregunta permitió recuperar las ideas iniciales de los estudiantes y retomarlas a lo largo del recorrido para revisarlas y complejizarlas a partir de nuevas evidencias. En este proceso, los textos, gráficos, noticias e imágenes no se presentaron únicamente como fuentes de información, sino como recursos para formular hipótesis, establecer relaciones y construir explicaciones fundamentadas. Como plantea Gellon (2005), las hipótesis se construyen a partir de la experiencia previa y de los datos disponibles, por ello, se buscó que los estudiantes pudieran poner sus primeras ideas en diálogo con las evidencias que encontraron durante la investigación.</p>
@@ -290,9 +293,9 @@
       </section>
 
       <!-- Síntesis de la práctica reflexiva -->
-      <section class="block marco reflexion" id="reflexion">
+      <section class="block marco reflexion" id="reflexion" data-nav>
         <div class="narrow">
-          <h3 class="marco__titulo fade"><span>Síntesis De La</span> <span class="destacado">Práctica Reflexiva</span></h3>
+          <h3 class="marco__titulo fade"><span>Síntesis de la</span> <span class="destacado">Práctica Reflexiva</span></h3>
           <div class="texto-justificado">
             <p class="fade">Al mirar las huellas de aprendizaje, considero que uno de los aspectos más logrados de la secuencia fue la construcción de un recorrido claro que permitió ir complejizando progresivamente las explicaciones de los estudiantes. El hilo conductor, el recorte y las diferentes “subpreguntas” fueron orientando la investigación y permitieron volver en distintos momentos sobre nuestra pregunta y nuestra hipótesis inicial. Esto puede observarse en las producciones de los chicos. Mientras que en las primeras clases aparecían relaciones más generales entre las actividades humanas y las transformaciones de la atmósfera, e incluso algunas confusiones conceptuales, a medida que avanzó la secuencia comenzaron a incorporar sus distintas funciones, a diferenciar el efecto invernadero natural de su intensificación y a relacionar las formas de producción, el uso de la energía, el consumo y las acciones de diferentes actores sociales con las transformaciones de la atmósfera. Hacia el final, estas relaciones volvieron a aparecer integradas en los mapas conceptuales y en las infografías.</p>
             <p class="fade">Entre las fortalezas de mi práctica, destaco especialmente la posibilidad de observar las respuestas de los estudiantes y tomar decisiones a partir de ellas. Una de las situaciones que considero más significativas ocurrió luego de la primera clase de exploración. Al revisar los tickets de salida, me di cuenta que las respuestas eran todavía muy generales y que no daban cuenta con claridad de las relaciones que habían aparecido durante la clase. Frente a esto, decidí incorporar una clase adicional de 40 minutos para volver sobre las fuentes, recuperar las preguntas de los chicos y acompañarlos en la construcción de una hipótesis que orientara la investigación. También considero especialmente lograda la clase sobre las funciones de la atmósfera. Las huellas permitieron observar cómo las primeras explicaciones, centradas principalmente en la presencia de oxígeno, se fueron ampliando hacia otras funciones como la protección frente a la radiación ultravioleta y la regulación de la temperatura. En esa misma clase, frente a la idea de que el efecto invernadero había sido creado por los seres humanos, pude intervenir a través de preguntas para que fueran los propios estudiantes quienes revisaran esa explicación y diferenciaran el fenómeno natural de su intensificación.</p>
@@ -384,8 +387,8 @@
 
   </main>
 
-  <script src="js/datos.js?v=79"></script>
-  <script src="js/comun.js?v=79"></script>
-  <script src="js/main.js?v=79"></script>
+  <script src="js/datos.js?v=80"></script>
+  <script src="js/comun.js?v=80"></script>
+  <script src="js/main.js?v=80"></script>
 </body>
 </html>
