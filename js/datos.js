@@ -10,7 +10,16 @@ const planificacion = {
   ejes: ['Relaciones entre sociedades y naturaleza', 'La Tierra un Lugar en el Universo', 'Espacio y Sociedad'],
   hiloConductor: '¿Qué hace posible la vida en nuestro planeta y cuál es nuestra responsabilidad en su cuidado?',
   recorte: 'El aire que respiramos en nuestro barrio, la atmósfera que compartimos en el planeta: ¿Cómo nuestras formas de vivir pueden transformarla?',
-  capacidades: ['Resolución de Problemas', 'Pensamiento Crítico y Reflexivo'],
+  capacidades: [
+    {
+      nombre: 'Resolución de Problemas',
+      descripcion: 'Se les propondrá a los estudiantes situaciones en las que deberán recuperar sus conocimientos, formular hipótesis, buscar y analizar información de diferentes fuentes y establecer relaciones entre distintas evidencias para construir explicaciones sobre las transformaciones de la atmósfera y sus posibles causas.',
+    },
+    {
+      nombre: 'Pensamiento crítico y reflexivo',
+      descripcion: 'Se les propondrá a los estudiantes analizar y contrastar diferentes fuentes y perspectivas, fundamentar sus ideas a partir de evidencias y reconocer las distintas responsabilidades y posibilidades de acción de los actores sociales frente a las problemáticas ambientales, para construir una posición ética frente a la problemática.',
+    },
+  ],
   objetivos: [
     'Comprender las principales características y la composición de la atmósfera, reconociendo su carácter dinámico y su importancia para la vida a partir de la búsqueda y el análisis de información científica.',
     'Relacionar los cambios en las formas de producir, utilizar energía y transportarse desde la Revolución Industrial hasta la actualidad con las transformaciones producidas sobre la atmósfera.',

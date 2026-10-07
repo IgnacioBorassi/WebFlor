@@ -50,7 +50,11 @@ plan.innerHTML = `
       </article>
       <article class="plan-card plan-card--capacidades">
         <h4>Capacidades</h4>
-        <ul class="plan-capacidades">${P.capacidades.map((c, i) => `<li><span class="plan-capacidades__icono">${i === 0 ? ICONOS.foco : ICONOS.lupa}</span>${esc(c)}</li>`).join('')}</ul>
+        <ul class="plan-capacidades">${P.capacidades.map((c, i) => `
+          <li>
+            <div class="plan-capacidades__nombre"><span class="plan-capacidades__icono">${i === 0 ? ICONOS.foco : ICONOS.lupa}</span>${esc(c.nombre)}</div>
+            <p>${esc(c.descripcion)}</p>
+          </li>`).join('')}</ul>
       </article>
     </div>
 
@@ -69,7 +73,7 @@ plan.innerHTML = `
         </caption>
         <tbody>
           <tr><th scope="row">Contenidos</th><td><ul>${P.contenidos.map((c) => `<li>${esc(c)}</li>`).join('')}</ul></td></tr>
-          <tr><th scope="row">Capacidades</th><td>${esc(P.capacidades.join(' y '))}</td></tr>
+          <tr><th scope="row">Capacidades</th><td><ul class="plan-table__capacidades">${P.capacidades.map((c) => `<li><strong>${esc(c.nombre)}:</strong> ${esc(c.descripcion)}</li>`).join('')}</ul></td></tr>
           <tr><th scope="row">Objetivos</th><td><ol>${P.objetivos.map((o) => `<li>${esc(o)}</li>`).join('')}</ol></td></tr>
           <tr><th scope="row">Hilo Conductor</th><td>${esc(P.hiloConductor)}</td></tr>
           <tr><th scope="row">Recorte Didáctico</th><td>${esc(P.recorte)}</td></tr>

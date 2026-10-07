@@ -409,13 +409,13 @@ p + p { margin-top: 1em; }
 }
 
 /* Objetivos (izquierda) + Capacidades (derecha) */
-.plan-fila { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 1rem; }
+.plan-fila { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 1rem; }
 .plan-card__titulo { display: flex; align-items: center; gap: .55rem; }
 .plan-card__titulo svg { color: var(--destacado); }
 .plan-card--capacidades { display: flex; flex-direction: column; background: linear-gradient(160deg, color-mix(in srgb, var(--destacado) 10%, var(--card)), var(--card)); }
-.plan-card--capacidades .plan-capacidades { flex: 1; align-content: center; gap: 2rem; }
-.plan-capacidades { list-style: none; padding: 0; display: grid; gap: 1.25rem; }
-.plan-capacidades li { display: flex; align-items: center; gap: .9rem; font-size: 1.15rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1.25; }
+.plan-capacidades { list-style: none; padding: 0; display: grid; gap: 1.5rem; }
+.plan-capacidades__nombre { display: flex; align-items: center; gap: .9rem; font-size: 1.15rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1.25; margin-bottom: .6rem; }
+.plan-capacidades p { color: var(--ink-2); }
 .plan-capacidades__icono {
   flex-shrink: 0; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
   background: color-mix(in srgb, var(--destacado) 14%, var(--card)); color: var(--destacado);
@@ -444,6 +444,7 @@ p + p { margin-top: 1em; }
 .plan-table ul { padding-left: 1.25rem; list-style: "-  "; }
 .plan-table ol { padding-left: 1.5rem; }
 .plan-table li + li { margin-top: .3rem; }
+.plan-table .plan-table__capacidades li + li { margin-top: 1rem; }
 
 .plan-doc { max-width: 1100px; margin: 2rem auto 0; text-align: center; }
 
