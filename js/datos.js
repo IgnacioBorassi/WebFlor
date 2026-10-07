@@ -3,7 +3,7 @@
 // =========================================================
 
 // ---------- 2do ciclo · Planificación ----------
-// Se muestra como tarjetas ("vista linda") o como cuadro clásico (botón "Cuadro").
+// Se muestra como tarjetas ("resumen") o como cuadro clásico (botón "Cuadro").
 // En los contenidos, la cita final entre paréntesis (CABA, ...) se muestra más chica.
 const planificacion = {
   areas: ['Educación Ambiental', 'Ciencias Naturales', 'Ciencias Sociales'],
