@@ -68,7 +68,9 @@ function observarFades() {
     const destino = document.querySelector(link.getAttribute('href'));
     if (!destino) return;
     e.preventDefault();
-    const y = link.getAttribute('href') === '#inicio' ? 0 : destino.getBoundingClientRect().top + scrollY;
+    // Respeta el scroll-margin-top del destino (para que no quede tapado por el menú)
+    const margen = parseFloat(getComputedStyle(destino).scrollMarginTop) || 0;
+    const y = link.getAttribute('href') === '#inicio' ? 0 : destino.getBoundingClientRect().top + scrollY - margen;
     irA(y);
     history.pushState(null, '', link.getAttribute('href'));
   });

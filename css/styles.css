@@ -139,9 +139,14 @@ p + p { margin-top: 1em; }
 .bar__logo span { color: var(--destacado); }
 .bar__nav { display: flex; gap: .25rem; }
 .bar__nav a {
-  font-size: .88rem; font-weight: 700; color: var(--ink-2);
+  font-size: .88rem; font-weight: 700; color: var(--ink-2); white-space: nowrap;
   padding: .45rem .8rem; border-radius: 999px;
   transition: color .2s, background .2s;
+}
+/* Con muchas secciones, en pantallas medianas el menú se compacta para entrar en una línea */
+@media (min-width: 1051px) and (max-width: 1320px) {
+  .bar__nav { gap: 0; }
+  .bar__nav a { font-size: .8rem; padding: .4rem .55rem; }
 }
 .bar__nav a:hover { color: var(--ink); background: rgba(0, 0, 0, .05); }
 .bar__nav a.is-active { color: #fff; background: var(--destacado); }
@@ -416,10 +421,6 @@ p + p { margin-top: 1em; }
 .plan-capacidades { list-style: none; padding: 0; display: grid; gap: 1.5rem; }
 .plan-capacidades__nombre { display: flex; align-items: center; gap: .9rem; font-size: 1.15rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1.25; margin-bottom: .6rem; }
 .plan-capacidades p { color: var(--ink-2); }
-.plan-capacidades__icono {
-  flex-shrink: 0; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
-  background: color-mix(in srgb, var(--destacado) 14%, var(--card)); color: var(--destacado);
-}
 
 .plan-objetivos { list-style: none; padding: 0; display: grid; gap: 1rem; }
 .plan-objetivos li { display: flex; gap: .9rem; align-items: flex-start; }
@@ -445,6 +446,10 @@ p + p { margin-top: 1em; }
 .plan-table ol { padding-left: 1.5rem; }
 .plan-table li + li { margin-top: .3rem; }
 .plan-table .plan-table__capacidades li + li { margin-top: 1rem; }
+/* Capacidades con los íconos del Diseño Curricular */
+.capacidad-icono { flex-shrink: 0; width: 58px; height: auto; }
+.plan-table .plan-table__capacidades { list-style: none; padding-left: 0; }
+.plan-table .plan-table__capacidades li { display: flex; align-items: flex-start; gap: .9rem; }
 
 .plan-doc { max-width: 1100px; margin: 2rem auto 0; text-align: center; }
 
@@ -463,58 +468,162 @@ p + p { margin-top: 1em; }
 /* =========================================================
    2do ciclo · Trayectoria
    ========================================================= */
-/* Alineado arriba: el título y los puntos no se mueven aunque la tarjeta cambie de alto */
-.sticky--path { display: flex; flex-direction: column; justify-content: flex-start; gap: clamp(1.5rem, 5vh, 3rem); padding-top: clamp(5rem, 13vh, 8.5rem); }
-.path-head { text-align: center; }
-.path { --n: 8; width: 100%; max-width: 1000px; display: grid; grid-template-columns: repeat(var(--n), 1fr); row-gap: 1.1rem; }
-.path__phase {
-  grid-row: 1; margin: 0 4px; padding-bottom: .5rem;
-  text-align: center; font-size: clamp(.7rem, 1.6vw, .9rem); font-weight: 800; color: var(--c);
-  border-bottom: 3px solid var(--c); opacity: .35; transition: opacity .4s;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.path__phase.is-active { opacity: 1; }
-/* Leyenda de fases: solo en pantallas chicas, donde los nombres no entran arriba */
-.path__legend { display: none; grid-row: 3; grid-column: 1 / -1; justify-content: center; flex-wrap: wrap; gap: .4rem 1rem; font-size: .8rem; font-weight: 800; }
-.path__legend span { display: inline-flex; align-items: center; gap: .4rem; color: var(--c); }
-.path__legend span::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
-.path__rail {
-  grid-row: 2; grid-column: 1 / -1; align-self: center;
-  height: 3px; border-radius: 3px; background: var(--line);
-  margin: 0 calc(100% / (var(--n) * 2));
-  position: relative;
-}
-.path__fill {
-  position: absolute; inset: 0; border-radius: inherit;
-  background: linear-gradient(90deg, var(--fase-1), var(--fase-2), var(--fase-3));
-  transform-origin: left; transform: scaleX(0); transition: transform .5s cubic-bezier(.2, .7, .2, 1);
-}
-.path__dot {
-  grid-row: 2; justify-self: center; z-index: 1;
-  width: clamp(28px, 4vw, 40px); aspect-ratio: 1; border-radius: 50%;
-  display: grid; place-items: center;
-  background: var(--bg); border: 2px solid var(--line); color: var(--ink-2);
-  font-weight: 900; font-size: .85rem;
-  transition: background .3s, border-color .3s, color .3s, transform .3s, box-shadow .3s;
-}
-.path__dot.is-done { background: var(--c); border-color: var(--c); color: #fff; }
-.path__dot.is-active { transform: scale(1.25); box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 22%, transparent); }
+.path-head { text-align: center; max-width: 820px; margin: 0 auto 2.5rem; }
+.path-head .h-lg { margin-bottom: .75rem; }
 
-.path-card {
-  width: 100%; max-width: 620px; flex: none;
-  overflow: hidden; transition: height .4s cubic-bezier(.2, .7, .2, 1);
-  background: var(--card); border-radius: var(--radius); padding: 2rem;
-  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .25), 0 0 0 1px rgba(0, 0, 0, .04);
+/* Ruta: camino que baja por la izquierda; a la derecha de cada hito va su título */
+.ruta { --hito-col: 64px; position: relative; max-width: 820px; margin: 0 auto; padding: 1.5rem 0 3rem; }
+.ruta__camino { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.camino__asfalto { fill: none; stroke: #2a2a32; stroke-width: 26; stroke-linecap: round; }
+.camino__asfalto--pendiente { stroke: #dcdce4; }
+.camino__linea { fill: none; stroke: #f6c445; stroke-width: 2.5; stroke-dasharray: 7 9; stroke-linecap: round; }
+.camino__linea--pendiente { stroke: #fff; }
+
+.ruta__paradas { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.25rem; position: relative; }
+.ruta__boton {
+  width: 100%; display: grid; grid-template-columns: var(--hito-col) minmax(0, 1fr); align-items: center; gap: 1rem;
+  padding: .5rem 0; text-align: left; color: inherit; border-radius: 20px;
 }
-/* Paradas apiladas en la misma celda; el alto lo fija js/main.js según la parada activa */
-.path-card { display: grid; }
-.path-card__parada { grid-area: 1 / 1; align-self: start; visibility: hidden; opacity: 0; }
-.path-card__parada.is-active { visibility: visible; opacity: 1; animation: viewIn .45s cubic-bezier(.2, .7, .2, 1); }
-.path-card__top { display: flex; align-items: center; gap: .75rem; margin-bottom: .9rem; }
-.path-card__top .pill { background: color-mix(in srgb, var(--c) 15%, transparent); color: var(--c); }
-.path-card__top small { color: var(--ink-2); font-weight: 700; }
-.path-card h4 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 800; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: .5rem; }
-.path-card p { color: var(--ink-2); }
+.ruta__textos {
+  position: relative; display: block; padding: 1rem 2.75rem 1rem 1.25rem; border-radius: 20px; background: var(--card);
+  box-shadow: 0 0 0 1px var(--line); transition: box-shadow .25s, transform .25s;
+}
+.ruta__boton:hover .ruta__textos { box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 45%, transparent), 0 14px 30px -18px rgba(0, 0, 0, .25); transform: translateX(3px); }
+.ruta__boton[aria-expanded="true"] .ruta__textos { box-shadow: 0 0 0 2px var(--c); }
+.ruta__fase { display: block; font-size: .75rem; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; color: var(--c); margin-bottom: .25rem; }
+.ruta__titulo { display: block; font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 800; letter-spacing: -0.015em; line-height: 1.25; }
+.ruta__flecha { position: absolute; top: 50%; right: .9rem; margin-top: -10px; color: var(--c); transition: transform .3s; }
+.ruta__boton[aria-expanded="true"] .ruta__flecha { transform: rotate(180deg); }
+
+/* Hito: pin de mapa (o bandera de llegada) apoyado sobre el camino */
+.ruta__hito { position: relative; justify-self: center; width: 30px; height: 40px; color: #2a2a32; z-index: 1; transition: transform .3s; }
+.ruta__hito svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.ruta__hito .hito__forma { fill: #c9c9d3; stroke: #fff; stroke-width: 2; transition: fill .4s; }
+.ruta__hito.is-done .hito__forma { fill: var(--c); }
+.ruta__hito::after {
+  content: ""; position: absolute; left: 50%; bottom: -3px; width: 18px; height: 6px; border-radius: 50%;
+  background: rgba(0, 0, 0, .18); transform: translateX(-50%); z-index: -1;
+}
+.ruta__boton[aria-expanded="true"] .ruta__hito svg { filter: drop-shadow(0 6px 10px color-mix(in srgb, var(--c) 45%, transparent)); }
+
+.ruta__desc { margin: .25rem 0 0 calc(var(--hito-col) + 1rem); padding: 0 1.25rem; animation: viewIn .4s cubic-bezier(.2, .7, .2, 1); }
+.ruta__desc[hidden] { display: none; }
+.ruta__huella {
+  display: inline-flex; align-items: center; gap: .45rem; margin-top: .9rem;
+  padding: .55rem 1.05rem; border-radius: 999px; font-weight: 800; font-size: .92rem;
+  color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent);
+  transition: background .2s, transform .2s;
+}
+.ruta__huella:hover { background: color-mix(in srgb, var(--c) 20%, transparent); transform: translateY(-2px); }
+
+/* =========================================================
+   2do ciclo · Huellas de aprendizaje
+   ========================================================= */
+.huellas__lista { max-width: 960px; margin: 0 auto; display: grid; gap: 1rem; }
+.huella {
+  background: var(--card); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem);
+  box-shadow: 0 0 0 1px var(--line); scroll-margin-top: 90px;
+}
+.huella:target { box-shadow: 0 0 0 3px var(--c), 0 30px 60px -30px rgba(0, 0, 0, .25); }
+.huella__head {
+  width: 100%; display: flex; align-items: center; gap: 1rem; padding: 0; text-align: left; color: inherit; cursor: pointer;
+}
+.huella__head .ruta__flecha { position: static; margin: 0 0 0 auto; flex-shrink: 0; width: 26px; height: 26px; }
+.huella.is-open .huella__head .ruta__flecha { transform: rotate(180deg); }
+.huella__icono {
+  flex-shrink: 0; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
+  color: var(--c); background: color-mix(in srgb, var(--c) 14%, var(--card)); transition: transform .3s;
+}
+.huella__head:hover .huella__icono { transform: rotate(-10deg) scale(1.06); }
+.huella__icono .huellitas { width: 28px; height: 28px; }
+.huella__textos { display: block; min-width: 0; }
+.huella__fase { display: block; font-size: .75rem; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; color: var(--c); margin-bottom: .2rem; }
+.huella__titulo { display: block; font-size: clamp(1.1rem, 2.2vw, 1.4rem); font-weight: 800; letter-spacing: -0.015em; line-height: 1.25; }
+.huella__resumen { display: block; margin-top: .3rem; font-size: .85rem; font-weight: 700; color: var(--ink-2); }
+.huella__cuerpo { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); animation: viewIn .4s cubic-bezier(.2, .7, .2, 1); }
+.huella__cuerpo[hidden] { display: none; }
+.huella { transition: box-shadow .25s; }
+.huella:not(.is-open):hover { box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 45%, transparent), 0 20px 40px -24px rgba(0, 0, 0, .25); }
+.huella__pendiente {
+  display: grid; place-items: center; gap: .6rem; padding: 2.5rem 1rem; text-align: center;
+  border: 2px dashed var(--line); border-radius: 16px; color: var(--ink-2); font-weight: 700;
+}
+.huella__pendiente .huellitas { width: 40px; height: 40px; color: var(--c); opacity: .6; }
+
+/* Momentos de cada huella (una diapositiva de Canva = un momento), unidos por una línea */
+.huella__momentos { list-style: none; padding: 0; margin: 0; counter-reset: momento; }
+.momento { position: relative; counter-increment: momento; padding: 0 0 2rem 2.6rem; }
+.momento:last-child { padding-bottom: 0; }
+.momento::before {
+  content: counter(momento); position: absolute; left: 0; top: .1rem;
+  width: 1.7rem; height: 1.7rem; border-radius: 50%; display: grid; place-items: center;
+  font-size: .8rem; font-weight: 900; color: #fff; background: var(--c);
+}
+.momento:not(:last-child)::after {
+  content: ""; position: absolute; left: calc(.85rem - 1px); top: 2.1rem; bottom: .3rem;
+  border-left: 2px dashed color-mix(in srgb, var(--c) 40%, transparent);
+}
+.momento > p { color: var(--ink-2); line-height: 1.65; }
+.momento > p + p, .momento > * + p { margin-top: .8em; }
+.momento__titulo { font-size: 1.15rem; font-weight: 900; margin-bottom: .6rem; }
+
+.momento__destacado {
+  margin: 1rem 0; padding: 1.1rem 1.3rem; border-radius: 16px;
+  background: color-mix(in srgb, var(--c) 12%, var(--card)); border-left: 4px solid var(--c);
+  font-size: 1.1rem; font-weight: 700; line-height: 1.5;
+}
+
+/* Preguntas de los chicos, en globitos */
+.momento__preguntas { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-wrap: wrap; gap: .75rem; }
+.momento__preguntas li {
+  position: relative; padding: .7rem 1rem; border-radius: 18px 18px 18px 4px;
+  background: color-mix(in srgb, var(--c) 14%, var(--card)); font-weight: 700; line-height: 1.35; max-width: 100%;
+}
+
+/* Fotos: grilla que se amplía al tocar */
+.momento__fotos { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .6rem; margin-top: 1.1rem; }
+.momento__fotos--grande { grid-template-columns: 1fr; max-width: 720px; }
+.huella__foto { display: block; width: 100%; padding: 0; border-radius: 12px; overflow: hidden; background: var(--bg-2); cursor: zoom-in; }
+.huella__foto img { display: block; width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .35s; }
+.momento__fotos--grande .huella__foto img { aspect-ratio: auto; height: auto; object-fit: contain; }
+.huella__foto:hover img { transform: scale(1.04); }
+.momento__pie { margin-top: .5rem; font-size: .85rem; font-weight: 700; color: var(--ink-2); }
+
+/* Síntesis: boceto → retroalimentación → versión final */
+.momento__pasos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: .5rem; }
+.paso { display: flex; flex-direction: column; gap: .6rem; }
+.paso__nombre { display: inline-flex; align-items: center; gap: .45rem; font-size: .8rem; font-weight: 900; text-transform: uppercase; letter-spacing: .05em; color: var(--c); }
+.paso__nombre span { display: grid; place-items: center; width: 1.3rem; height: 1.3rem; border-radius: 50%; background: color-mix(in srgb, var(--c) 18%, transparent); font-size: .72rem; }
+.paso p { font-size: .95rem; color: var(--ink-2); line-height: 1.55; }
+
+/* Visor de fotos */
+.visor {
+  width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
+  background: rgba(12, 12, 16, .92); color: #fff;
+}
+.visor[open] { display: flex; align-items: center; justify-content: center; }
+.visor::backdrop { background: transparent; }
+.visor figure { margin: 0; max-width: min(1200px, 100% - 7rem); display: grid; justify-items: center; gap: .8rem; }
+.visor img { max-width: 100%; max-height: 82vh; object-fit: contain; border-radius: 10px; }
+.visor figcaption { font-weight: 600; text-align: center; color: #ddd; }
+.visor__cerrar { position: absolute; top: 1rem; right: 1.25rem; font-size: 2.5rem; line-height: 1; color: #fff; }
+.visor__nav { flex: none; width: 3rem; height: 3rem; border-radius: 50%; font-size: 2rem; line-height: 1; color: #fff; background: rgba(255, 255, 255, .12); }
+.visor__nav:hover { background: rgba(255, 255, 255, .22); }
+.visor--una .visor__nav { visibility: hidden; }
+
+/* Pantallas anchas: ruta por el medio y paradas intercaladas a izquierda y derecha */
+@media (min-width: 761px) {
+  .ruta { --hito-col: 96px; max-width: 1060px; }
+  .ruta__parada { display: grid; grid-template-columns: minmax(0, 1fr) var(--hito-col) minmax(0, 1fr); }
+  .ruta__boton { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) var(--hito-col) minmax(0, 1fr); gap: 0; }
+  .ruta__hito { grid-column: 2; grid-row: 1; }
+  .ruta__parada--izq .ruta__textos { grid-column: 1; grid-row: 1; margin-right: 1rem; }
+  .ruta__parada--der .ruta__textos { grid-column: 3; grid-row: 1; margin-left: 1rem; }
+  .ruta__parada--izq .ruta__desc { grid-column: 1; margin: .25rem 1rem 0 0; }
+  .ruta__parada--der .ruta__desc { grid-column: 3; margin: .25rem 0 0 1rem; }
+  .ruta__parada--izq .ruta__boton:hover .ruta__textos { transform: translateX(-3px); }
+}
+.ruta__desc p { color: var(--ink-2); font-size: 1.05rem; line-height: 1.65; }
 
 /* =========================================================
    Carta personal
@@ -581,13 +690,6 @@ p + p { margin-top: 1em; }
   border-top: 1px solid var(--dark-2);
 }
 
-/* Tarjeta de la trayectoria: lleva a la página de la clase */
-a.path-card { display: block; color: inherit; transition: transform .3s, box-shadow .3s; }
-a.path-card:hover { transform: translateY(-4px); box-shadow: 0 40px 70px -30px rgba(0, 0, 0, .3), 0 0 0 1px rgba(0, 0, 0, .04); }
-.path-card__more { display: inline-flex; gap: .4rem; margin-top: 1.1rem; font-weight: 800; color: var(--c); }
-.path-card__more span { transition: transform .3s; }
-a.path-card:hover .path-card__more span { transform: translateX(4px); }
-
 /* Presentación / 2do ciclo: foto y texto */
 .intro__photo { position: relative; }
 
@@ -642,7 +744,7 @@ a.path-card:hover .path-card__more span { transform: translateX(4px); }
   opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
 }
 .mini-path a:hover::after { opacity: 1; transform: translate(-50%, 0); }
-.path__hint { text-align: center; font-size: .85rem; font-weight: 700; color: var(--ink-2); margin-top: -.5rem; }
+.path__hint { text-align: center; font-size: .9rem; font-weight: 700; color: var(--ink-2); }
 
 .clase-cover { max-width: 1200px; margin: 0 auto; padding: 0 var(--gutter); }
 .clase-cover__frame { aspect-ratio: 16 / 9; overflow: hidden; border-radius: 40px; transform-origin: center top; will-change: transform; }
@@ -721,13 +823,17 @@ a.path-card:hover .path-card__more span { transform: translateX(4px); }
   .intro { grid-template-columns: 1fr; }
   .intro__photo { max-width: 420px; }
   .intro--largo .intro__photo { position: relative; top: auto; }
-  .path-card { padding: 1.25rem 1.35rem; min-height: 0; }
-  .path-card h4 { font-size: 1.2rem; }
-  .path-card p { font-size: .95rem; line-height: 1.5; }
-  .sticky--path { gap: 1rem; padding-top: 5rem; padding-bottom: 1rem; }
-  .path__hint { display: none; }
-  .path__phase { font-size: 0; padding-bottom: 0; }
-  .path__legend { display: flex; }
+  .ruta { --hito-col: 44px; }
+  .momento { padding-left: 2.2rem; }
+  .momento__pasos { grid-template-columns: 1fr; }
+  .visor figure { max-width: calc(100% - 1rem); }
+  .visor__nav { position: absolute; bottom: 1rem; }
+  .visor__nav--prev { left: 1rem; }
+  .visor__nav--next { right: 1rem; }
+  .ruta__boton { gap: .6rem; }
+  .ruta__textos { padding: .85rem 2.4rem .85rem 1rem; }
+  .ruta__flecha { right: .7rem; }
+  .ruta__desc { margin-left: calc(var(--hito-col) + .6rem); padding: 0 .5rem; }
   .foto-texto { grid-template-columns: 1fr; }
   .foto-texto--reverse .foto-texto__foto { order: 0; }
   .curso__fotos { grid-template-columns: 1fr; }
