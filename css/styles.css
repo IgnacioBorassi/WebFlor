@@ -686,15 +686,16 @@ p + p { margin-top: 1em; }
 /* Guardapolvo en trazo: se dibuja la silueta y después brota la flor bordada */
 .manifesto {
   max-width: 1120px; margin: 0 auto;
-  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 5vw, 5rem); align-items: start;
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: start;
 }
-.manifesto .manifesto__title, .manifesto p.manifesto__cta { text-align: left; }
-.guardapolvo { position: sticky; top: 16vh; width: 100%; max-height: 72vh; overflow: visible; }
+.manifesto .manifesto__title { grid-column: 1 / -1; margin-bottom: 0; }
+.manifesto p.manifesto__cta { text-align: left; }
+.guardapolvo { order: 2; position: sticky; top: 16vh; width: 100%; max-height: 72vh; overflow: visible; }
 .manifesto p:not(.lead) { color: var(--ink-2); }
 @media (max-width: 860px) {
   .manifesto { grid-template-columns: 1fr; gap: 1.5rem; }
-  .manifesto .manifesto__title, .manifesto p.manifesto__cta { text-align: center; }
-  .guardapolvo { position: static; width: 46%; max-width: 200px; margin: 0 auto; }
+  .manifesto p.manifesto__cta { text-align: center; }
+  .guardapolvo { order: 0; position: static; width: 46%; max-width: 200px; margin: 0 auto; }
 }
 .guardapolvo path, .guardapolvo circle {
   fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round;
