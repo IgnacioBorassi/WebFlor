@@ -327,10 +327,13 @@ const huellas = [
 // ---------- 2do ciclo · Construcción de identidad docente AIE ----------
 // Cada apartado es desplegable: se ve el título y el subtítulo; al abrirlo,
 // la evidencia (opcional), el texto y el botón "Mirá el desempeño", que abre el link en otra pestaña.
+//   color: color del sobre y de su panel · icono: dibujo del sello (cerebro, lupa, herramientas, megafono, abrazo)
 //   link: pegá acá el link del documento. Si queda vacío, el botón aparece deshabilitado.
 const aie = [
   {
     titulo: 'Conceptualización',
+    color: '#e5484d',
+    icono: 'cerebro',
     subtitulo: "Se define como la aptitud que permite: “Integrar el conocimiento de los contenidos con los marcos educativos y curriculares y con una comprensión amplia de la formación general en orden a los procesos de planificación, implementación, evaluación y reflexión.” (UCA, 2022, p.21)",
     evidencia: 'Ciencias Sociales y su Enseñanza - 2025',
     texto: [
@@ -346,24 +349,41 @@ const aie = [
   },
   {
     titulo: 'Diagnóstico',
-    subtitulo: '[Subtítulo]',
-    texto: ['Texto de diagnóstico.'],
-    link: '',
+    color: '#3b82f6',
+    icono: 'lupa',
+    subtitulo: "Se define como la aptitud que permite: “Relacionar lo observado con los marcos conceptuales pertinentes con el fin de definir metas de aprendizaje y aplicar un plan de acción.” (UCA, 2022, p.13)",
+    evidencia: 'Ciencias Naturales y su Enseñanza - 2025',
+    texto: [
+      "Para la aptitud de Diagnóstico, elegí como evidencia el Primer Desempeño de la unidad curricular Ciencias Naturales y su Enseñanza, en el que diseñé una propuesta didáctica para sexto grado centrada en las relaciones entre los seres vivos de un ecosistema y las consecuencias que podía producir el desmonte sobre éste. En esta planificación tuve que tomar decisiones acerca de los contenidos que buscaba enseñar, las habilidades científicas que los estudiantes debían poner en juego y las estrategias y recursos que podían resultar adecuados para favorecer su aprendizaje. Considero que esta evidencia resulta clave para el desarrollo de esta aptitud porque me permitió comprender que las decisiones de enseñanza requieren considerar qué conocimientos pueden estar disponibles en los niños, qué habilidades necesitan desarrollar y qué intervenciones pueden ayudarlos a avanzar.",
+      "Dentro de algunos aprendizajes que construí durante la materia fue comenzar a ampliar aquello que observaba en los estudiantes para tomar decisiones de aprendizaje. Comprendí que era necesario no sólo conocer lo que los chicos sabían, sino también identificar qué podían hacer con esos conocimientos y qué habilidades propias del pensamiento científico tenían disponibles o necesitaban seguir desarrollando. En relación con esto, Furman (2009) propone pensar las Ciencias Naturales desde dos dimensiones inseparables, la ciencia como producto y la ciencia como proceso, que funcionan como “dos caras inseparables de la misma moneda” (p. 2). Esta distinción me permitió enriquecer mi mirada diagnóstica porque comencé a observar de la misma forma los conocimientos que los estudiantes poseían, pero también sus habilidades. Por ejemplo comencé a prestar atención en cómo los niños observaban, formulaban preguntas, establecían relaciones, construían hipótesis y elaboraban explicaciones. A partir de esa información, podía tomar decisiones más fundamentadas acerca de qué estrategias e intervenciones necesitaban para continuar aprendiendo.",
+      "Otra cuestión que comprendí del diagnóstico en esta unidad curricular fue la ventaja de conocer los saberes previos de los niños para utilizarlos como punto de partida. El programa de esta materia propone considerar “el conocimiento cotidiano, presente en el medio social y en las ideas de los alumnos” como un referente continuo desde el cual se pueda “problematizar” ese conocimiento (UCA, 2025, p. 2). De la mano con esto, también se plantea una enseñanza centrada en el estudiante, y por lo tanto, una tarea docente orientada a ayudar a aprender.",
+      "En la evidencia que elegí, estas ideas comenzaron a aparecer en las decisiones tomadas para la planificación. Frente a una problemática real vinculada con el desmonte, propuse que los estudiantes observaran y describieran los cambios producidos en el ambiente, clasificaran a los seres vivos de acuerdo con su función en la red trófica y, a partir de la información disponible, formularan hipótesis acerca de las posibles consecuencias. La formulación de hipótesis adquirió una decisión fundamental para la enseñanza de esta área porque tal como afirma Gellon (2005), una hipótesis “no es una adivinanza descabellada, sino una suposición basada en la experiencia previa, los datos disponibles y el sentido común” (p. 76). Comprender esto me permitió empezar a tomar las experiencias previas de los estudiantes como una información necesaria para acompañarlos en la construcción de nuevas explicaciones.",
+      "Considero que estas cuestiones se hicieron visibles en esta etapa de Residencia. Por ejemplo, en la instancia de exploración de la secuencia sobre la atmósfera, busqué recuperar las ideas iniciales de los estudiantes a partir del trabajo con distintas fuentes y de la rutina “Conecto-Pienso-Me pregunto”. Esta etapa me permitió reconocer los conocimientos que tenían disponibles los alumnos y las relaciones que establecían a la hora de construir una explicación. Me di cuenta que si bien podían expresar diferentes ideas acerca de las actividades humanas y las transformaciones de la atmósfera, observé que les resultaba difícil organizarlas para construir una hipótesis. Frente a esta dificultad, las preguntas que había planificado funcionaron como un andamiaje que me permitió orientarlos para que pudieran establecer relaciones entre sus ideas y avanzar hacia la construcción de una hipótesis a partir de las evidencias analizadas (en una clase posterior que decidí armar luego de la primera exploración con las fuentes). Esto se conecta con otra idea clave de Gellon (2005) que afirma que “el hacerse preguntas no es necesariamente una actividad espontánea sino una habilidad que debe desarrollarse y ser usada en forma deliberada” (p. 75).",
+      "Esta forma de comprender el diagnóstico también orientó las decisiones tomadas en otras instancias de la secuencia. Al indagar qué comprendían los niños acerca de la atmósfera, reconocí que asociaban principalmente su importancia con la presencia de oxígeno y, por lo tanto, con la posibilidad de respirar. Este conocimiento fue un punto de partida valioso para planificar propuestas de enseñanza que me permitieron ampliar y complejizar las explicaciones de los estudiantes, incorporando otras funciones de la atmósfera.",
+      "Por último, considero que estos aprendizajes y su puesta en práctica durante la Residencia me permitieron avanzar hacia el Nivel IV de la aptitud Diagnóstico. El Manual AIE plantea en este nivel la “aplicación de saberes disciplinares y marcos analíticos de la formación docente para realizar el análisis profundo de una realidad” y el “diseño de estrategias de aprendizaje a partir de los datos analizados” (UCA, 2022, p. 14). Esto se hizo visible en mi práctica cuando aquello que observaba y recuperaba de los estudiantes, comenzó a orientar las decisiones que tomaba para las clases siguientes. Además, al tratarse de una propuesta articulada entre Ciencias Naturales y Ciencias Sociales, pude trabajar junto con el docente de Sociales para pensar la secuencia desde ambas disciplinas, acercándome también al descriptor que propone el “trabajo colaborativo con docentes de otras disciplinas para diseñar propuestas de aprendizaje para todos” (UCA, 2022, p. 14). De esta forma, este recorrido transitado me ayudó a vivenciar la teoría de que justamente diagnosticar es algo que continúa durante la enseñanza y que lo que sucede en el aula puede llevarme a revisar, ampliar o modificar aquello que había planificado.",
+    ],
+    link: "https://docs.google.com/document/d/1haNQBdQPuZUNntlDaQSnPcB8-_JwWSim/edit?usp=sharing&ouid=101111947899605011022&rtpof=true&sd=true",
   },
   {
     titulo: 'Gestión efectiva',
+    color: '#f97316',
+    icono: 'herramientas',
     subtitulo: '[Subtítulo]',
     texto: ['Texto de gestión efectiva.'],
     link: '',
   },
   {
     titulo: 'Comunicación',
+    color: '#22a55b',
+    icono: 'megafono',
     subtitulo: '[Subtítulo]',
     texto: ['Texto de comunicación.'],
     link: '',
   },
   {
     titulo: 'Interacción Inclusiva',
+    color: '#eab308',
+    icono: 'abrazo',
     subtitulo: '[Subtítulo]',
     texto: ['Texto de interacción inclusiva.'],
     link: '',

@@ -197,8 +197,20 @@ const botonDesempeno = (a) => a.link
 
 // Cada apartado es un sobre cerrado con un sello numerado: al tocarlo se abre,
 // sale la carta y recién ahí aparece el panel de lectura
+// Íconos de los sellos (trazo blanco sobre el color del sobre)
+const ICONOS_AIE = {
+  cerebro: '<path d="M12 4.5a3 3 0 0 0-5.4-1.2A3 3 0 0 0 3.8 7.5a3.2 3.2 0 0 0 .4 5.3 3 3 0 0 0 2.9 4.7A3 3 0 0 0 12 19.5z"/><path d="M12 4.5a3 3 0 0 1 5.4-1.2 3 3 0 0 1 2.8 4.2 3.2 3.2 0 0 1-.4 5.3 3 3 0 0 1-2.9 4.7A3 3 0 0 1 12 19.5"/><path d="M8.5 8.5c1 .2 1.6.9 1.6 2M15.5 8.5c-1 .2-1.6.9-1.6 2M7.5 13.5c1.2 0 2 .5 2.3 1.5M16.5 13.5c-1.2 0-2 .5-2.3 1.5"/>',
+  lupa: '<circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5.5 5.5"/><path d="M8 8.5a3 3 0 0 1 2.5-1.5"/>',
+  herramientas: '<rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 8V6a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 6v2"/><path d="M3 13h7M14 13h7"/><rect x="10" y="11.5" width="4" height="3.5" rx="1"/>',
+  megafono: '<path d="M3 10.5v3a1 1 0 0 0 1 1h2.5l8.5 4.5V5L6.5 9.5H4a1 1 0 0 0-1 1z"/><path d="m7 14.5 1.2 5h2.3l-1-4.4"/><path d="M18.5 9a4.5 4.5 0 0 1 0 6"/>',
+  abrazo: '<circle cx="8" cy="5.5" r="2.5"/><circle cx="16" cy="5.5" r="2.5"/><path d="M3.5 20v-3.5A4.5 4.5 0 0 1 8 12a4.4 4.4 0 0 1 4 2.5A4.4 4.4 0 0 1 16 12a4.5 4.5 0 0 1 4.5 4.5V20"/><path d="M6 14.5c2 2.2 4 3 6 3s4-.8 6-3"/>',
+};
+const iconoAie = (a, i) => ICONOS_AIE[a.icono]
+  ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONOS_AIE[a.icono]}</svg>`
+  : String(i + 1);
+
 aieLista.innerHTML = aie.map((a, i) => `
-  <div class="sobre-item fade">
+  <div class="sobre-item fade"${a.color ? ` style="--sobre-c:${esc(a.color)}"` : ''}>
     <button class="sobre" type="button" data-aie="${i}" aria-haspopup="dialog" aria-label="Abrir: ${esc(a.titulo)}">
       <span class="sobre__fondo" aria-hidden="true"></span>
       <span class="sobre__carta" aria-hidden="true"><span></span><span></span><span></span></span>
@@ -212,10 +224,20 @@ aieLista.innerHTML = aie.map((a, i) => `
       <span class="sobre__solapa" aria-hidden="true">
         <svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0 H100 L50 100 Z"/></svg>
       </span>
-      <span class="sobre__sello" aria-hidden="true">${i + 1}</span>
+      <span class="sobre__sello" aria-hidden="true">${iconoAie(a, i)}</span>
     </button>
     <p class="sobre__titulo">${esc(a.titulo)}</p>
   </div>`).join('');
+
+// Texto blanco u oscuro sobre el color del sobre, según qué tan claro sea (el amarillo y el naranja llevan oscuro)
+function tintaSobre(hex) {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex || '');
+  if (!m) return '#fff';
+  const [r, g, b] = [0, 2, 4].map((k) => parseInt(m[1].slice(k, k + 2), 16) / 255)
+    .map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+  const luz = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return luz > 0.3 ? '#2a1f00' : '#fff';
+}
 
 const lector = document.createElement('dialog');
 lector.className = 'lector';
@@ -224,9 +246,11 @@ document.body.appendChild(lector);
 
 function abrirLector(i) {
   const a = aie[i];
+  lector.style.setProperty('--sobre-c', a.color || 'var(--destacado)');
+  lector.style.setProperty('--sobre-tinta', tintaSobre(a.color));
   lector.innerHTML = `
     <div class="lector__bar">
-      <span class="aie__num">${i + 1}</span>
+      <span class="aie__num">${iconoAie(a, i)}</span>
       <strong>Construcción de identidad docente AIE</strong>
       <button class="lector__cerrar" type="button" aria-label="Cerrar">×</button>
     </div>

@@ -205,6 +205,8 @@ p + p { margin-top: 1em; }
    ========================================================= */
 .block { padding: 10vh var(--gutter); }
 .block--alt { background: var(--bg-2); }
+/* En la parte oscura: un negro apenas distinto para separar secciones seguidas */
+.block--dark-alt { background: #16161c; }
 .block--dark-head { padding-bottom: 0; }
 .narrow { max-width: 760px; margin: 0 auto; }
 .narrow p:not(.lead) { font-size: 1.15rem; color: var(--ink-2); }
@@ -278,6 +280,8 @@ p + p { margin-top: 1em; }
 }
 .intro__photo { aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden; }
 .intro__photo [data-parallax] { height: 120%; margin-top: -10%; object-fit: cover; width: 100%; will-change: transform; }
+/* Foto de Florencia: la cara está a la derecha en el original; se corre la foto (sin zoom) para que quede al medio */
+.intro__photo .foto-flor { object-position: 88% 50%; }
 .intro__text p:not(.lead) { font-size: 1.15rem; color: var(--ink-2); }
 
 /* Texto largo: la foto queda fija al costado mientras se lee */
@@ -492,28 +496,35 @@ p + p { margin-top: 1em; }
 .marco p + p { margin-top: 1.2em; }
 
 
-/* Construcción de identidad docente AIE: cinco apartados numerados y desplegables */
-/* Sección con fondo violeta suave y título fijo a la izquierda, para diferenciarla de la reflexión */
+/* Construcción de identidad docente AIE: cinco sobres numerados */
+/* Sección con fondo violeta suave, para diferenciarla de la reflexión */
 .identidad { background: color-mix(in srgb, var(--destacado) 8%, var(--bg)); }
-.identidad__grid {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(2rem, 5vw, 4rem); align-items: start;
+/* Título centrado arriba y los sobres debajo */
+.identidad__grid { max-width: 1100px; margin: 0 auto; }
+.identidad__head { text-align: center; margin-bottom: 3rem; }
+.identidad__head .garabato { margin-inline: auto; }
+.identidad__intro {
+  max-width: 720px; margin: 1.25rem auto 0;
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem); line-height: 1.7; color: var(--ink-2);
+  text-align: justify; text-align-last: center; hyphens: auto; -webkit-hyphens: auto;
 }
-.identidad__head { position: sticky; top: 110px; }
-.identidad__ayuda { margin-top: 1rem; color: var(--ink-2); font-weight: 600; }
+.identidad__ayuda { margin-top: 1.5rem; color: var(--destacado); font-weight: 800; }
 .aie { display: grid; gap: 1rem; }
 /* Sobres: uno por apartado */
+/* Color de cada aptitud (viene de js/datos.js); sin color, el violeta de siempre.
+   --sobre-osc es una versión más oscura para textos y botón */
+.sobre-item, .lector { --sobre-c: var(--destacado); --sobre-osc: color-mix(in srgb, var(--sobre-c) 75%, #000); }
 .aie { display: flex; flex-wrap: wrap; justify-content: center; gap: 2.25rem 1.5rem; }
 .sobre-item { flex: 0 1 190px; display: flex; flex-direction: column; align-items: center; gap: .9rem; }
 .aie__num {
   flex-shrink: 0; display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 999px;
-  font-weight: 900; color: #fff; background: linear-gradient(135deg, var(--destacado), var(--accent-2));
+  font-weight: 900; color: #fff; background: linear-gradient(135deg, var(--sobre-c), var(--sobre-osc));
 }
 .sobre {
-  --papel: color-mix(in srgb, var(--destacado) 10%, #fff);
-  --papel-osc: color-mix(in srgb, var(--destacado) 20%, #fff);
-  --papel-sol: color-mix(in srgb, var(--destacado) 28%, #fff);
-  --papel-dorso: color-mix(in srgb, var(--destacado) 40%, #fff); /* parte de atrás de la solapa, vista al abrir */
+  --papel: color-mix(in srgb, var(--sobre-c) 10%, #fff);
+  --papel-osc: color-mix(in srgb, var(--sobre-c) 20%, #fff);
+  --papel-sol: color-mix(in srgb, var(--sobre-c) 28%, #fff);
+  --papel-dorso: color-mix(in srgb, var(--sobre-c) 40%, #fff); /* parte de atrás de la solapa, vista al abrir */
   position: relative; width: 100%; max-width: 230px; aspect-ratio: 4 / 3;
   perspective: 700px; cursor: pointer;
   transition: transform .35s cubic-bezier(.2, .7, .2, 1);
@@ -532,7 +543,7 @@ p + p { margin-top: 1em; }
   box-shadow: 0 2px 6px rgba(30, 20, 70, .12);
   transition: transform .35s cubic-bezier(.2, .7, .2, 1);
 }
-.sobre__carta span { height: 6%; border-radius: 99px; background: color-mix(in srgb, var(--destacado) 22%, #fff); }
+.sobre__carta span { height: 6%; border-radius: 99px; background: color-mix(in srgb, var(--sobre-c) 22%, #fff); }
 .sobre__carta span:nth-child(2) { width: 80%; }
 .sobre__carta span:nth-child(3) { width: 60%; }
 /* Bolsillo delantero: tapa la parte de abajo de la carta.
@@ -542,7 +553,7 @@ p + p { margin-top: 1em; }
 .sobre__frente svg, .sobre__solapa svg { display: block; width: 100%; height: 100%; }
 .sobre__solapa path { fill: currentColor; }
 .sobre__pliegue { fill: var(--papel-osc); }
-.sobre__pliegue--base { fill: color-mix(in srgb, var(--destacado) 15%, #fff); }
+.sobre__pliegue--base { fill: color-mix(in srgb, var(--sobre-c) 15%, #fff); }
 /* Solapa de arriba: gira hacia atrás al abrir */
 .sobre__solapa {
   left: 0; right: 0; top: 0; height: 58%; z-index: 3;
@@ -552,21 +563,23 @@ p + p { margin-top: 1em; }
 }
 .sobre__sello {
   position: absolute; left: 50%; top: 58%; z-index: 4;
-  width: 2.6rem; height: 2.6rem; margin: -1.3rem 0 0 -1.3rem; border-radius: 50%;
+  width: 3.3rem; height: 3.3rem; margin: -1.65rem 0 0 -1.65rem; border-radius: 50%;
   display: grid; place-items: center;
   font-weight: 900; color: #fff;
-  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--destacado) 70%, #fff), var(--destacado) 60%, color-mix(in srgb, var(--destacado) 80%, #000));
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--destacado) 35%, transparent), 0 4px 10px -2px rgba(30, 20, 70, .45);
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--sobre-c) 70%, #fff), var(--sobre-c) 60%, color-mix(in srgb, var(--sobre-c) 80%, #000));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--sobre-c) 35%, transparent), 0 4px 10px -2px rgba(30, 20, 70, .45);
   transition: transform .35s cubic-bezier(.2, .7, .2, 1), opacity .3s;
 }
+.sobre__sello svg { width: 62%; height: 62%; }
+.lector__bar .aie__num svg { width: 60%; height: 60%; }
 .sobre__titulo { font-weight: 800; font-size: 1.05rem; letter-spacing: -0.01em; text-align: center; line-height: 1.2; transition: color .2s; }
 
 /* Pasar el mouse: se levanta y la solapa se entreabre (no mientras se abre o se cierra) */
 .sobre:not(.is-open, .is-closing):is(:hover, :focus-visible) { transform: translateY(-6px) rotate(-1.5deg); }
-.sobre:not(.is-open, .is-closing):hover .sobre__fondo { box-shadow: 0 26px 40px -20px rgba(30, 20, 70, .5), 0 0 0 2px var(--destacado); }
+.sobre:not(.is-open, .is-closing):hover .sobre__fondo { box-shadow: 0 26px 40px -20px rgba(30, 20, 70, .5), 0 0 0 2px var(--sobre-c); }
 .sobre:not(.is-open, .is-closing):hover .sobre__solapa { transform: rotateX(28deg); }
 .sobre:not(.is-open, .is-closing):hover .sobre__carta { transform: translateY(-6%); }
-.sobre-item:hover .sobre__titulo { color: var(--destacado); }
+.sobre-item:hover .sobre__titulo { color: var(--sobre-osc); }
 
 /* Abierto: la solapa gira atrás, el sello se va y la carta sube */
 .sobre.is-open, .sobre.is-closing { z-index: 5; } /* la solapa abierta asoma: que no la tapen los vecinos */
@@ -598,11 +611,11 @@ p + p { margin-top: 1em; }
 
 .aie__boton {
   display: inline-flex; align-items: center; gap: .5rem;
-  background: var(--destacado); color: #fff; font-weight: 800;
+  background: var(--sobre-c); color: var(--sobre-tinta, #fff); font-weight: 800;
   padding: .8rem 1.5rem; border-radius: 999px;
   transition: transform .2s, box-shadow .2s;
 }
-.aie__boton:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -12px var(--destacado); }
+.aie__boton:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -12px var(--sobre-c); }
 .aie__boton.is-pendiente { opacity: .45; cursor: not-allowed; }
 .aie__boton.is-pendiente:hover { transform: none; box-shadow: none; }
 
@@ -628,15 +641,15 @@ html:has(.lector[open]) { overflow: hidden; }
 .lector__cerrar:hover { background: var(--bg-2); color: var(--ink); }
 .lector__cuerpo { flex: 1; overflow-y: auto; overscroll-behavior: contain; }
 .lector__articulo { max-width: 700px; margin: 0 auto; padding: clamp(1.75rem, 5vw, 3.5rem) clamp(1.25rem, 5vw, 2.5rem); }
-.lector__titulo { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; letter-spacing: -0.03em; color: var(--destacado); }
+.lector__titulo { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; letter-spacing: -0.03em; color: var(--sobre-osc); }
 .lector__subtitulo {
-  margin-top: 1rem; padding-left: 1rem; border-left: 3px solid var(--destacado);
+  margin-top: 1rem; padding-left: 1rem; border-left: 3px solid var(--sobre-c);
   font-size: clamp(1.05rem, 1.8vw, 1.2rem); font-style: italic; line-height: 1.55; color: var(--ink-2);
 }
 .lector__evidencia {
   display: inline-block; margin-top: 1.75rem;
   font-size: .9rem; font-weight: 800; line-height: 1.3;
-  color: var(--destacado); background: color-mix(in srgb, var(--destacado) 12%, transparent);
+  color: var(--sobre-osc); background: color-mix(in srgb, var(--sobre-c) 12%, transparent);
   padding: .35rem .9rem; border-radius: 999px;
 }
 .lector__texto { margin-top: 1.25rem; }
@@ -646,15 +659,6 @@ html:has(.lector[open]) { overflow: hidden; }
 }
 .lector__texto p + p { margin-top: 1.1em; }
 .lector__acciones { margin-top: 2.5rem; padding-top: 1.75rem; border-top: 1px solid var(--line); display: flex; justify-content: center; }
-.aie__boton {
-  display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.5rem;
-  background: var(--destacado); color: #fff; font-weight: 800;
-  padding: .8rem 1.5rem; border-radius: 999px;
-  transition: transform .2s, box-shadow .2s;
-}
-.aie__boton:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -12px var(--destacado); }
-.aie__boton.is-pendiente { opacity: .45; cursor: not-allowed; }
-.aie__boton.is-pendiente:hover { transform: none; box-shadow: none; }
 
 /* =========================================================
    2do ciclo · Trayectoria
@@ -722,7 +726,7 @@ html:has(.lector[open]) { overflow: hidden; }
 .huellas__lista { max-width: 960px; margin: 0 auto; display: grid; gap: 1rem; }
 .huella {
   background: var(--card); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem);
-  box-shadow: 0 0 0 1px var(--line); scroll-margin-top: 90px;
+  box-shadow: 0 0 0 1px var(--line), 0 14px 30px -22px rgba(30, 20, 70, .25); scroll-margin-top: 90px;
 }
 .huella:target { box-shadow: 0 0 0 3px var(--c), 0 30px 60px -30px rgba(0, 0, 0, .25); }
 .huella__head {
@@ -1058,11 +1062,9 @@ html:has(.lector[open]) { overflow: hidden; }
 }
 
 @media (max-width: 760px) {
-  .identidad__grid { grid-template-columns: 1fr; }
-  .identidad__head { position: static; }
   .aie { gap: 1.75rem 1rem; }
   .sobre-item { flex-basis: calc(50% - .5rem); }
-  .sobre__sello { width: 2.2rem; height: 2.2rem; margin: -1.1rem 0 0 -1.1rem; }
+  .sobre__sello { width: 2.9rem; height: 2.9rem; margin: -1.45rem 0 0 -1.45rem; }
   /* En pantallas angostas el texto justificado deja huecos grandes entre palabras */
   .texto-justificado p, .manifesto p, .plan-table th, .plan-table td { text-align: left; }
   .block { padding: 8vh var(--gutter); }

@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=116">
+  <link rel="stylesheet" href="css/styles.css?v=126">
 </head>
 <body>
 
@@ -111,7 +111,7 @@
         </div>
         <div class="intro intro--largo">
           <figure class="intro__photo fade">
-            <img src="img/flor.webp" alt="Florencia Pérez Fernández sonriendo en la costa, con el mar de fondo" data-parallax>
+            <img class="foto-flor" src="img/flor.webp" alt="Florencia Pérez Fernández sonriendo en la costa, con el mar de fondo" data-parallax>
           </figure>
           <div class="intro__text texto-justificado">
             <p class="fade">Soy Florencia Pérez Fernández, tengo 24 años y podría definirme como una curiosa incurable. Desde chica me encanta aprender, hacerme preguntas y descubrir cosas nuevas. Encontré una pasión especial en las ciencias naturales, una facilidad con los números y un espacio de refugio en la lectura. Pero hay algo que siempre disfruté tanto como aprender: compartir con otros lo que sé y ayudarlos a comprender aquello que les resulta difícil.</p>
@@ -305,7 +305,7 @@
       </section>
 
       <!-- Los desempeños más significativos (se completa desde js/datos.js) -->
-      <section class="block desempenos" id="desempenos" data-nav>
+      <section class="block block--alt desempenos" id="desempenos" data-nav>
         <div class="path-head fade">
           <p class="kicker">2do ciclo</p>
           <h3 class="h-lg">Los desempeños más significativos</h3>
@@ -315,7 +315,7 @@
       </section>
 
       <!-- Huellas de aprendizaje (se completa desde js/datos.js) -->
-      <section class="block block--alt huellas" id="huellas" data-nav>
+      <section class="block huellas" id="huellas" data-nav>
         <div class="path-head fade">
           <svg class="garabato garabato--huellas fade" viewBox="0 0 100 80" aria-hidden="true"><g></g><g class="garabato__acento"><path pathLength="1" d="M17 66 a5 8 0 1 0 10 0 a5 8 0 1 0 -10 0 M16.5 55 a1.7 1.7 0 1 0 .01 0 M20.5 52.5 a1.7 1.7 0 1 0 .01 0 M24.5 52.5 a1.7 1.7 0 1 0 .01 0 M28 55 a1.7 1.7 0 1 0 .01 0" transform="rotate(20 22 66)" style="--d:0.0s"/><path pathLength="1" d="M37 52 a5 8 0 1 0 10 0 a5 8 0 1 0 -10 0 M36.5 41 a1.7 1.7 0 1 0 .01 0 M40.5 38.5 a1.7 1.7 0 1 0 .01 0 M44.5 38.5 a1.7 1.7 0 1 0 .01 0 M48 41 a1.7 1.7 0 1 0 .01 0" transform="rotate(-10 42 52)" style="--d:0.25s"/><path pathLength="1" d="M51 40 a5 8 0 1 0 10 0 a5 8 0 1 0 -10 0 M50.5 29 a1.7 1.7 0 1 0 .01 0 M54.5 26.5 a1.7 1.7 0 1 0 .01 0 M58.5 26.5 a1.7 1.7 0 1 0 .01 0 M62 29 a1.7 1.7 0 1 0 .01 0" transform="rotate(25 56 40)" style="--d:0.5s"/><path pathLength="1" d="M71 26 a5 8 0 1 0 10 0 a5 8 0 1 0 -10 0 M70.5 15 a1.7 1.7 0 1 0 .01 0 M74.5 12.5 a1.7 1.7 0 1 0 .01 0 M78.5 12.5 a1.7 1.7 0 1 0 .01 0 M82 15 a1.7 1.7 0 1 0 .01 0" transform="rotate(-5 76 26)" style="--d:0.75s"/></g></svg>
           <p class="kicker">2do ciclo</p>
@@ -325,7 +325,7 @@
       </section>
 
       <!-- Síntesis de la práctica reflexiva -->
-      <section class="block marco reflexion" id="reflexion" data-nav>
+      <section class="block block--alt marco reflexion" id="reflexion" data-nav>
         <div class="narrow">
           <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M38 54 C24 44 26 18 50 16 C74 18 76 44 62 54 V62 H38 Z"/><path pathLength="1" d="M40 67 H60 M43 72 H57"/></g><g class="garabato__acento"><path pathLength="1" d="M45 54 V44 M55 54 V44 M45 44 q2.5 -6 5 0 q2.5 6 5 0"/><path pathLength="1" d="M50 3 V10 M24 12 L28 17 M76 12 L72 17 M15 32 H22 M78 32 H85"/></g></svg>
           <h3 class="marco__titulo fade"><span>Síntesis de la</span> <span class="destacado">Práctica Reflexiva</span></h3>
@@ -346,8 +346,10 @@
       <section class="block identidad" id="identidad" data-nav>
         <div class="identidad__grid">
           <div class="identidad__head fade">
+            <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M24 14 H76 Q82 14 82 20 V66 Q82 72 76 72 H24 Q18 72 18 66 V20 Q18 14 24 14 Z"/><path pathLength="1" d="M44 14 V7 H56 V14"/><path pathLength="1" d="M28 28 H46 V52 H28 Z"/><path pathLength="1" d="M54 32 H72 M54 40 H67 M54 48 H70"/><path pathLength="1" d="M28 62 H72"/></g><g class="garabato__acento"><path pathLength="1" d="M37 32 a4.5 4.5 0 1 0 .01 0"/><path pathLength="1" d="M30 51 C31 43 43 43 44 51"/><path pathLength="1" d="M88 4 V14 M83 9 H93"/></g></svg>
             <p class="kicker">2do ciclo</p>
             <h3 class="h-lg">Construcción de identidad docente <span class="destacado">AIE</span></h3>
+            <p class="identidad__intro">En esta sección van a encontrar un recorrido por las cinco aptitudes profesionales que acompañaron mi formación docente. A través de la selección de distintas evidencias y de una reflexión sobre cada una de ellas, busco mostrar cómo fui construyendo y desarrollando estas aptitudes a lo largo de mi trayectoria, reconociendo los aprendizajes alcanzados, los desafíos que se me presentaron y aquellos aspectos en los que todavía tengo que seguir creciendo.</p>
             <p class="identidad__ayuda">Tocá un sobre para abrirlo.</p>
           </div>
           <!-- Los apartados se editan en js/datos.js (const aie) -->
@@ -396,7 +398,7 @@
 
       <!-- ===================== AUTOEVALUACIÓN ===================== -->
       <div class="chapter" id="autoevaluacion">
-        <section class="block">
+        <section class="block block--dark-alt">
           <div class="chapter-head chapter-head--center fade">
             <span class="chapter-num">07</span>
             <h2>Autoevaluación</h2>
@@ -434,8 +436,8 @@
 
   </main>
 
-  <script src="js/datos.js?v=116"></script>
-  <script src="js/comun.js?v=116"></script>
-  <script src="js/main.js?v=116"></script>
+  <script src="js/datos.js?v=126"></script>
+  <script src="js/comun.js?v=126"></script>
+  <script src="js/main.js?v=126"></script>
 </body>
 </html>
