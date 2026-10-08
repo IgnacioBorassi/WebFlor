@@ -187,6 +187,93 @@ function dibujarCamino() {
 }
 
 // =========================================================
+// Construcción de identidad docente AIE: tarjetas compactas que abren
+// un panel de lectura con el texto completo y el botón al desempeño
+// =========================================================
+const aieLista = document.getElementById('aieLista');
+const botonDesempeno = (a) => a.link
+  ? `<a class="aie__boton" href="${esc(a.link)}" target="_blank" rel="noopener">Mirá el desempeño <span aria-hidden="true">↗</span></a>`
+  : '<span class="aie__boton is-pendiente" aria-disabled="true" title="Falta cargar el link">Mirá el desempeño <span aria-hidden="true">↗</span></span>';
+
+// Cada apartado es un sobre cerrado con un sello numerado: al tocarlo se abre,
+// sale la carta y recién ahí aparece el panel de lectura
+aieLista.innerHTML = aie.map((a, i) => `
+  <div class="sobre-item fade">
+    <button class="sobre" type="button" data-aie="${i}" aria-haspopup="dialog" aria-label="Abrir: ${esc(a.titulo)}">
+      <span class="sobre__fondo" aria-hidden="true"></span>
+      <span class="sobre__carta" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="sobre__frente" aria-hidden="true">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+          <path class="sobre__pliegue" d="M0 0 L50 52 L0 100 Z"/>
+          <path class="sobre__pliegue" d="M100 0 L50 52 L100 100 Z"/>
+          <path class="sobre__pliegue sobre__pliegue--base" d="M0 100 L50 46 L100 100 Z"/>
+        </svg>
+      </span>
+      <span class="sobre__solapa" aria-hidden="true">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0 H100 L50 100 Z"/></svg>
+      </span>
+      <span class="sobre__sello" aria-hidden="true">${i + 1}</span>
+    </button>
+    <p class="sobre__titulo">${esc(a.titulo)}</p>
+  </div>`).join('');
+
+const lector = document.createElement('dialog');
+lector.className = 'lector';
+lector.setAttribute('aria-labelledby', 'lectorTitulo');
+document.body.appendChild(lector);
+
+function abrirLector(i) {
+  const a = aie[i];
+  lector.innerHTML = `
+    <div class="lector__bar">
+      <span class="aie__num">${i + 1}</span>
+      <strong>Construcción de identidad docente AIE</strong>
+      <button class="lector__cerrar" type="button" aria-label="Cerrar">×</button>
+    </div>
+    <div class="lector__cuerpo">
+      <article class="lector__articulo">
+        <h3 class="lector__titulo" id="lectorTitulo">${esc(a.titulo)}</h3>
+        ${a.subtitulo ? `<p class="lector__subtitulo">${esc(a.subtitulo)}</p>` : ''}
+        ${a.evidencia ? `<p class="lector__evidencia">${esc(a.evidencia)}</p>` : ''}
+        <div class="lector__texto">
+          ${[].concat(a.texto || []).map((t) => `<p>${esc(t)}</p>`).join('')}
+        </div>
+        <div class="lector__acciones">${botonDesempeno(a)}</div>
+      </article>
+    </div>`;
+  lector.showModal();
+  lector.querySelector('.lector__cuerpo').scrollTop = 0;
+}
+
+let sobreAbierto = null;
+// Al cerrar: primero baja la carta, después se cierra la solapa y vuelve el sello (ver .is-closing en el CSS)
+function cerrarSobre() {
+  const sobre = sobreAbierto;
+  if (!sobre) return;
+  sobreAbierto = null;
+  sobre.classList.remove('is-open');
+  sobre.classList.add('is-closing');
+  setTimeout(() => sobre.classList.remove('is-closing'), 1000);
+}
+
+aieLista.addEventListener('click', (e) => {
+  const sobre = e.target.closest('.sobre');
+  if (!sobre || sobreAbierto) return;
+  sobreAbierto = sobre;
+  sobre.classList.add('is-open');
+  // Se deja ver la animación del sobre y después se abre el panel
+  setTimeout(() => abrirLector(Number(sobre.dataset.aie)), sinAnimaciones ? 0 : 850);
+});
+function cerrarLector() {
+  if (lector.open) lector.close();
+  cerrarSobre();
+}
+lector.addEventListener('click', (e) => {
+  if (e.target === lector || e.target.closest('.lector__cerrar')) cerrarLector();
+});
+lector.addEventListener('close', cerrarSobre); // también al cerrar con Escape
+
+// =========================================================
 // Huellas de aprendizaje: cada etapa con sus momentos (texto, preguntas y fotos)
 // =========================================================
 const fotoHuella = (f, clase = '') => `

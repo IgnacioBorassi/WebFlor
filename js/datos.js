@@ -324,6 +324,52 @@ const huellas = [
   },
 ];
 
+// ---------- 2do ciclo · Construcción de identidad docente AIE ----------
+// Cada apartado es desplegable: se ve el título y el subtítulo; al abrirlo,
+// la evidencia (opcional), el texto y el botón "Mirá el desempeño", que abre el link en otra pestaña.
+//   link: pegá acá el link del documento. Si queda vacío, el botón aparece deshabilitado.
+const aie = [
+  {
+    titulo: 'Conceptualización',
+    subtitulo: "Se define como la aptitud que permite: “Integrar el conocimiento de los contenidos con los marcos educativos y curriculares y con una comprensión amplia de la formación general en orden a los procesos de planificación, implementación, evaluación y reflexión.” (UCA, 2022, p.21)",
+    evidencia: 'Ciencias Sociales y su Enseñanza - 2025',
+    texto: [
+      "Elegí como evidencia el Desempeño Final de la unidad curricular Ciencias Sociales y su Enseñanza. En éste pude recuperar una secuencia didáctica que había planificado e implementado previamente y volver sobre las decisiones tomadas para analizarlas. Esto me permitió fundamentar, desde los marcos analíticos específicos del área, por qué esas decisiones resultaban pertinentes para ese contenido, ese contexto y esos estudiantes. Esto se relaciona directamente con lo propuesto en el programa de la unidad curricular, que plantea el desarrollo de la Conceptualización a partir del manejo de distintos marcos disciplinares y de la superación de una perspectiva fragmentada de las Ciencias Sociales, recuperando las miradas y experiencias de los niños como punto de partida para la construcción de conocimiento (UCA, 2025).",
+      "Uno de los aprendizajes significativos que construí durante esta materia fue transformar mi propia concepción acerca de la enseñanza de las Ciencias Sociales. Mi experiencia como alumna había estado vinculada con una enseñanza focalizada en acontecimientos, fechas y datos que debían ser aprendidos. A lo largo de la cursada pude descubrir otra manera de pensar su enseñanza: partir de la realidad que los niños conocen para ayudarlos a profundizarla, problematizarla y comprender su complejidad (Rodríguez & Rodríguez Villoldo, 2025). Esta transformación aparece en el propio Desempeño Final, cuando reconozco el pasaje de una enseñanza más vinculada a la transmisión, hacia otra orientada a comprender, interpretar y analizar la realidad social.",
+      "En relación con lo anterior, comprendí la importancia del recorte didáctico y de los conceptos areales para abordar la complejidad de la realidad social. Rodríguez y Rodríguez Villoldo (2025) definen el recorte como “una parte de la realidad social ‘cercana’ a los niños, por lo tanto es multidimensional, conserva su complejidad y tiene su propia lógica sin perder la relación con el resto de la realidad” (p. 33). A partir del trabajo realizado en la materia, comprendí que construir un recorte supone delimitar intencionalmente esa realidad, seleccionando determinados aspectos y relaciones para convertirlos en objeto de enseñanza, sin descuidar esa complejidad. En esta construcción, los conceptos areales resultan fundamentales, ya que funcionan como categorías de análisis que permiten orientar la indagación, establecer relaciones entre sus diferentes dimensiones y profundizar progresivamente su comprensión. De esta forma, enseñar Ciencias Sociales también implica ofrecer a los niños herramientas conceptuales que les permitan construir interpretaciones cada vez más complejas sobre ella. Esto también me llevó a reconocer la importancia de la investigación previa del docente. Por ejemplo para construir un recorte, seleccionar los conceptos desde los cuales abordarlo y formular preguntas que problematicen la realidad, necesito primero conocerla, interrogarla y complejizar mi propia comprensión.",
+      "Considero que estos aprendizajes se hicieron visibles durante mi Residencia. Al planificar la secuencia sobre la atmósfera, construí el recorte “El aire que respiramos en nuestro barrio, la atmósfera que compartimos en el planeta: ¿Cómo nuestras formas de vivir pueden transformarla?”, que me permitió delimitar una problemática cercana a los estudiantes sin perder las relaciones que la atravesaban. A partir de este recorte, la atmósfera no fue abordada únicamente desde su composición y funcionamiento, sino también desde las relaciones entre las actividades humanas, sus transformaciones y las responsabilidades de diferentes actores sociales. Conceptos areales como la multicausalidad y los actores sociales funcionaron como herramientas para orientar la indagación. Pero primero, para construir y abordar este recorte necesité realizar una investigación previa que me permitiera formularme preguntas significativas, seleccionar distintas fuentes y recuperar las ideas iniciales de los estudiantes para ponerlas en diálogo con nuevas evidencias. Esta decisión recupera una cuestión importante en la enseñanza del área: “son necesarias buenas preguntas que pongan ‘en crisis’ esas estructuras cognitivas y los inviten a adaptarlas desarrollando capacidades e incorporando conocimiento científico” (Rodríguez & Rodríguez Villoldo, 2025, p. 113). Además, el trabajo con distintas fuentes me permitió acercar a los estudiantes a diferentes perspectivas y construir explicaciones más complejas sobre la problemática, ya que su análisis posibilita “un acercamiento rico y complejo” a la realidad social (Rodríguez & Rodríguez Villoldo, 2025, p. 118). De esta manera, la propuesta buscó que los niños no solo comprendieran esa realidad, sino que también pudieran tomar una posición fundamentada frente a ella y pensar posibles formas de transformación (especialmente en la clase donde trabajamos diferentes actores sociales).",
+      "Al mirar este recorrido, considero que puedo reconocer un avance desde el Nivel III de Conceptualización trabajado en Ciencias Sociales y su Enseñanza, hacia el Nivel IV durante mi Residencia. Este nivel plantea el dominio de las áreas disciplinares y del vínculo existente entre ellas, así como la integración intencional, autónoma y flexible de los conocimientos disciplinares con los marcos analíticos de la formación docente y los marcos curriculares e institucionales (UCA, 2022).",
+      "Considero que esto lo trabajé al momento de articular intencionalmente Ciencias Naturales y Ciencias Sociales para comprender una misma problemática desde diferentes perspectivas. Esta articulación responde a una idea presente en el programa de la materia que explica que, aunque en el segundo ciclo comience una mayor diferenciación entre el estudio de lo social y lo natural, ambas áreas estudian una misma realidad y, por lo tanto, es necesario sostener un abordaje interdisciplinario (UCA, 2025). Durante la Residencia pude recuperar aprendizajes construidos previamente y utilizarlos con mayor autonomía para tomar decisiones sobre qué enseñar y cómo hacerlo (como expliqué anteriormente).",
+      "Finalmente, este recorrido me permitió comprender que conceptualizar va más allá de conocer aquello que voy a enseñar. Implica también poder investigarlo, interrogarlo desde diferentes marcos, establecer relaciones entre disciplinas y tomar decisiones fundamentadas en relación a la didáctica de cada área para transformarlo en una propuesta significativa para un grupo de niños en particular.",
+    ],
+    link: "https://docs.google.com/document/d/13Bv3XLvHm7H4y0JwhjBw9l_-KOtX0218/edit?usp=sharing&ouid=101111947899605011022&rtpof=true&sd=true",
+  },
+  {
+    titulo: 'Diagnóstico',
+    subtitulo: '[Subtítulo]',
+    texto: ['Texto de diagnóstico.'],
+    link: '',
+  },
+  {
+    titulo: 'Gestión efectiva',
+    subtitulo: '[Subtítulo]',
+    texto: ['Texto de gestión efectiva.'],
+    link: '',
+  },
+  {
+    titulo: 'Comunicación',
+    subtitulo: '[Subtítulo]',
+    texto: ['Texto de comunicación.'],
+    link: '',
+  },
+  {
+    titulo: 'Interacción Inclusiva',
+    subtitulo: '[Subtítulo]',
+    texto: ['Texto de interacción inclusiva.'],
+    link: '',
+  },
+];
+
 // ---------- 1er ciclo · Mensajes mientras no hay contenido ----------
 const mensajesPrimerCiclo = [
   'Acá va a haber algo muy importante. Todavía no sabemos qué.',
