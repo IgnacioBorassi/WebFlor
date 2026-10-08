@@ -546,8 +546,17 @@ p + p { margin-top: 1em; }
 }
 .ruta__boton[aria-expanded="true"] .ruta__hito svg { filter: drop-shadow(0 6px 10px color-mix(in srgb, var(--c) 45%, transparent)); }
 
-.ruta__desc { margin: .25rem 0 0 calc(var(--hito-col) + 1rem); padding: 0 1.25rem; animation: viewIn .4s cubic-bezier(.2, .7, .2, 1); }
-.ruta__desc[hidden] { display: none; }
+/* La descripción se despliega animando su alto (de 0fr a 1fr) */
+.ruta__desc {
+  margin: 0 0 0 calc(var(--hito-col) + 1rem); padding: 0 1.25rem;
+  display: grid; grid-template-rows: 0fr; opacity: 0;
+  transition: grid-template-rows .5s cubic-bezier(.2, .7, .2, 1), opacity .35s ease;
+}
+.ruta__desc.is-open { grid-template-rows: 1fr; opacity: 1; transition: grid-template-rows .5s cubic-bezier(.2, .7, .2, 1), opacity .45s ease .1s; }
+.ruta__desc-contenido { overflow: hidden; min-height: 0; }
+.ruta__desc-contenido > :first-child { margin-top: .25rem; }
+.ruta__desc-contenido > * { transform: translateY(-8px); transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+.ruta__desc.is-open .ruta__desc-contenido > * { transform: none; }
 .ruta__huella {
   display: inline-flex; align-items: center; gap: .45rem; margin-top: .9rem;
   padding: .55rem 1.05rem; border-radius: 999px; font-weight: 800; font-size: .92rem;
@@ -659,8 +668,8 @@ p + p { margin-top: 1em; }
   .ruta__hito { grid-column: 2; grid-row: 1; }
   .ruta__parada--izq .ruta__textos { grid-column: 1; grid-row: 1; margin-right: 1rem; }
   .ruta__parada--der .ruta__textos { grid-column: 3; grid-row: 1; margin-left: 1rem; }
-  .ruta__parada--izq .ruta__desc { grid-column: 1; margin: .25rem 1rem 0 0; }
-  .ruta__parada--der .ruta__desc { grid-column: 3; margin: .25rem 0 0 1rem; }
+  .ruta__parada--izq .ruta__desc { grid-column: 1; margin: 0 1rem 0 0; }
+  .ruta__parada--der .ruta__desc { grid-column: 3; margin: 0 0 0 1rem; }
   .ruta__parada--izq .ruta__boton:hover .ruta__textos { transform: translateX(-3px); }
 }
 .ruta__desc p { color: var(--ink-2); font-size: 1.05rem; line-height: 1.65; }
@@ -924,6 +933,7 @@ p + p { margin-top: 1em; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .ruta__desc, .ruta__desc-contenido > * { transition: none; }
   html { scroll-behavior: auto; }
   .fade, .letter.fade { opacity: 1; transform: none; transition: none; }
   .hint span, .wip__cone { animation: none; }

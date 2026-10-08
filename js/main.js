@@ -118,9 +118,11 @@ rutaEl.innerHTML = `
             ${FLECHA}
           </span>
         </button>
-        <div class="ruta__desc" id="parada-${i}" hidden>
-          <p>${esc(t.texto)}</p>
-          ${t.huella ? `<a class="ruta__huella" href="#huella-${t.huella}">${HUELLITAS} Ver huella de aprendizaje</a>` : ''}
+        <div class="ruta__desc" id="parada-${i}" inert>
+          <div class="ruta__desc-contenido">
+            <p>${esc(t.texto)}</p>
+            ${t.huella ? `<a class="ruta__huella" href="#huella-${t.huella}">${HUELLITAS} Ver huella de aprendizaje</a>` : ''}
+          </div>
         </div>
       </li>`).join('')}
   </ol>`;
@@ -129,15 +131,19 @@ const caminoSvg = rutaEl.querySelector('.ruta__camino');
 const hitosEls = [...rutaEl.querySelectorAll('.ruta__hito')];
 let hitosY = [];
 
-// Tocar una parada despliega u oculta su descripción
+// Tocar una parada despliega u oculta su descripción (con animación de altura en el CSS)
 rutaEl.addEventListener('click', (e) => {
   const btn = e.target.closest('.ruta__boton');
   if (!btn) return;
   const abrir = btn.getAttribute('aria-expanded') !== 'true';
   btn.setAttribute('aria-expanded', abrir);
-  document.getElementById(btn.getAttribute('aria-controls')).hidden = !abrir;
-  dibujarCamino();
+  const desc = document.getElementById(btn.getAttribute('aria-controls'));
+  desc.classList.toggle('is-open', abrir);
+  desc.inert = !abrir; // cerrada: su link no se puede alcanzar con el teclado
 });
+// Mientras una descripción se abre o se cierra, la ruta cambia de alto:
+// se redibuja en cada cuadro para que el camino y los hitos acompañen el movimiento
+new ResizeObserver(() => dibujarCamino()).observe(rutaEl.querySelector('.ruta__paradas'));
 
 // Dibuja el camino que baja serpenteando por los hitos (medidos sin transformaciones)
 function dibujarCamino() {
@@ -276,13 +282,39 @@ visor.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') mostrarFoto(visorI + 1);
 });
 
-// El camino se pinta hasta la altura de 2/3 de la pantalla, y los hitos alcanzados se encienden
-function actualizarCamino() {
+// El camino se pinta hasta la altura de 2/3 de la pantalla, y los hitos alcanzados se encienden.
+// El pintado no copia el scroll de golpe: lo persigue suavemente (rápido al principio, frena al llegar).
+const sinAnimaciones = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let caminoActual = null;
+let caminoObjetivo = 0;
+let caminoRaf = 0;
+
+function pintarCamino() {
   const avance = caminoSvg.querySelector('.ruta__avance');
   if (!avance) return;
-  const hasta = clamp(innerHeight * 0.66 - rutaEl.getBoundingClientRect().top, 0, rutaEl.offsetHeight);
-  avance.setAttribute('height', hasta);
-  hitosEls.forEach((hito, i) => hito.classList.toggle('is-done', hitosY[i] <= hasta));
+  avance.setAttribute('height', caminoActual);
+  hitosEls.forEach((hito, i) => hito.classList.toggle('is-done', hitosY[i] <= caminoActual));
+}
+
+function animarCamino() {
+  caminoRaf = 0;
+  const falta = caminoObjetivo - caminoActual;
+  if (Math.abs(falta) < 0.5) {
+    caminoActual = caminoObjetivo;
+  } else {
+    caminoActual += falta * 0.08;
+    caminoRaf = requestAnimationFrame(animarCamino);
+  }
+  pintarCamino();
+}
+
+function actualizarCamino() {
+  if (!caminoSvg.querySelector('.ruta__avance')) return;
+  caminoObjetivo = clamp(innerHeight * 0.66 - rutaEl.getBoundingClientRect().top, 0, rutaEl.offsetHeight);
+  // Al cargar la página (o sin animaciones) arranca directo en su lugar
+  if (caminoActual === null || sinAnimaciones) caminoActual = caminoObjetivo;
+  pintarCamino(); // el camino se redibuja al abrir una parada: se repinta ya, sin esperar al próximo cuadro
+  if (!caminoRaf) caminoRaf = requestAnimationFrame(animarCamino);
 }
 
 // =========================================================
