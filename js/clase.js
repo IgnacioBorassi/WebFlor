@@ -7,32 +7,45 @@ if (!Number.isInteger(num) || num < 1 || num > total) {
   throw new Error('Clase inexistente');
 }
 
+// Los datos de cada clase vienen de la ruta (js/datos.js): título, fase, texto y su huella.
+// Las fotos se toman de la huella de aprendizaje asociada.
+const tituloDe = (t) => t.titulo || t.tema || '';
+const fotosDeHuella = (id) => {
+  const h = huellas.find((x) => x.id === id);
+  if (!h) return [];
+  return h.momentos.flatMap((m) => [...(m.fotos || []), ...(m.pasos || []).map((p) => p.foto)])
+    .filter(Boolean)
+    .map((f) => ({ src: f.src, pie: f.alt }));
+};
+
 const clase = trayectoria[num - 1];
-const [portada, ...galeria] = clase.fotos;
+const parrafos = [].concat(clase.texto || []);
+const fotos = clase.fotos || fotosDeHuella(clase.huella);
+const [portada, ...galeria] = fotos;
 const anterior = trayectoria[num - 2];
 const siguiente = trayectoria[num];
 
-document.title = `Clase ${num} · ${clase.tema} | Flor`;
+document.title = `Clase ${num} · ${tituloDe(clase)} | Flor`;
 document.documentElement.style.setProperty('--c', colorFase(clase.fase));
 
 const main = document.getElementById('clase');
 main.innerHTML = `
   <section class="clase-hero">
-    <a href="index.html#clase-${num}" class="btn-back"><span aria-hidden="true">←</span> Volver a la trayectoria</a>
+    <a href="index.html#desempenos" class="btn-back"><span aria-hidden="true">←</span> Volver a los desempeños</a>
     <nav class="mini-path" aria-label="Ir a otra clase">
       <p class="mini-path__label">Ir a otra clase</p>
       <div class="mini-path__dots">
         ${trayectoria.map((t, i) => `
-          <a href="clase.html?n=${i + 1}" style="--c:${colorFase(t.fase)}" data-tema="${esc(t.tema)}"
+          <a href="clase.html?n=${i + 1}" style="--c:${colorFase(t.fase)}" data-tema="${esc(tituloDe(t))}"
              class="${i + 1 === num ? 'is-current' : ''}" ${i + 1 === num ? 'aria-current="page"' : ''}
-             aria-label="Clase ${i + 1}: ${esc(t.tema)}">${i + 1}</a>`).join('')}
+             aria-label="Clase ${i + 1}: ${esc(tituloDe(t))}">${i + 1}</a>`).join('')}
       </div>
     </nav>
     <div class="clase-hero__top">
       <span class="pill">${esc(clase.fase)}</span>
       <small>Clase ${num} de ${total}</small>
     </div>
-    <h1>${esc(clase.tema)}</h1>
+    <h1>${esc(tituloDe(clase))}</h1>
   </section>
 
   ${portada ? `
@@ -42,7 +55,7 @@ main.innerHTML = `
   </figure>` : ''}
 
   <section class="clase-text narrow">
-    ${clase.texto.map((p, i) => `<p class="${i === 0 ? 'lead ' : ''}fade">${esc(p)}</p>`).join('')}
+    ${parrafos.map((p, i) => `<p class="${i === 0 ? 'lead ' : ''}fade">${esc(p)}</p>`).join('')}
   </section>
 
   ${galeria.length ? `
@@ -56,11 +69,11 @@ main.innerHTML = `
 
   <nav class="clase-nav">
     ${anterior
-      ? `<a href="clase.html?n=${num - 1}" style="--c:${colorFase(anterior.fase)}"><small>← Clase ${num - 1}</small><strong>${esc(anterior.tema)}</strong></a>`
-      : `<a href="index.html#clase-${num}"><small>←</small><strong>Volver a la trayectoria</strong></a>`}
+      ? `<a href="clase.html?n=${num - 1}" style="--c:${colorFase(anterior.fase)}"><small>← Clase ${num - 1}</small><strong>${esc(tituloDe(anterior))}</strong></a>`
+      : `<a href="index.html#desempenos"><small>←</small><strong>Volver a los desempeños</strong></a>`}
     ${siguiente
-      ? `<a href="clase.html?n=${num + 1}" class="clase-nav__next" style="--c:${colorFase(siguiente.fase)}"><small>Clase ${num + 1} →</small><strong>${esc(siguiente.tema)}</strong></a>`
-      : `<a href="index.html#clase-${num}" class="clase-nav__next"><small>→</small><strong>Volver a la trayectoria</strong></a>`}
+      ? `<a href="clase.html?n=${num + 1}" class="clase-nav__next" style="--c:${colorFase(siguiente.fase)}"><small>Clase ${num + 1} →</small><strong>${esc(tituloDe(siguiente))}</strong></a>`
+      : `<a href="index.html#desempenos" class="clase-nav__next"><small>→</small><strong>Volver a los desempeños</strong></a>`}
   </nav>`;
 
 // Portada que se agranda al scrollear + barra de progreso
@@ -92,7 +105,7 @@ const lightboxImg = document.getElementById('lightboxImg');
 const lightboxCaption = document.getElementById('lightboxCaption');
 
 main.querySelectorAll('[data-foto]').forEach((fig) => {
-  const foto = clase.fotos[Number(fig.dataset.foto)];
+  const foto = fotos[Number(fig.dataset.foto)];
   if (!foto.src) return;
   fig.classList.add('is-zoomable');
   fig.addEventListener('click', () => {
