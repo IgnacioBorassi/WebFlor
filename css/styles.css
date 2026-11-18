@@ -158,7 +158,6 @@ p + p { margin-top: 1em; }
 }
 .subnav.is-visible { opacity: 1; pointer-events: auto; transform: translate(0, -50%); }
 .subnav a { display: flex; align-items: center; justify-content: flex-end; gap: .55rem; padding: .3rem 0; }
-.subnav a[hidden] { display: none; }
 .subnav a::after {
   content: ""; width: 7px; height: 7px; border-radius: 999px; flex-shrink: 0;
   background: color-mix(in srgb, var(--ink-2) 45%, transparent);
@@ -397,102 +396,6 @@ p + p { margin-top: 1em; }
   max-width: 1100px; margin: 0 auto 1.5rem;
   display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem;
 }
-/* =========================================================
-   1er y 2do ciclo: toggle para elegir el ciclo
-   ========================================================= */
-.ciclos__head { padding-bottom: 0; }
-.ciclo-toggle {
-  --pad: 6px;
-  position: relative; isolation: isolate;
-  display: grid; grid-template-columns: 1fr 1fr;
-  padding: var(--pad); border-radius: 999px;
-  background: var(--card);
-  box-shadow: 0 0 0 1px var(--line), 0 22px 44px -26px rgba(30, 20, 70, .38);
-}
-.ciclo-toggle--grande { width: min(480px, 100%); margin: 0 auto; }
-/* La pastilla de color se desliza detrás del ciclo elegido */
-.ciclo-toggle__pastilla {
-  position: absolute; z-index: -1; top: var(--pad); bottom: var(--pad); left: var(--pad);
-  width: calc(50% - var(--pad)); border-radius: 999px;
-  background: linear-gradient(135deg, var(--destacado), var(--accent-2));
-  box-shadow: 0 12px 26px -12px color-mix(in srgb, var(--destacado) 75%, transparent);
-  transition: transform .55s cubic-bezier(.65, 0, .25, 1.2);
-}
-.ciclo-toggle[data-activo="2"] .ciclo-toggle__pastilla { transform: translateX(100%); }
-.ciclo-toggle.sin-transicion .ciclo-toggle__pastilla { transition: none; }
-.ciclo-toggle__btn {
-  display: flex; align-items: baseline; justify-content: center; gap: .35rem;
-  padding: .85rem 1.4rem; border-radius: 999px;
-  font-weight: 800; font-size: clamp(1rem, 2vw, 1.25rem); color: var(--ink-2);
-  transition: color .35s;
-}
-.ciclo-toggle__num { font-size: 1.55em; font-weight: 900; letter-spacing: -0.03em; }
-.ciclo-toggle__btn:hover:not([aria-pressed="true"]) { color: var(--ink); }
-.ciclo-toggle__btn[aria-pressed="true"] { color: #fff; }
-.ciclo-toggle__btn:focus-visible { outline: 2px solid var(--destacado); outline-offset: 3px; }
-
-/* Versión chica que flota abajo mientras recorrés un ciclo */
-.ciclo-toggle--flotante {
-  --pad: 4px;
-  position: fixed; left: 50%; bottom: 1.1rem; z-index: 45;
-  background: color-mix(in srgb, var(--card) 88%, transparent);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  opacity: 0; pointer-events: none; transform: translate(-50%, 140%);
-  transition: opacity .3s, transform .45s cubic-bezier(.2, .7, .2, 1);
-}
-.ciclo-toggle--flotante.is-visible { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
-.ciclo-toggle--flotante .ciclo-toggle__btn { padding: .5rem 1.05rem; font-size: .88rem; }
-.ciclo-toggle--flotante .ciclo-toggle__num { font-size: 1.2em; }
-
-/* Al cambiar de ciclo, el contenido nuevo entra subiendo apenas */
-.ciclo.is-entrando { animation: cicloEntra .6s cubic-bezier(.2, .7, .2, 1); }
-@keyframes cicloEntra { from { opacity: 0; transform: translateY(18px); } }
-
-/* Contenido que todavía no está: el texto se ve como barras grises
-   (cada renglón es una barra), así el diseño ya queda armado */
-.relleno {
-  color: transparent; user-select: none;
-  background: color-mix(in srgb, var(--ink) 10%, transparent); border-radius: 6px;
-  -webkit-box-decoration-break: clone; box-decoration-break: clone;
-  animation: rellenoLatido 2.2s ease-in-out infinite;
-}
-.chip .relleno { background: color-mix(in srgb, var(--destacado) 22%, transparent); }
-.plan-card--hilo .relleno { background: rgba(255, 255, 255, .32); }
-/* Fotos que todavía no están: recuadro gris liso */
-.ciclo .ph { background: color-mix(in srgb, var(--ink) 8%, transparent); color: transparent; animation: rellenoLatido 2.2s ease-in-out infinite; }
-@keyframes rellenoLatido { 50% { opacity: .55; } }
-@media (prefers-reduced-motion: reduce) { .relleno, .ciclo .ph { animation: none; } }
-
-/* 1er ciclo · Huellas de aprendizaje en video */
-.video { max-width: 980px; margin: 0 auto; }
-.video__pantalla {
-  position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden;
-  background: #15121f; box-shadow: 0 30px 60px -30px rgba(30, 20, 70, .45);
-}
-.video__pantalla iframe, .video__pantalla video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-.video__pantalla--vacia {
-  display: grid; place-items: center; align-content: center; gap: 1.2rem; padding: 1.5rem; text-align: center;
-  background:
-    radial-gradient(circle at 25% 15%, color-mix(in srgb, var(--destacado) 55%, transparent), transparent 55%),
-    radial-gradient(circle at 85% 90%, color-mix(in srgb, var(--accent-2) 45%, transparent), transparent 50%),
-    #15121f;
-}
-/* Barra de progreso de mentira, para que se lea como reproductor */
-.video__pantalla--vacia::after {
-  content: ""; position: absolute; left: 1.4rem; right: 1.4rem; bottom: 1.2rem; height: 4px; border-radius: 4px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, .85) 0 8%, rgba(255, 255, 255, .22) 8%);
-}
-.video__play {
-  display: grid; place-items: center; width: clamp(64px, 10vw, 88px); aspect-ratio: 1; border-radius: 50%;
-  background: rgba(255, 255, 255, .14); box-shadow: 0 0 0 1px rgba(255, 255, 255, .35);
-  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-  animation: latido 2.4s ease-in-out infinite;
-}
-.video__play svg { width: 42%; fill: #fff; margin-left: 8%; }
-.video__aviso { max-width: 34ch; color: rgba(255, 255, 255, .8); font-weight: 700; font-size: clamp(.9rem, 1.6vw, 1.05rem); line-height: 1.4; }
-@keyframes latido { 50% { box-shadow: 0 0 0 1px rgba(255, 255, 255, .35), 0 0 0 14px rgba(255, 255, 255, .06); } }
-@media (prefers-reduced-motion: reduce) { .video__play { animation: none; } }
-
 .switch { display: inline-flex; background: var(--card); padding: 4px; border-radius: 999px; box-shadow: 0 0 0 1px var(--line); }
 .switch__btn { padding: .55rem 1.2rem; border-radius: 999px; font-weight: 800; font-size: .9rem; color: var(--ink-2); transition: background .25s, color .25s; }
 .switch__btn.is-active { background: var(--ink); color: var(--bg); }

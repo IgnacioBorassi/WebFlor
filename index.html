@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=141">
+  <link rel="stylesheet" href="css/styles.css?v=142">
 </head>
 <body>
 
@@ -24,7 +24,8 @@
       <a href="#inicio">Inicio</a>
       <a href="#presentacion">Presentación</a>
       <a href="#escuela">La escuela</a>
-      <a href="#ciclos">Ciclos</a>
+      <a href="#primer-ciclo">1er ciclo</a>
+      <a href="#segundo-ciclo">2do ciclo</a>
       <a href="#carta">Carta</a>
       <a href="#proyeccion">Proyección</a>
       <a href="#autoevaluacion">Autoevaluación</a>
@@ -32,22 +33,15 @@
     <div class="bar__progress" id="progress"></div>
   </header>
 
-  <!-- Toggle flotante: aparece abajo mientras recorrés los ciclos -->
-  <div class="ciclo-toggle ciclo-toggle--flotante" id="cicloFlotante" role="group" aria-label="Elegir ciclo">
-    <span class="ciclo-toggle__pastilla" aria-hidden="true"></span>
-    <button class="ciclo-toggle__btn" type="button" data-ciclo="1" aria-pressed="true"><span class="ciclo-toggle__num">1er</span> ciclo</button>
-    <button class="ciclo-toggle__btn" type="button" data-ciclo="2" aria-pressed="false"><span class="ciclo-toggle__num">2do</span> ciclo</button>
-  </div>
-
-  <!-- Submenú de los ciclos: puntitos a la derecha con las secciones del ciclo elegido -->
-  <nav class="subnav" id="subnav" aria-label="Secciones del ciclo">
-    <a href="#curso" data-sec="curso"><span class="subnav__texto">El curso</span></a>
-    <a href="#planificacion" data-sec="planificacion"><span class="subnav__texto">Planificación</span></a>
-    <a href="#marcos" data-sec="marcos"><span class="subnav__texto">Marcos teóricos</span></a>
-    <a href="#desempenos" data-sec="desempenos"><span class="subnav__texto">Desempeños</span></a>
-    <a href="#huellas" data-sec="huellas"><span class="subnav__texto">Huellas</span></a>
-    <a href="#reflexion" data-sec="reflexion"><span class="subnav__texto">Reflexión</span></a>
-    <a href="#identidad" data-sec="identidad"><span class="subnav__texto">Identidad AIE</span></a>
+  <!-- Submenú de 2do ciclo: puntitos a la derecha mientras estás en esa sección -->
+  <nav class="subnav" id="subnav" aria-label="Secciones de 2do ciclo">
+    <a href="#curso"><span class="subnav__texto">El curso</span></a>
+    <a href="#planificacion"><span class="subnav__texto">Planificación</span></a>
+    <a href="#marcos"><span class="subnav__texto">Marcos teóricos</span></a>
+    <a href="#desempenos"><span class="subnav__texto">Desempeños</span></a>
+    <a href="#huellas"><span class="subnav__texto">Huellas</span></a>
+    <a href="#reflexion"><span class="subnav__texto">Reflexión</span></a>
+    <a href="#identidad"><span class="subnav__texto">Identidad AIE</span></a>
   </nav>
 
   <main>
@@ -213,123 +207,30 @@
       </section>
     </div>
 
-    <!-- ===================== 1ER Y 2DO CICLO ===================== -->
-    <!-- Las dos residencias tienen las mismas secciones: el toggle cambia entre una y otra -->
-    <div class="ciclos chapter" id="ciclos">
-      <section class="block ciclos__head">
+    <!-- ===================== 1ER CICLO (todavía vacío) ===================== -->
+    <div class="chapter" id="primer-ciclo">
+      <section class="block block--alt">
         <div class="chapter-head chapter-head--center fade">
           <span class="chapter-num">03</span>
-          <h2>Ciclos</h2>
+          <h2>1er ciclo</h2>
         </div>
-        <div class="ciclo-toggle ciclo-toggle--grande fade" role="group" aria-label="Elegir ciclo">
-          <span class="ciclo-toggle__pastilla" aria-hidden="true"></span>
-          <button class="ciclo-toggle__btn" type="button" data-ciclo="1" aria-pressed="true"><span class="ciclo-toggle__num">1er</span> ciclo</button>
-          <button class="ciclo-toggle__btn" type="button" data-ciclo="2" aria-pressed="false"><span class="ciclo-toggle__num">2do</span> ciclo</button>
+        <div class="wip fade">
+          <div class="wip__cone" id="wipCone" aria-hidden="true">🚧</div>
+          <p class="wip__msg" id="wipMsg" aria-live="polite">Acá va a haber algo muy importante. Todavía no sabemos qué.</p>
+          <button class="btn" id="wipBtn">¿Y ahora?</button>
         </div>
       </section>
+    </div>
 
-      <!-- ===================== 1ER CICLO ===================== -->
-      <!-- Por ahora con texto de relleno. La planificación, la ruta y el video se editan en js/datos.js (const primerCiclo). -->
-      <div class="ciclo chapter" id="primer-ciclo" data-ciclo="1">
-
-        <!-- El curso -->
-        <section class="block" id="c1-curso" data-nav data-sec="curso">
-          <div class="curso">
-            <div class="narrow texto-justificado">
-              <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M10 8 H90 V56 H10 Z"/><path pathLength="1" d="M16 56 V61 H84 V56"/><path pathLength="1" d="M30 61 L24 76 M70 61 L76 76"/></g><g class="garabato__acento"><path pathLength="1" d="M40 26 L47 20 V46 M41 46 H53"/><path pathLength="1" d="M58 22 a3 3 0 1 0 .01 0"/><path pathLength="1" d="M62 44 q4 -4 8 0 t8 0"/></g></svg>
-              <p class="kicker fade">El curso</p>
-              <h3 class="h-lg fade"><span class="relleno">Lorem ipsum grado</span></h3>
-              <p class="fade"><span class="relleno">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>
-              <p class="fade"><span class="relleno">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>
-            </div>
-            <div class="curso__fotos">
-              <figure class="fade"><div class="ph">Foto</div></figure>
-              <figure class="fade"><div class="ph">Foto</div></figure>
-            </div>
-            <div class="narrow texto-justificado curso__perfil">
-              <div class="fade"><p><span class="relleno">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p></div>
-              <div class="fade"><p><span class="relleno">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p></div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Planificación -->
-        <section class="block block--alt" id="c1-planificacion" data-nav data-sec="planificacion">
-          <div class="plan-intro">
-            <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M22 12 H78 V76 H22 Z"/><path pathLength="1" d="M40 7 H60 V16 H40 Z"/><path pathLength="1" d="M46 30 H70 M46 46 H70 M46 62 H64"/><path pathLength="1" d="M30 25 h9 v9 h-9 Z M30 41 h9 v9 h-9 Z M30 57 h9 v9 h-9 Z"/></g><g class="garabato__acento"><path pathLength="1" d="M29 29 l5 5 l9 -11"/><path pathLength="1" d="M29 45 l5 5 l9 -11"/><path pathLength="1" d="M29 61 l5 5 l9 -11"/></g></svg>
-            <p class="kicker fade">Planificación</p>
-            <h3 class="h-lg fade">Propuesta de enseñanza</h3>
-            <div class="texto-justificado">
-              <p class="fade"><span class="relleno">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>
-              <p class="fade"><span class="relleno">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>
-            </div>
-          </div>
-          <div class="plan-head fade">
-          <div class="plan-meta"></div>
-          <div class="switch" role="group" aria-label="Formato de la planificación">
-            <button class="switch__btn is-active" data-view="cards" aria-pressed="true">Resumen</button>
-            <button class="switch__btn" data-view="table" aria-pressed="false">Cuadro</button>
-          </div>
-        </div>
-          <div class="plan"></div>
-        </section>
-
-        <!-- Marcos teóricos -->
-        <section class="block marco" id="c1-marcos" data-nav data-sec="marcos">
-          <div class="narrow">
-            <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M14 76 H86 V64 H14 Z"/><path pathLength="1" d="M20 64 H80 V52 H20 Z"/><path pathLength="1" d="M16 52 H76 V40 H16 Z"/><path pathLength="1" d="M24 76 V64 M72 64 V52 M26 52 V40"/></g><g class="garabato__acento"><path pathLength="1" d="M47 40 C38 40 36 27 44 25 C46 26 48 26 50 25 C58 27 56 40 48 40 Z"/><path pathLength="1" d="M48 25 q2 -7 9 -7 q-2 7 -9 7"/></g></svg>
-            <h3 class="marco__titulo fade"><span>Fundamentación desde los</span> <span class="destacado">Marcos Teóricos</span></h3>
-            <div class="texto-justificado">
-              <p class="fade"><span class="relleno">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>
-              <p class="fade"><span class="relleno">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>
-              <p class="fade"><span class="relleno">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>
-            </div>
-          </div>
-        </section>
-
-        <!-- Huellas de aprendizaje: en 1er ciclo son un video -->
-        <section class="block block--alt huellas" id="c1-huellas" data-nav data-sec="huellas">
-          <div class="path-head fade">
-            <svg class="garabato garabato--huellas fade" viewBox="0 0 100 80" aria-hidden="true"><g></g><g class="garabato__acento"><path pathLength="1" d="M17 66 a5 8 0 1 0 10 0 a5 8 0 1 0 -10 0 M16.5 55 a1.7 1.7 0 1 0 .01 0 M20.5 52.5 a1.7 1.7 0 1 0 .01 0 M24.5 52.5 a1.7 1.7 0 1 0 .01 0 M28 55 a1.7 1.7 0 1 0 .01 0" transform="rotate(20 22 66)" style="--d:0.0s"/><path pathLength="1" d="M37 52 a5 8 0 1 0 10 0 a5 8 0 1 0 -10 0 M36.5 41 a1.7 1.7 0 1 0 .01 0 M40.5 38.5 a1.7 1.7 0 1 0 .01 0 M44.5 38.5 a1.7 1.7 0 1 0 .01 0 M48 41 a1.7 1.7 0 1 0 .01 0" transform="rotate(-10 42 52)" style="--d:0.25s"/><path pathLength="1" d="M51 40 a5 8 0 1 0 10 0 a5 8 0 1 0 -10 0 M50.5 29 a1.7 1.7 0 1 0 .01 0 M54.5 26.5 a1.7 1.7 0 1 0 .01 0 M58.5 26.5 a1.7 1.7 0 1 0 .01 0 M62 29 a1.7 1.7 0 1 0 .01 0" transform="rotate(25 56 40)" style="--d:0.5s"/><path pathLength="1" d="M71 26 a5 8 0 1 0 10 0 a5 8 0 1 0 -10 0 M70.5 15 a1.7 1.7 0 1 0 .01 0 M74.5 12.5 a1.7 1.7 0 1 0 .01 0 M78.5 12.5 a1.7 1.7 0 1 0 .01 0 M82 15 a1.7 1.7 0 1 0 .01 0" transform="rotate(-5 76 26)" style="--d:0.75s"/></g></svg>
-            <p class="kicker">1er ciclo</p>
-            <h3 class="h-lg">Huellas de aprendizaje</h3>
-          </div>
-          <div class="video fade" id="c1-video"></div>
-        </section>
-
-        <!-- Síntesis de la práctica reflexiva -->
-        <section class="block marco reflexion" id="c1-reflexion" data-nav data-sec="reflexion">
-          <div class="narrow">
-            <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M38 54 C24 44 26 18 50 16 C74 18 76 44 62 54 V62 H38 Z"/><path pathLength="1" d="M40 67 H60 M43 72 H57"/></g><g class="garabato__acento"><path pathLength="1" d="M45 54 V44 M55 54 V44 M45 44 q2.5 -6 5 0 q2.5 6 5 0"/><path pathLength="1" d="M50 3 V10 M24 12 L28 17 M76 12 L72 17 M15 32 H22 M78 32 H85"/></g></svg>
-            <h3 class="marco__titulo fade"><span>Síntesis de la</span> <span class="destacado">Práctica Reflexiva</span></h3>
-            <div class="texto-justificado">
-              <p class="fade"><span class="relleno">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>
-              <p class="fade"><span class="relleno">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>
-              <p class="fade"><span class="relleno">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>
-            </div>
-          </div>
-        </section>
-
-        <!-- Construcción de identidad docente AIE (mismos sobres que en 2do ciclo) -->
-        <section class="block identidad" id="c1-identidad" data-nav data-sec="identidad">
-          <div class="identidad__grid">
-            <div class="identidad__head fade">
-              <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M24 14 H76 Q82 14 82 20 V66 Q82 72 76 72 H24 Q18 72 18 66 V20 Q18 14 24 14 Z"/><path pathLength="1" d="M44 14 V7 H56 V14"/><path pathLength="1" d="M28 28 H46 V52 H28 Z"/><path pathLength="1" d="M54 32 H72 M54 40 H67 M54 48 H70"/><path pathLength="1" d="M28 62 H72"/></g><g class="garabato__acento"><path pathLength="1" d="M37 32 a4.5 4.5 0 1 0 .01 0"/><path pathLength="1" d="M30 51 C31 43 43 43 44 51"/><path pathLength="1" d="M88 4 V14 M83 9 H93"/></g></svg>
-              <p class="kicker">1er ciclo</p>
-              <h3 class="h-lg">Construcción de identidad docente <span class="destacado">AIE</span></h3>
-              <p class="identidad__intro">En esta sección van a encontrar un recorrido por las cinco aptitudes profesionales que acompañaron mi formación docente. A través de la selección de distintas evidencias y de una reflexión sobre cada una de ellas, busco mostrar cómo fui construyendo y desarrollando estas aptitudes a lo largo de mi trayectoria, reconociendo los aprendizajes alcanzados, los desafíos que se me presentaron y aquellos aspectos en los que todavía tengo que seguir creciendo.</p>
-              <p class="identidad__ayuda">Tocá un sobre para abrirlo.</p>
-            </div>
-            <div class="aie"></div>
-          </div>
-        </section>
-      </div>
-
-      <!-- ===================== 2DO CICLO ===================== -->
-      <div class="ciclo chapter" id="segundo-ciclo" data-ciclo="2" hidden>
+    <!-- ===================== 2DO CICLO ===================== -->
+    <div class="chapter" id="segundo-ciclo">
 
       <!-- El curso -->
-      <section class="block" id="curso" data-nav data-sec="curso">
+      <section class="block" id="curso" data-nav>
+        <div class="chapter-head fade">
+          <span class="chapter-num">04</span>
+          <h2>2do ciclo</h2>
+        </div>
         <div class="curso">
           <div class="narrow texto-justificado">
             <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M10 8 H90 V56 H10 Z"/><path pathLength="1" d="M16 56 V61 H84 V56"/><path pathLength="1" d="M30 61 L24 76 M70 61 L76 76"/></g><g class="garabato__acento"><path pathLength="1" d="M46 20 C36 22 34 40 40 45 C46 50 53 44 51 38 C49 32 41 32 39 40"/><path pathLength="1" d="M58 22 a3 3 0 1 0 .01 0"/><path pathLength="1" d="M62 44 q4 -4 8 0 t8 0"/></g></svg>
@@ -362,7 +263,7 @@
       </section>
 
       <!-- Planificación (se completa desde js/datos.js) -->
-      <section class="block block--alt" id="planificacion" data-nav data-sec="planificacion">
+      <section class="block block--alt" id="planificacion" data-nav>
         <div class="plan-intro">
           <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M22 12 H78 V76 H22 Z"/><path pathLength="1" d="M40 7 H60 V16 H40 Z"/><path pathLength="1" d="M46 30 H70 M46 46 H70 M46 62 H64"/><path pathLength="1" d="M30 25 h9 v9 h-9 Z M30 41 h9 v9 h-9 Z M30 57 h9 v9 h-9 Z"/></g><g class="garabato__acento"><path pathLength="1" d="M29 29 l5 5 l9 -11"/><path pathLength="1" d="M29 45 l5 5 l9 -11"/><path pathLength="1" d="M29 61 l5 5 l9 -11"/></g></svg>
           <p class="kicker fade">Planificación</p>
@@ -374,13 +275,13 @@
           </div>
         </div>
         <div class="plan-head fade">
-          <div class="plan-meta"></div>
+          <div class="plan-meta" id="planMeta"></div>
           <div class="switch" role="group" aria-label="Formato de la planificación">
             <button class="switch__btn is-active" data-view="cards" aria-pressed="true">Resumen</button>
             <button class="switch__btn" data-view="table" aria-pressed="false">Cuadro</button>
           </div>
         </div>
-        <div class="plan"></div>
+        <div class="plan" id="plan"></div>
         <div class="plan-doc fade">
           <a class="btn btn--cv" href="https://docs.google.com/document/d/1JCw1x9GQuauGVeQMQvZYcD9rOQG-HNDt/edit?usp=sharing&amp;ouid=101111947899605011022&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>
@@ -390,7 +291,7 @@
       </section>
 
       <!-- Marcos teóricos -->
-      <section class="block marco" id="marcos" data-nav data-sec="marcos">
+      <section class="block marco" id="marcos" data-nav>
         <div class="narrow">
           <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M14 76 H86 V64 H14 Z"/><path pathLength="1" d="M20 64 H80 V52 H20 Z"/><path pathLength="1" d="M16 52 H76 V40 H16 Z"/><path pathLength="1" d="M24 76 V64 M72 64 V52 M26 52 V40"/></g><g class="garabato__acento"><path pathLength="1" d="M47 40 C38 40 36 27 44 25 C46 26 48 26 50 25 C58 27 56 40 48 40 Z"/><path pathLength="1" d="M48 25 q2 -7 9 -7 q-2 7 -9 7"/></g></svg>
           <h3 class="marco__titulo fade"><span>Fundamentación desde los</span> <span class="destacado">Marcos Teóricos</span></h3>
@@ -404,17 +305,17 @@
       </section>
 
       <!-- Los desempeños más significativos (se completa desde js/datos.js) -->
-      <section class="block block--alt desempenos" id="desempenos" data-nav data-sec="desempenos">
+      <section class="block block--alt desempenos" id="desempenos" data-nav>
         <div class="path-head fade">
           <p class="kicker">2do ciclo</p>
           <h3 class="h-lg">Los desempeños más significativos</h3>
           <p class="path__hint">Tocá cada parada de la ruta para ver qué hicimos.</p>
         </div>
-        <div class="ruta"></div>
+        <div class="ruta" id="ruta"></div>
       </section>
 
       <!-- Huellas de aprendizaje (se completa desde js/datos.js) -->
-      <section class="block huellas" id="huellas" data-nav data-sec="huellas">
+      <section class="block huellas" id="huellas" data-nav>
         <div class="path-head fade">
           <svg class="garabato garabato--huellas fade" viewBox="0 0 100 80" aria-hidden="true"><g></g><g class="garabato__acento"><path pathLength="1" d="M17 66 a5 8 0 1 0 10 0 a5 8 0 1 0 -10 0 M16.5 55 a1.7 1.7 0 1 0 .01 0 M20.5 52.5 a1.7 1.7 0 1 0 .01 0 M24.5 52.5 a1.7 1.7 0 1 0 .01 0 M28 55 a1.7 1.7 0 1 0 .01 0" transform="rotate(20 22 66)" style="--d:0.0s"/><path pathLength="1" d="M37 52 a5 8 0 1 0 10 0 a5 8 0 1 0 -10 0 M36.5 41 a1.7 1.7 0 1 0 .01 0 M40.5 38.5 a1.7 1.7 0 1 0 .01 0 M44.5 38.5 a1.7 1.7 0 1 0 .01 0 M48 41 a1.7 1.7 0 1 0 .01 0" transform="rotate(-10 42 52)" style="--d:0.25s"/><path pathLength="1" d="M51 40 a5 8 0 1 0 10 0 a5 8 0 1 0 -10 0 M50.5 29 a1.7 1.7 0 1 0 .01 0 M54.5 26.5 a1.7 1.7 0 1 0 .01 0 M58.5 26.5 a1.7 1.7 0 1 0 .01 0 M62 29 a1.7 1.7 0 1 0 .01 0" transform="rotate(25 56 40)" style="--d:0.5s"/><path pathLength="1" d="M71 26 a5 8 0 1 0 10 0 a5 8 0 1 0 -10 0 M70.5 15 a1.7 1.7 0 1 0 .01 0 M74.5 12.5 a1.7 1.7 0 1 0 .01 0 M78.5 12.5 a1.7 1.7 0 1 0 .01 0 M82 15 a1.7 1.7 0 1 0 .01 0" transform="rotate(-5 76 26)" style="--d:0.75s"/></g></svg>
           <p class="kicker">2do ciclo</p>
@@ -424,7 +325,7 @@
       </section>
 
       <!-- Síntesis de la práctica reflexiva -->
-      <section class="block block--alt marco reflexion" id="reflexion" data-nav data-sec="reflexion">
+      <section class="block block--alt marco reflexion" id="reflexion" data-nav>
         <div class="narrow">
           <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M38 54 C24 44 26 18 50 16 C74 18 76 44 62 54 V62 H38 Z"/><path pathLength="1" d="M40 67 H60 M43 72 H57"/></g><g class="garabato__acento"><path pathLength="1" d="M45 54 V44 M55 54 V44 M45 44 q2.5 -6 5 0 q2.5 6 5 0"/><path pathLength="1" d="M50 3 V10 M24 12 L28 17 M76 12 L72 17 M15 32 H22 M78 32 H85"/></g></svg>
           <h3 class="marco__titulo fade"><span>Síntesis de la</span> <span class="destacado">Práctica Reflexiva</span></h3>
@@ -442,7 +343,7 @@
       </section>
 
       <!-- Construcción de identidad docente AIE -->
-      <section class="block identidad" id="identidad" data-nav data-sec="identidad">
+      <section class="block identidad" id="identidad" data-nav>
         <div class="identidad__grid">
           <div class="identidad__head fade">
             <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M24 14 H76 Q82 14 82 20 V66 Q82 72 76 72 H24 Q18 72 18 66 V20 Q18 14 24 14 Z"/><path pathLength="1" d="M44 14 V7 H56 V14"/><path pathLength="1" d="M28 28 H46 V52 H28 Z"/><path pathLength="1" d="M54 32 H72 M54 40 H67 M54 48 H70"/><path pathLength="1" d="M28 62 H72"/></g><g class="garabato__acento"><path pathLength="1" d="M37 32 a4.5 4.5 0 1 0 .01 0"/><path pathLength="1" d="M30 51 C31 43 43 43 44 51"/><path pathLength="1" d="M88 4 V14 M83 9 H93"/></g></svg>
@@ -452,11 +353,9 @@
             <p class="identidad__ayuda">Tocá un sobre para abrirlo.</p>
           </div>
           <!-- Los apartados se editan en js/datos.js (const aie) -->
-          <div class="aie"></div>
+          <div class="aie" id="aieLista"></div>
         </div>
       </section>
-    </div>
-
     </div>
 
     <!-- ===================== CARTA PERSONAL ===================== -->
@@ -464,7 +363,7 @@
       <section class="block block--alt">
         <div class="chapter-head chapter-head--center fade">
           <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M14 28 H86 V76 H14 Z"/><path pathLength="1" d="M14 28 L50 56 L86 28"/><path pathLength="1" d="M14 76 L40 52 M86 76 L60 52"/></g><g class="garabato__acento"><path pathLength="1" d="M50 16 c-3 -5 -11 -2 -8 4 l8 7 l8 -7 c3 -6 -5 -9 -8 -4 Z"/></g></svg>
-          <span class="chapter-num">04</span>
+          <span class="chapter-num">05</span>
           <h2>Carta personal</h2>
         </div>
         <article class="letter fade">
@@ -483,7 +382,7 @@
       <div class="chapter" id="proyeccion">
         <section class="block block--dark-head">
           <div class="chapter-head chapter-head--center fade">
-            <span class="chapter-num">05</span>
+            <span class="chapter-num">06</span>
             <h2>Proyección profesional</h2>
           </div>
         </section>
@@ -501,7 +400,7 @@
       <div class="chapter" id="autoevaluacion">
         <section class="block block--dark-alt">
           <div class="chapter-head chapter-head--center fade">
-            <span class="chapter-num">06</span>
+            <span class="chapter-num">07</span>
             <h2>Autoevaluación</h2>
           </div>
           <div class="stack">
@@ -537,8 +436,8 @@
 
   </main>
 
-  <script src="js/datos.js?v=141"></script>
-  <script src="js/comun.js?v=141"></script>
-  <script src="js/main.js?v=141"></script>
+  <script src="js/datos.js?v=142"></script>
+  <script src="js/comun.js?v=142"></script>
+  <script src="js/main.js?v=142"></script>
 </body>
 </html>
