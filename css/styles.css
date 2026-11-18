@@ -172,7 +172,7 @@ p + p { margin-top: 1em; }
 .subnav a:hover .subnav__texto, .subnav a:focus-visible .subnav__texto { opacity: 1; transform: none; }
 .subnav a:hover::after { background: var(--ink-2); }
 .subnav a.is-active::after { height: 20px; background: var(--destacado); }
-.subnav a.is-active .subnav__texto { color: var(--destacado); }
+.subnav a.is-active .subnav__texto { opacity: 1; transform: none; color: var(--destacado); }
 @media (max-width: 1050px) { .subnav { display: none; } }
 
 .bar__nav a:hover { color: var(--ink); background: rgba(0, 0, 0, .05); }
@@ -448,6 +448,21 @@ p + p { margin-top: 1em; }
 .ciclo.is-entrando { animation: cicloEntra .6s cubic-bezier(.2, .7, .2, 1); }
 @keyframes cicloEntra { from { opacity: 0; transform: translateY(18px); } }
 
+/* Contenido que todavía no está: el texto se ve como barras grises
+   (cada renglón es una barra), así el diseño ya queda armado */
+.relleno {
+  color: transparent; user-select: none;
+  background: color-mix(in srgb, var(--ink) 10%, transparent); border-radius: 6px;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  animation: rellenoLatido 2.2s ease-in-out infinite;
+}
+.chip .relleno { background: color-mix(in srgb, var(--destacado) 22%, transparent); }
+.plan-card--hilo .relleno { background: rgba(255, 255, 255, .32); }
+/* Fotos que todavía no están: recuadro gris liso */
+.ciclo .ph { background: color-mix(in srgb, var(--ink) 8%, transparent); color: transparent; animation: rellenoLatido 2.2s ease-in-out infinite; }
+@keyframes rellenoLatido { 50% { opacity: .55; } }
+@media (prefers-reduced-motion: reduce) { .relleno, .ciclo .ph { animation: none; } }
+
 /* 1er ciclo · Huellas de aprendizaje en video */
 .video { max-width: 980px; margin: 0 auto; }
 .video__pantalla {
@@ -575,28 +590,8 @@ p + p { margin-top: 1em; }
   content: ""; display: block; width: 64px; height: 4px; margin: 1.4rem auto 0; border-radius: 4px;
   background: linear-gradient(90deg, var(--destacado), var(--accent-2));
 }
-.marco p + p, .marco .notas + p { margin-top: 1.2em; }
+.marco p + p { margin-top: 1.2em; }
 
-/* Notas al margen: el autor citado y su idea en una línea, al costado del párrafo */
-.cita-ref { color: var(--destacado); font-weight: 700; }
-.notas { display: grid; gap: .9rem; margin: 1.8rem 0 1.2rem; }
-.notas:first-child { margin-top: 0; }
-.nota {
-  font-size: .86rem; line-height: 1.45; color: var(--ink-2); text-align: left;
-  padding: .1rem 0 .1rem .85rem; border-left: 2px solid var(--destacado);
-}
-.nota__autor { display: block; font-weight: 800; color: var(--ink); margin-bottom: .15rem; }
-.nota__autor span { color: var(--destacado); font-weight: 700; }
-@media (min-width: 1240px) {
-  .texto-justificado > div, .texto-justificado { position: relative; }
-  .notas { position: absolute; left: -232px; width: 184px; margin: 0; padding-top: .35rem; }
-  .nota { border-left: 0; border-right: 2px solid var(--destacado); padding: .1rem .85rem .1rem 0; text-align: right; }
-}
-/* Las de la derecha solo cuando hay lugar al lado de los puntitos del submenú */
-@media (min-width: 1360px) {
-  .notas--der { left: auto; right: -232px; }
-  .notas--der .nota { border-right: 0; border-left: 2px solid var(--destacado); padding: .1rem 0 .1rem .85rem; text-align: left; }
-}
 
 /* Construcción de identidad docente AIE: cinco sobres numerados */
 /* Sección con fondo violeta suave, para diferenciarla de la reflexión */

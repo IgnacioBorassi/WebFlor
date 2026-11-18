@@ -21,44 +21,46 @@ const conCita = (txt) => {
 
 // Arma la planificación de un ciclo dentro de su sección (resumen, cuadro y el switch entre los dos)
 function armarPlanificacion(seccion, P) {
+  // Con "relleno: true" los textos se ven como barras grises: queda el diseño armado sin texto de mentira
+  const tx = (txt) => (P.relleno ? `<span class="relleno">${esc(txt)}</span>` : esc(txt));
   const plan = seccion.querySelector('.plan');
   // Recuadro con áreas y ejes (arriba de las dos vistas)
   seccion.querySelector('.plan-meta').innerHTML = `
-    <div><span class="plan-meta__label">Áreas</span>${P.areas.map((a) => `<span class="chip">${esc(a)}</span>`).join('')}</div>
-    <div><span class="plan-meta__label">Ejes</span>${P.ejes.map((e) => `<span class="chip chip--soft">${esc(e)}</span>`).join('')}</div>`;
+    <div><span class="plan-meta__label">Áreas</span>${P.areas.map((a) => `<span class="chip">${tx(a)}</span>`).join('')}</div>
+    <div><span class="plan-meta__label">Ejes</span>${P.ejes.map((e) => `<span class="chip chip--soft">${tx(e)}</span>`).join('')}</div>`;
 
   plan.innerHTML = `
     <div class="plan__view" data-view="cards">
       <div class="plan-hilo">
         <article class="plan-card plan-card--hilo">
           <h4>Hilo conductor</h4>
-          <p>${esc(P.hiloConductor)}</p>
+          <p>${tx(P.hiloConductor)}</p>
         </article>
         <span class="plan-flecha" aria-hidden="true"></span>
         <article class="plan-card plan-card--recorte">
           <h4>Recorte didáctico</h4>
-          <p>${esc(P.recorte)}</p>
+          <p>${tx(P.recorte)}</p>
         </article>
       </div>
 
       <div class="plan-fila">
         <article class="plan-card">
           <h4 class="plan-card__titulo">${ICONOS.check} Objetivos</h4>
-          <ol class="plan-objetivos">${P.objetivos.map((o, i) => `<li><span class="plan-card__num">${i + 1}</span><p>${esc(o)}</p></li>`).join('')}</ol>
+          <ol class="plan-objetivos">${P.objetivos.map((o, i) => `<li><span class="plan-card__num">${i + 1}</span><p>${tx(o)}</p></li>`).join('')}</ol>
         </article>
         <article class="plan-card plan-card--capacidades">
           <h4>Capacidades</h4>
           <ul class="plan-capacidades">${P.capacidades.map((c, i) => `
             <li>
-              <div class="plan-capacidades__nombre"><img class="capacidad-icono" src="${esc(c.icono)}" alt="" width="58" height="50">${esc(c.nombre)}</div>
-              <p>${esc(c.descripcion)}</p>
+              <div class="plan-capacidades__nombre"><img class="capacidad-icono" src="${esc(c.icono)}" alt="" width="58" height="50">${tx(c.nombre)}</div>
+              <p>${tx(c.descripcion)}</p>
             </li>`).join('')}</ul>
         </article>
       </div>
 
       <article class="plan-card">
         <h4>Contenidos</h4>
-        <ul class="plan-contenidos">${P.contenidos.map((c) => `<li>${conCita(c)}</li>`).join('')}</ul>
+        <ul class="plan-contenidos">${P.contenidos.map((c) => `<li>${P.relleno ? tx(c) : conCita(c)}</li>`).join('')}</ul>
       </article>
     </div>
 
@@ -66,15 +68,15 @@ function armarPlanificacion(seccion, P) {
       <div class="plan-table-wrap">
         <table class="plan-table">
           <caption>
-            <span><strong>Áreas:</strong> ${esc(P.areas.join(', '))}</span>
-            <span><strong>Ejes:</strong> ${esc(P.ejes.join('; '))}</span>
+            <span><strong>Áreas:</strong> ${tx(P.areas.join(', '))}</span>
+            <span><strong>Ejes:</strong> ${tx(P.ejes.join('; '))}</span>
           </caption>
           <tbody>
-            <tr><th scope="row">Contenidos</th><td><ul>${P.contenidos.map((c) => `<li>${esc(c)}</li>`).join('')}</ul></td></tr>
-            <tr><th scope="row">Capacidades</th><td><ul class="plan-table__capacidades">${P.capacidades.map((c) => `<li><img class="capacidad-icono" src="${esc(c.icono)}" alt="" width="58" height="50"><span><strong>${esc(c.nombre)}:</strong> ${esc(c.descripcion)}</span></li>`).join('')}</ul></td></tr>
-            <tr><th scope="row">Objetivos</th><td><ol>${P.objetivos.map((o) => `<li>${esc(o)}</li>`).join('')}</ol></td></tr>
-            <tr><th scope="row">Hilo Conductor</th><td>${esc(P.hiloConductor)}</td></tr>
-            <tr><th scope="row">Recorte Didáctico</th><td>${esc(P.recorte)}</td></tr>
+            <tr><th scope="row">Contenidos</th><td><ul>${P.contenidos.map((c) => `<li>${tx(c)}</li>`).join('')}</ul></td></tr>
+            <tr><th scope="row">Capacidades</th><td><ul class="plan-table__capacidades">${P.capacidades.map((c) => `<li><img class="capacidad-icono" src="${esc(c.icono)}" alt="" width="58" height="50"><span><strong>${tx(c.nombre)}:</strong> ${tx(c.descripcion)}</span></li>`).join('')}</ul></td></tr>
+            <tr><th scope="row">Objetivos</th><td><ol>${P.objetivos.map((o) => `<li>${tx(o)}</li>`).join('')}</ol></td></tr>
+            <tr><th scope="row">Hilo Conductor</th><td>${tx(P.hiloConductor)}</td></tr>
+            <tr><th scope="row">Recorte Didáctico</th><td>${tx(P.recorte)}</td></tr>
           </tbody>
         </table>
       </div>

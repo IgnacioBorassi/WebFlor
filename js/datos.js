@@ -415,6 +415,7 @@ const aie = [
 // Lo que todavía es texto de relleno (Lorem ipsum) se reemplaza cuando esté la información.
 const primerCiclo = {
   planificacion: {
+    relleno: true, // sacalo cuando cargues la planificación real
     areas: ['Lorem ipsum', 'Dolor sit amet'],
     ejes: ['Consectetur adipiscing elit', 'Sed do eiusmod tempor'],
     hiloConductor: '¿Lorem ipsum dolor sit amet, consectetur adipiscing elit?',
