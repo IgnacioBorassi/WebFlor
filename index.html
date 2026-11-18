@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=143">
+  <link rel="stylesheet" href="css/styles.css?v=145">
 </head>
 <body>
 
@@ -24,20 +24,14 @@
       <a href="#inicio">Inicio</a>
       <a href="#presentacion">Presentación</a>
       <a href="#escuela">La escuela</a>
-      <a href="#ciclos">Ciclos</a>
+      <a href="#primer-ciclo">1er ciclo</a>
+      <a href="#segundo-ciclo">2do ciclo</a>
       <a href="#carta">Carta</a>
       <a href="#proyeccion">Proyección</a>
       <a href="#autoevaluacion">Autoevaluación</a>
     </nav>
     <div class="bar__progress" id="progress"></div>
   </header>
-
-  <!-- Toggle flotante: aparece abajo mientras recorrés los ciclos -->
-  <div class="ciclo-toggle ciclo-toggle--flotante" id="cicloFlotante" role="group" aria-label="Elegir ciclo">
-    <span class="ciclo-toggle__pastilla" aria-hidden="true"></span>
-    <button class="ciclo-toggle__btn" type="button" data-ciclo="1" aria-pressed="true"><span class="ciclo-toggle__num">1er</span> ciclo</button>
-    <button class="ciclo-toggle__btn" type="button" data-ciclo="2" aria-pressed="false"><span class="ciclo-toggle__num">2do</span> ciclo</button>
-  </div>
 
   <!-- Submenú de los ciclos: puntitos a la derecha con las secciones del ciclo elegido -->
   <nav class="subnav" id="subnav" aria-label="Secciones del ciclo">
@@ -213,27 +207,16 @@
       </section>
     </div>
 
-    <!-- ===================== 1ER Y 2DO CICLO ===================== -->
-    <!-- Las dos residencias tienen las mismas secciones: el toggle cambia entre una y otra -->
-    <div class="ciclos chapter" id="ciclos">
-      <section class="block ciclos__head">
-        <div class="chapter-head chapter-head--center fade">
-          <span class="chapter-num">03</span>
-          <h2>Ciclos</h2>
-        </div>
-        <div class="ciclo-toggle ciclo-toggle--grande fade" role="group" aria-label="Elegir ciclo">
-          <span class="ciclo-toggle__pastilla" aria-hidden="true"></span>
-          <button class="ciclo-toggle__btn" type="button" data-ciclo="1" aria-pressed="true"><span class="ciclo-toggle__num">1er</span> ciclo</button>
-          <button class="ciclo-toggle__btn" type="button" data-ciclo="2" aria-pressed="false"><span class="ciclo-toggle__num">2do</span> ciclo</button>
-        </div>
-      </section>
-
-      <!-- ===================== 1ER CICLO ===================== -->
+    <!-- ===================== 1ER CICLO ===================== -->
       <!-- Por ahora con texto de relleno. La planificación, la ruta y el video se editan en js/datos.js (const primerCiclo). -->
-      <div class="ciclo chapter" id="primer-ciclo" data-ciclo="1">
+    <div class="ciclo chapter" id="primer-ciclo" data-ciclo="1">
 
         <!-- El curso -->
         <section class="block" id="c1-curso" data-nav data-sec="curso">
+          <div class="chapter-head fade">
+            <span class="chapter-num">03</span>
+            <h2>1er ciclo</h2>
+          </div>
           <div class="curso">
             <div class="narrow texto-justificado">
               <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M10 8 H90 V56 H10 Z"/><path pathLength="1" d="M16 56 V61 H84 V56"/><path pathLength="1" d="M30 61 L24 76 M70 61 L76 76"/></g><g class="garabato__acento"><path pathLength="1" d="M40 26 L47 20 V46 M41 46 H53"/><path pathLength="1" d="M58 22 a3 3 0 1 0 .01 0"/><path pathLength="1" d="M62 44 q4 -4 8 0 t8 0"/></g></svg>
@@ -325,11 +308,15 @@
         </section>
       </div>
 
-      <!-- ===================== 2DO CICLO ===================== -->
-      <div class="ciclo chapter" id="segundo-ciclo" data-ciclo="2" hidden>
+    <!-- ===================== 2DO CICLO ===================== -->
+    <div class="ciclo chapter" id="segundo-ciclo" data-ciclo="2">
 
       <!-- El curso -->
       <section class="block" id="curso" data-nav data-sec="curso">
+        <div class="chapter-head fade">
+          <span class="chapter-num">04</span>
+          <h2>2do ciclo</h2>
+        </div>
         <div class="curso">
           <div class="narrow texto-justificado">
             <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M10 8 H90 V56 H10 Z"/><path pathLength="1" d="M16 56 V61 H84 V56"/><path pathLength="1" d="M30 61 L24 76 M70 61 L76 76"/></g><g class="garabato__acento"><path pathLength="1" d="M46 20 C36 22 34 40 40 45 C46 50 53 44 51 38 C49 32 41 32 39 40"/><path pathLength="1" d="M58 22 a3 3 0 1 0 .01 0"/><path pathLength="1" d="M62 44 q4 -4 8 0 t8 0"/></g></svg>
@@ -457,14 +444,12 @@
       </section>
     </div>
 
-    </div>
-
     <!-- ===================== CARTA PERSONAL ===================== -->
     <div class="chapter" id="carta">
       <section class="block block--alt">
         <div class="chapter-head chapter-head--center fade">
           <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M14 28 H86 V76 H14 Z"/><path pathLength="1" d="M14 28 L50 56 L86 28"/><path pathLength="1" d="M14 76 L40 52 M86 76 L60 52"/></g><g class="garabato__acento"><path pathLength="1" d="M50 16 c-3 -5 -11 -2 -8 4 l8 7 l8 -7 c3 -6 -5 -9 -8 -4 Z"/></g></svg>
-          <span class="chapter-num">04</span>
+          <span class="chapter-num">05</span>
           <h2>Carta personal</h2>
         </div>
         <article class="letter fade">
@@ -483,7 +468,7 @@
       <div class="chapter" id="proyeccion">
         <section class="block block--dark-head">
           <div class="chapter-head chapter-head--center fade">
-            <span class="chapter-num">05</span>
+            <span class="chapter-num">06</span>
             <h2>Proyección profesional</h2>
           </div>
         </section>
@@ -501,7 +486,7 @@
       <div class="chapter" id="autoevaluacion">
         <section class="block block--dark-alt">
           <div class="chapter-head chapter-head--center fade">
-            <span class="chapter-num">06</span>
+            <span class="chapter-num">07</span>
             <h2>Autoevaluación</h2>
           </div>
           <div class="stack">
@@ -537,8 +522,8 @@
 
   </main>
 
-  <script src="js/datos.js?v=143"></script>
-  <script src="js/comun.js?v=143"></script>
-  <script src="js/main.js?v=143"></script>
+  <script src="js/datos.js?v=145"></script>
+  <script src="js/comun.js?v=145"></script>
+  <script src="js/main.js?v=145"></script>
 </body>
 </html>

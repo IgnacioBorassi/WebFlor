@@ -474,85 +474,6 @@ if (!linkVideo) {
 }
 
 // =========================================================
-// Toggle de ciclos: 1er y 2do ciclo tienen las mismas secciones y se
-// muestra uno a la vez. Al cambiar, te quedás en la misma sección del otro ciclo.
-// =========================================================
-const ciclosEl = document.getElementById('ciclos');
-const paneles = [...document.querySelectorAll('.ciclo')];
-const toggles = [...document.querySelectorAll('.ciclo-toggle')];
-const cicloFlotante = document.getElementById('cicloFlotante');
-const panelDe = (n) => paneles.find((p) => p.dataset.ciclo === String(n));
-let cicloActual = null;
-
-// Sección (curso, planificación...) que está en el medio de la pantalla dentro de un panel
-function seccionEnPantalla(panel) {
-  return [...panel.querySelectorAll('[data-sec]')].find((sec) => {
-    const r = sec.getBoundingClientRect();
-    return r.top <= innerHeight / 2 && r.bottom > innerHeight / 2;
-  });
-}
-
-function elegirCiclo(n, { mantenerLugar = false } = {}) {
-  if (cicloActual === n) return;
-  const anterior = cicloActual && panelDe(cicloActual);
-  // Antes de cambiar: dónde estabas, para quedar en la misma sección del otro ciclo
-  const secAntes = mantenerLugar && anterior && seccionEnPantalla(anterior);
-  const desfase = secAntes ? secAntes.getBoundingClientRect().top : 0;
-
-  cicloActual = n;
-  paneles.forEach((p) => {
-    const activo = p.dataset.ciclo === String(n);
-    p.hidden = !activo;
-    p.classList.toggle('is-entrando', activo && anterior !== null && !sinAnimaciones);
-  });
-  toggles.forEach((t) => {
-    // Al cargar, la pastilla aparece directo en su lugar (sin deslizarse)
-    t.classList.toggle('sin-transicion', !anterior);
-    t.dataset.activo = n;
-    t.querySelectorAll('.ciclo-toggle__btn').forEach((b) => b.setAttribute('aria-pressed', b.dataset.ciclo === String(n)));
-  });
-  // Los puntitos de la derecha apuntan a las secciones del ciclo elegido
-  // (y se ocultan las que ese ciclo no tiene, como los desempeños en 1er ciclo)
-  subnavLinks.forEach((a) => {
-    a.setAttribute('href', `#${n === 1 ? 'c1-' : ''}${a.dataset.sec}`);
-    a.hidden = !document.querySelector(a.getAttribute('href'));
-  });
-
-  if (secAntes) {
-    // Misma sección en el otro ciclo; si no la tiene, la siguiente que sí tenga
-    const orden = subnavLinks.map((a) => a.dataset.sec);
-    const sec = orden.slice(orden.indexOf(secAntes.dataset.sec)).find((x) => panelDe(n).querySelector(`[data-sec="${x}"]`));
-    const destino = panelDe(n).querySelector(`[data-sec="${sec}"]`);
-    window.scrollTo(0, destino.getBoundingClientRect().top + scrollY - (sec === secAntes.dataset.sec ? desfase : 0));
-  }
-  dibujarCaminos();
-  requestUpdate();
-  if (!anterior) requestAnimationFrame(() => requestAnimationFrame(() => toggles.forEach((t) => t.classList.remove('sin-transicion'))));
-}
-paneles.forEach((p) => p.addEventListener('animationend', () => p.classList.remove('is-entrando')));
-
-toggles.forEach((t) => t.addEventListener('click', (e) => {
-  const btn = e.target.closest('.ciclo-toggle__btn');
-  if (btn) elegirCiclo(Number(btn.dataset.ciclo), { mantenerLugar: true });
-}));
-// Los links del menú a "1er ciclo" / "2do ciclo" (y a cualquier sección de un ciclo) eligen ese
-// ciclo antes de que el desplazamiento suave calcule a dónde ir
-document.addEventListener('click', (e) => {
-  const link = e.target.closest('a[href^="#"]');
-  const destino = link && document.querySelector(link.getAttribute('href'));
-  const panel = destino?.closest('.ciclo');
-  if (panel) elegirCiclo(Number(panel.dataset.ciclo));
-}, true);
-
-// El toggle flotante aparece abajo mientras recorrés los ciclos y el grande ya quedó atrás
-const toggleGrande = document.querySelector('.ciclo-toggle--grande');
-function actualizarFlotante() {
-  const grande = toggleGrande.getBoundingClientRect();
-  const ciclos = ciclosEl.getBoundingClientRect();
-  cicloFlotante.classList.toggle('is-visible', grande.bottom < 0 && ciclos.bottom > innerHeight * 0.6);
-}
-
-// =========================================================
 // Animación de cada escena según su progreso (p: 0..1)
 // =========================================================
 const scenes = {
@@ -622,6 +543,15 @@ const subnavLinks = [...subnav.querySelectorAll('a')];
 // Marca en el menú la sección que está en el medio de la pantalla. El submenú de
 // los ciclos (a la derecha) se muestra solo dentro de un ciclo y marca su subsección.
 const navTargets = [...document.querySelectorAll('.chapter, [data-nav]')];
+// Los puntitos apuntan a las secciones del ciclo que estás leyendo
+// (y se ocultan las que ese ciclo no tiene, como los desempeños en 1er ciclo)
+function apuntarSubnav(ciclo) {
+  const prefijo = ciclo.dataset.ciclo === '1' ? 'c1-' : '';
+  subnavLinks.forEach((a) => {
+    a.setAttribute('href', `#${prefijo}${a.dataset.sec}`);
+    a.hidden = !document.querySelector(a.getAttribute('href'));
+  });
+}
 const enElMedio = new Set();
 const chapterObserver = new IntersectionObserver(
   (entries) => {
@@ -629,8 +559,10 @@ const chapterObserver = new IntersectionObserver(
     if (!enElMedio.size) return;
     const enMedio = (a) => [...enElMedio].some((el) => `#${el.id}` === a.getAttribute('href'));
     menuLinks.forEach((a) => a.classList.toggle('is-active', enMedio(a)));
+    const ciclo = [...enElMedio].find((el) => el.classList.contains('ciclo'));
+    if (ciclo) apuntarSubnav(ciclo);
     subnavLinks.forEach((a) => a.classList.toggle('is-active', enMedio(a)));
-    subnav.classList.toggle('is-visible', [...enElMedio].some((el) => el.classList.contains('ciclo')));
+    subnav.classList.toggle('is-visible', Boolean(ciclo));
   },
   { rootMargin: '-50% 0px -50% 0px' }
 );
@@ -655,7 +587,6 @@ function update() {
   updateStack();
   updateParallax();
   rutas.forEach((r) => r.actualizar());
-  actualizarFlotante();
 
   const max = document.documentElement.scrollHeight - vh;
   progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
@@ -672,8 +603,6 @@ dibujarCaminos();
 document.fonts?.ready.then(dibujarCaminos);
 
 
-const panelInicial = location.hash && document.querySelector(location.hash)?.closest('.ciclo');
-elegirCiclo(panelInicial ? Number(panelInicial.dataset.ciclo) : 1);
 update();
 observarFades();
 

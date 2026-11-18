@@ -398,56 +398,8 @@ p + p { margin-top: 1em; }
   display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem;
 }
 /* =========================================================
-   1er y 2do ciclo: toggle para elegir el ciclo
+   1er ciclo
    ========================================================= */
-.ciclos__head { padding-bottom: 0; }
-.ciclo-toggle {
-  --pad: 6px;
-  position: relative; isolation: isolate;
-  display: grid; grid-template-columns: 1fr 1fr;
-  padding: var(--pad); border-radius: 999px;
-  background: var(--card);
-  box-shadow: 0 0 0 1px var(--line), 0 22px 44px -26px rgba(30, 20, 70, .38);
-}
-.ciclo-toggle--grande { width: min(480px, 100%); margin: 0 auto; }
-/* La pastilla de color se desliza detrás del ciclo elegido */
-.ciclo-toggle__pastilla {
-  position: absolute; z-index: -1; top: var(--pad); bottom: var(--pad); left: var(--pad);
-  width: calc(50% - var(--pad)); border-radius: 999px;
-  background: linear-gradient(135deg, var(--destacado), var(--accent-2));
-  box-shadow: 0 12px 26px -12px color-mix(in srgb, var(--destacado) 75%, transparent);
-  transition: transform .55s cubic-bezier(.65, 0, .25, 1.2);
-}
-.ciclo-toggle[data-activo="2"] .ciclo-toggle__pastilla { transform: translateX(100%); }
-.ciclo-toggle.sin-transicion .ciclo-toggle__pastilla { transition: none; }
-.ciclo-toggle__btn {
-  display: flex; align-items: baseline; justify-content: center; gap: .35rem;
-  padding: .85rem 1.4rem; border-radius: 999px;
-  font-weight: 800; font-size: clamp(1rem, 2vw, 1.25rem); color: var(--ink-2);
-  transition: color .35s;
-}
-.ciclo-toggle__num { font-size: 1.55em; font-weight: 900; letter-spacing: -0.03em; }
-.ciclo-toggle__btn:hover:not([aria-pressed="true"]) { color: var(--ink); }
-.ciclo-toggle__btn[aria-pressed="true"] { color: #fff; }
-.ciclo-toggle__btn:focus-visible { outline: 2px solid var(--destacado); outline-offset: 3px; }
-
-/* Versión chica que flota abajo mientras recorrés un ciclo */
-.ciclo-toggle--flotante {
-  --pad: 4px;
-  position: fixed; left: 50%; bottom: 1.1rem; z-index: 45;
-  background: color-mix(in srgb, var(--card) 88%, transparent);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  opacity: 0; pointer-events: none; transform: translate(-50%, 140%);
-  transition: opacity .3s, transform .45s cubic-bezier(.2, .7, .2, 1);
-}
-.ciclo-toggle--flotante.is-visible { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
-.ciclo-toggle--flotante .ciclo-toggle__btn { padding: .5rem 1.05rem; font-size: .88rem; }
-.ciclo-toggle--flotante .ciclo-toggle__num { font-size: 1.2em; }
-
-/* Al cambiar de ciclo, el contenido nuevo entra subiendo apenas */
-.ciclo.is-entrando { animation: cicloEntra .6s cubic-bezier(.2, .7, .2, 1); }
-@keyframes cicloEntra { from { opacity: 0; transform: translateY(18px); } }
-
 /* Contenido que todavía no está: el texto se ve como barras grises
    (cada renglón es una barra), así el diseño ya queda armado */
 .relleno {
