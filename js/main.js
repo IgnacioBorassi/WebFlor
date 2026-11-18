@@ -7,9 +7,6 @@ document.querySelectorAll('[data-words]').forEach((el) => {
 // =========================================================
 // Planificación: resumen (tarjetas) / cuadro
 // =========================================================
-const plan = document.getElementById('plan');
-const P = planificacion;
-
 // Íconos de las tarjetas del resumen
 const svg = (d) => `<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
 const ICONOS = {
@@ -22,82 +19,86 @@ const conCita = (txt) => {
   return m ? `${esc(m[1])} <cite>${esc(m[2])}</cite>` : esc(txt);
 };
 
-// Recuadro con áreas y ejes (arriba de las dos vistas)
-document.getElementById('planMeta').innerHTML = `
-  <div><span class="plan-meta__label">Áreas</span>${P.areas.map((a) => `<span class="chip">${esc(a)}</span>`).join('')}</div>
-  <div><span class="plan-meta__label">Ejes</span>${P.ejes.map((e) => `<span class="chip chip--soft">${esc(e)}</span>`).join('')}</div>`;
+// Arma la planificación de un ciclo dentro de su sección (resumen, cuadro y el switch entre los dos)
+function armarPlanificacion(seccion, P) {
+  const plan = seccion.querySelector('.plan');
+  // Recuadro con áreas y ejes (arriba de las dos vistas)
+  seccion.querySelector('.plan-meta').innerHTML = `
+    <div><span class="plan-meta__label">Áreas</span>${P.areas.map((a) => `<span class="chip">${esc(a)}</span>`).join('')}</div>
+    <div><span class="plan-meta__label">Ejes</span>${P.ejes.map((e) => `<span class="chip chip--soft">${esc(e)}</span>`).join('')}</div>`;
 
-plan.innerHTML = `
-  <div class="plan__view" data-view="cards">
-    <div class="plan-hilo">
-      <article class="plan-card plan-card--hilo">
-        <h4>Hilo conductor</h4>
-        <p>${esc(P.hiloConductor)}</p>
-      </article>
-      <span class="plan-flecha" aria-hidden="true"></span>
-      <article class="plan-card plan-card--recorte">
-        <h4>Recorte didáctico</h4>
-        <p>${esc(P.recorte)}</p>
-      </article>
-    </div>
+  plan.innerHTML = `
+    <div class="plan__view" data-view="cards">
+      <div class="plan-hilo">
+        <article class="plan-card plan-card--hilo">
+          <h4>Hilo conductor</h4>
+          <p>${esc(P.hiloConductor)}</p>
+        </article>
+        <span class="plan-flecha" aria-hidden="true"></span>
+        <article class="plan-card plan-card--recorte">
+          <h4>Recorte didáctico</h4>
+          <p>${esc(P.recorte)}</p>
+        </article>
+      </div>
 
-    <div class="plan-fila">
+      <div class="plan-fila">
+        <article class="plan-card">
+          <h4 class="plan-card__titulo">${ICONOS.check} Objetivos</h4>
+          <ol class="plan-objetivos">${P.objetivos.map((o, i) => `<li><span class="plan-card__num">${i + 1}</span><p>${esc(o)}</p></li>`).join('')}</ol>
+        </article>
+        <article class="plan-card plan-card--capacidades">
+          <h4>Capacidades</h4>
+          <ul class="plan-capacidades">${P.capacidades.map((c, i) => `
+            <li>
+              <div class="plan-capacidades__nombre"><img class="capacidad-icono" src="${esc(c.icono)}" alt="" width="58" height="50">${esc(c.nombre)}</div>
+              <p>${esc(c.descripcion)}</p>
+            </li>`).join('')}</ul>
+        </article>
+      </div>
+
       <article class="plan-card">
-        <h4 class="plan-card__titulo">${ICONOS.check} Objetivos</h4>
-        <ol class="plan-objetivos">${P.objetivos.map((o, i) => `<li><span class="plan-card__num">${i + 1}</span><p>${esc(o)}</p></li>`).join('')}</ol>
-      </article>
-      <article class="plan-card plan-card--capacidades">
-        <h4>Capacidades</h4>
-        <ul class="plan-capacidades">${P.capacidades.map((c, i) => `
-          <li>
-            <div class="plan-capacidades__nombre"><img class="capacidad-icono" src="${esc(c.icono)}" alt="" width="58" height="50">${esc(c.nombre)}</div>
-            <p>${esc(c.descripcion)}</p>
-          </li>`).join('')}</ul>
+        <h4>Contenidos</h4>
+        <ul class="plan-contenidos">${P.contenidos.map((c) => `<li>${conCita(c)}</li>`).join('')}</ul>
       </article>
     </div>
 
-    <article class="plan-card">
-      <h4>Contenidos</h4>
-      <ul class="plan-contenidos">${P.contenidos.map((c) => `<li>${conCita(c)}</li>`).join('')}</ul>
-    </article>
-  </div>
+    <div class="plan__view" data-view="table" hidden>
+      <div class="plan-table-wrap">
+        <table class="plan-table">
+          <caption>
+            <span><strong>Áreas:</strong> ${esc(P.areas.join(', '))}</span>
+            <span><strong>Ejes:</strong> ${esc(P.ejes.join('; '))}</span>
+          </caption>
+          <tbody>
+            <tr><th scope="row">Contenidos</th><td><ul>${P.contenidos.map((c) => `<li>${esc(c)}</li>`).join('')}</ul></td></tr>
+            <tr><th scope="row">Capacidades</th><td><ul class="plan-table__capacidades">${P.capacidades.map((c) => `<li><img class="capacidad-icono" src="${esc(c.icono)}" alt="" width="58" height="50"><span><strong>${esc(c.nombre)}:</strong> ${esc(c.descripcion)}</span></li>`).join('')}</ul></td></tr>
+            <tr><th scope="row">Objetivos</th><td><ol>${P.objetivos.map((o) => `<li>${esc(o)}</li>`).join('')}</ol></td></tr>
+            <tr><th scope="row">Hilo Conductor</th><td>${esc(P.hiloConductor)}</td></tr>
+            <tr><th scope="row">Recorte Didáctico</th><td>${esc(P.recorte)}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>`;
 
-  <div class="plan__view" data-view="table" hidden>
-    <div class="plan-table-wrap">
-      <table class="plan-table">
-        <caption>
-          <span><strong>Áreas:</strong> ${esc(P.areas.join(', '))}</span>
-          <span><strong>Ejes:</strong> ${esc(P.ejes.join('; '))}</span>
-        </caption>
-        <tbody>
-          <tr><th scope="row">Contenidos</th><td><ul>${P.contenidos.map((c) => `<li>${esc(c)}</li>`).join('')}</ul></td></tr>
-          <tr><th scope="row">Capacidades</th><td><ul class="plan-table__capacidades">${P.capacidades.map((c) => `<li><img class="capacidad-icono" src="${esc(c.icono)}" alt="" width="58" height="50"><span><strong>${esc(c.nombre)}:</strong> ${esc(c.descripcion)}</span></li>`).join('')}</ul></td></tr>
-          <tr><th scope="row">Objetivos</th><td><ol>${P.objetivos.map((o) => `<li>${esc(o)}</li>`).join('')}</ol></td></tr>
-          <tr><th scope="row">Hilo Conductor</th><td>${esc(P.hiloConductor)}</td></tr>
-          <tr><th scope="row">Recorte Didáctico</th><td>${esc(P.recorte)}</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>`;
-
-document.querySelectorAll('.switch__btn').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.switch__btn').forEach((b) => {
-      const on = b === btn;
-      b.classList.toggle('is-active', on);
-      b.setAttribute('aria-pressed', on);
+  const botones = seccion.querySelectorAll('.switch__btn');
+  botones.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      botones.forEach((b) => {
+        const on = b === btn;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-pressed', on);
+      });
+      plan.querySelectorAll('.plan__view').forEach((v) => { v.hidden = v.dataset.view !== btn.dataset.view; });
     });
-    plan.querySelectorAll('.plan__view').forEach((v) => { v.hidden = v.dataset.view !== btn.dataset.view; });
   });
-});
+}
+armarPlanificacion(document.getElementById('c1-planificacion'), primerCiclo.planificacion);
+armarPlanificacion(document.getElementById('planificacion'), planificacion);
 
 // =========================================================
 // Desempeños: ruta con un hito por parada. Al lado de cada hito va el título;
 // al tocarlo se despliega la descripción.
 // =========================================================
-const rutaEl = document.getElementById('ruta');
-const n = trayectoria.length;
-
 // Hitos: pin de mapa en cada parada y bandera de llegada en la última
 const HITO_PIN = '<svg viewBox="0 0 30 40" aria-hidden="true"><path class="hito__forma" d="M15 1C7.3 1 1 7.1 1 14.7 1 25 15 39 15 39s14-14 14-24.3C29 7.1 22.7 1 15 1z"/><circle cx="15" cy="14.5" r="5.5" fill="#fff"/></svg>';
 const HITO_BANDERA = '<svg viewBox="0 0 30 40" aria-hidden="true"><path d="M5 2v37" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path class="hito__forma" d="M6 3h21v15H6z"/><path fill="#fff" d="M6 3h5.25v5H6zm10.5 0h5.25v5H16.5zM11.25 8h5.25v5h-5.25zm10.5 0H27v5h-5.25zM6 13h5.25v5H6zm10.5 0h5.25v5H16.5z"/></svg>';
@@ -105,92 +106,143 @@ const HITO_BANDERA = '<svg viewBox="0 0 30 40" aria-hidden="true"><path d="M5 2v
 const HUELLITAS = '<svg class="huellitas" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><ellipse cx="7.2" cy="9.2" rx="2.6" ry="4" transform="rotate(-10 7.2 9.2)"/><ellipse cx="6.4" cy="15.6" rx="1.9" ry="1.6" transform="rotate(-10 6.4 15.6)"/><ellipse cx="16.6" cy="7" rx="2.6" ry="4" transform="rotate(10 16.6 7)"/><ellipse cx="17.6" cy="13.4" rx="1.9" ry="1.6" transform="rotate(10 17.6 13.4)"/></svg>';
 const FLECHA = '<svg class="ruta__flecha" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
 
-rutaEl.innerHTML = `
-  <svg class="ruta__camino" aria-hidden="true"></svg>
-  <ol class="ruta__paradas">
-    ${trayectoria.map((t, i) => `
-      <li class="ruta__parada ruta__parada--${i % 2 ? 'der' : 'izq'} fade" style="--c:${colorFase(t.fase)}">
-        <button class="ruta__boton" type="button" aria-expanded="false" aria-controls="parada-${i}">
-          <span class="ruta__hito">${i === n - 1 ? HITO_BANDERA : HITO_PIN}</span>
-          <span class="ruta__textos">
-            <span class="ruta__fase">${esc(t.fase)}</span>
-            <span class="ruta__titulo">${esc(t.titulo)}</span>
-            ${FLECHA}
-          </span>
-        </button>
-        <div class="ruta__desc" id="parada-${i}" inert>
-          <div class="ruta__desc-contenido">
-            <p>${esc(t.texto)}</p>
-            ${t.huella ? `<a class="ruta__huella" href="#huella-${t.huella}">${HUELLITAS} Ver huella de aprendizaje</a>` : ''}
+const sinAnimaciones = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Arma una ruta (una por ciclo) y devuelve cómo redibujarla y cómo actualizar su avance
+function crearRuta(rutaEl, paradas, prefijo) {
+  const n = paradas.length;
+  rutaEl.innerHTML = `
+    <svg class="ruta__camino" aria-hidden="true"></svg>
+    <ol class="ruta__paradas">
+      ${paradas.map((t, i) => `
+        <li class="ruta__parada ruta__parada--${i % 2 ? 'der' : 'izq'} fade" style="--c:${colorFase(t.fase)}">
+          <button class="ruta__boton" type="button" aria-expanded="false" aria-controls="${prefijo}parada-${i}">
+            <span class="ruta__hito">${i === n - 1 ? HITO_BANDERA : HITO_PIN}</span>
+            <span class="ruta__textos">
+              <span class="ruta__fase">${esc(t.fase)}</span>
+              <span class="ruta__titulo">${esc(t.titulo)}</span>
+              ${FLECHA}
+            </span>
+          </button>
+          <div class="ruta__desc" id="${prefijo}parada-${i}" inert>
+            <div class="ruta__desc-contenido">
+              <p>${esc(t.texto)}</p>
+              ${t.huella ? `<a class="ruta__huella" href="#huella-${t.huella}">${HUELLITAS} Ver huella de aprendizaje</a>` : ''}
+            </div>
           </div>
-        </div>
-      </li>`).join('')}
-  </ol>`;
+        </li>`).join('')}
+    </ol>`;
 
-const caminoSvg = rutaEl.querySelector('.ruta__camino');
-const hitosEls = [...rutaEl.querySelectorAll('.ruta__hito')];
-let hitosY = [];
+  const caminoSvg = rutaEl.querySelector('.ruta__camino');
+  const hitosEls = [...rutaEl.querySelectorAll('.ruta__hito')];
+  let hitosY = [];
 
-// Tocar una parada despliega u oculta su descripción (con animación de altura en el CSS)
-rutaEl.addEventListener('click', (e) => {
-  const btn = e.target.closest('.ruta__boton');
-  if (!btn) return;
-  const abrir = btn.getAttribute('aria-expanded') !== 'true';
-  btn.setAttribute('aria-expanded', abrir);
-  const desc = document.getElementById(btn.getAttribute('aria-controls'));
-  desc.classList.toggle('is-open', abrir);
-  desc.inert = !abrir; // cerrada: su link no se puede alcanzar con el teclado
-});
-// Mientras una descripción se abre o se cierra, la ruta cambia de alto:
-// se redibuja en cada cuadro para que el camino y los hitos acompañen el movimiento
-new ResizeObserver(() => dibujarCamino()).observe(rutaEl.querySelector('.ruta__paradas'));
-
-// Dibuja el camino que baja serpenteando por los hitos (medidos sin transformaciones)
-function dibujarCamino() {
-  const w = rutaEl.offsetWidth;
-  const h = rutaEl.offsetHeight;
-  if (!w || !h) return;
-  const pts = hitosEls.map((hito) => {
-    let y = hito.offsetHeight * 0.95; // la punta del pin
-    let x = hito.offsetWidth / 2;
-    for (let el = hito; el && el !== rutaEl; el = el.offsetParent) { y += el.offsetTop; x += el.offsetLeft; }
-    return { x, y };
+  // Tocar una parada despliega u oculta su descripción (con animación de altura en el CSS)
+  rutaEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('.ruta__boton');
+    if (!btn) return;
+    const abrir = btn.getAttribute('aria-expanded') !== 'true';
+    btn.setAttribute('aria-expanded', abrir);
+    const desc = document.getElementById(btn.getAttribute('aria-controls'));
+    desc.classList.toggle('is-open', abrir);
+    desc.inert = !abrir; // cerrada: su link no se puede alcanzar con el teclado
   });
-  hitosY = pts.map((p) => p.y);
-  const xc = pts[0].x;
-  // En zigzag (pantallas anchas) la ruta se curva hacia el lado de cada parada
-  const zigzag = matchMedia('(min-width: 761px)').matches;
-  const amp = zigzag ? 26 : Math.min(14, w * 0.03);
-  const todos = [{ x: xc, y: 0 }, ...pts.map((p, i) => ({ x: xc + (i % 2 ? amp : -amp), y: p.y })), { x: xc, y: h }];
-  const d = todos.reduce((acc, pt, i) => {
-    if (i === 0) return `M ${pt.x} ${pt.y}`;
-    const a = todos[i - 1];
-    const my = (a.y + pt.y) / 2;
-    return `${acc} C ${a.x} ${my}, ${pt.x} ${my}, ${pt.x} ${pt.y}`;
-  }, '');
-  caminoSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-  caminoSvg.innerHTML = `
-    <defs>
-      <mask id="caminoRecorrido" maskUnits="userSpaceOnUse" x="0" y="0" width="${w}" height="${h}">
-        <rect class="ruta__avance" x="0" y="0" width="${w}" height="0" fill="#fff"/>
-      </mask>
-    </defs>
-    <path d="${d}" class="camino__asfalto camino__asfalto--pendiente"/>
-    <path d="${d}" class="camino__linea camino__linea--pendiente"/>
-    <g mask="url(#caminoRecorrido)">
-      <path d="${d}" class="camino__asfalto"/>
-      <path d="${d}" class="camino__linea"/>
-    </g>`;
-  // Cada hito se corre un poco para quedar apoyado sobre la curva
-  hitosEls.forEach((hito, i) => { hito.style.transform = `translateX(${todos[i + 1].x - xc}px)`; });
-  actualizarCamino();
+
+  // Dibuja el camino que baja serpenteando por los hitos (medidos sin transformaciones).
+  // Si la ruta está oculta (es del otro ciclo), no hay nada que medir.
+  function dibujar() {
+    const w = rutaEl.offsetWidth;
+    const h = rutaEl.offsetHeight;
+    if (!w || !h) return;
+    const pts = hitosEls.map((hito) => {
+      let y = hito.offsetHeight * 0.95; // la punta del pin
+      let x = hito.offsetWidth / 2;
+      for (let el = hito; el && el !== rutaEl; el = el.offsetParent) { y += el.offsetTop; x += el.offsetLeft; }
+      return { x, y };
+    });
+    hitosY = pts.map((p) => p.y);
+    const xc = pts[0].x;
+    // En zigzag (pantallas anchas) la ruta se curva hacia el lado de cada parada
+    const zigzag = matchMedia('(min-width: 761px)').matches;
+    const amp = zigzag ? 26 : Math.min(14, w * 0.03);
+    const todos = [{ x: xc, y: 0 }, ...pts.map((p, i) => ({ x: xc + (i % 2 ? amp : -amp), y: p.y })), { x: xc, y: h }];
+    const d = todos.reduce((acc, pt, i) => {
+      if (i === 0) return `M ${pt.x} ${pt.y}`;
+      const a = todos[i - 1];
+      const my = (a.y + pt.y) / 2;
+      return `${acc} C ${a.x} ${my}, ${pt.x} ${my}, ${pt.x} ${pt.y}`;
+    }, '');
+    caminoSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    caminoSvg.innerHTML = `
+      <defs>
+        <mask id="${prefijo}caminoRecorrido" maskUnits="userSpaceOnUse" x="0" y="0" width="${w}" height="${h}">
+          <rect class="ruta__avance" x="0" y="0" width="${w}" height="0" fill="#fff"/>
+        </mask>
+      </defs>
+      <path d="${d}" class="camino__asfalto camino__asfalto--pendiente"/>
+      <path d="${d}" class="camino__linea camino__linea--pendiente"/>
+      <g mask="url(#${prefijo}caminoRecorrido)">
+        <path d="${d}" class="camino__asfalto"/>
+        <path d="${d}" class="camino__linea"/>
+      </g>`;
+    // Cada hito se corre un poco para quedar apoyado sobre la curva
+    hitosEls.forEach((hito, i) => { hito.style.transform = `translateX(${todos[i + 1].x - xc}px)`; });
+    actualizar();
+  }
+
+  // El camino se pinta hasta la altura de 2/3 de la pantalla, y los hitos alcanzados se encienden.
+  // El pintado no copia el scroll de golpe: lo persigue suavemente (rápido al principio, frena al llegar).
+  let actual = null;
+  let objetivo = 0;
+  let raf = 0;
+
+  function pintar() {
+    const avance = caminoSvg.querySelector('.ruta__avance');
+    if (!avance) return;
+    avance.setAttribute('height', actual);
+    hitosEls.forEach((hito, i) => hito.classList.toggle('is-done', hitosY[i] <= actual));
+  }
+
+  function animar() {
+    raf = 0;
+    const falta = objetivo - actual;
+    if (Math.abs(falta) < 0.5) {
+      actual = objetivo;
+    } else {
+      actual += falta * 0.08;
+      raf = requestAnimationFrame(animar);
+    }
+    pintar();
+  }
+
+  function actualizar() {
+    if (!caminoSvg.querySelector('.ruta__avance') || !rutaEl.offsetHeight) return;
+    objetivo = clamp(innerHeight * 0.66 - rutaEl.getBoundingClientRect().top, 0, rutaEl.offsetHeight);
+    // Al cargar la página (o sin animaciones) arranca directo en su lugar
+    if (actual === null || sinAnimaciones) actual = objetivo;
+    pintar(); // el camino se redibuja al abrir una parada: se repinta ya, sin esperar al próximo cuadro
+    if (!raf) raf = requestAnimationFrame(animar);
+  }
+
+  // Mientras una descripción se abre o se cierra, la ruta cambia de alto:
+  // se redibuja en cada cuadro para que el camino y los hitos acompañen el movimiento.
+  // (También salta cuando la ruta aparece al cambiar de ciclo.)
+  new ResizeObserver(() => dibujar()).observe(rutaEl.querySelector('.ruta__paradas'));
+
+  return { dibujar, actualizar };
 }
+
+// La ruta de los desempeños es solo de 2do ciclo
+const rutas = [crearRuta(document.querySelector('#desempenos .ruta'), trayectoria, '')];
+const dibujarCaminos = () => rutas.forEach((r) => r.dibujar());
 
 // =========================================================
 // Construcción de identidad docente AIE: tarjetas compactas que abren
 // un panel de lectura con el texto completo y el botón al desempeño
 // =========================================================
-const aieLista = document.getElementById('aieLista');
+const aieListas = document.querySelectorAll('.aie');
+// Cada ciclo tiene sus sobres: 1er ciclo en primerCiclo.aie, 2do ciclo en aie
+const datosAie = (el) => (el.closest('.ciclo')?.dataset.ciclo === '1' ? primerCiclo.aie : aie);
 const botonDesempeno = (a) => a.link
   ? `<a class="aie__boton" href="${esc(a.link)}" target="_blank" rel="noopener">Mirá el desempeño <span aria-hidden="true">↗</span></a>`
   : '<span class="aie__boton is-pendiente" aria-disabled="true" title="Falta cargar el link">Mirá el desempeño <span aria-hidden="true">↗</span></span>';
@@ -209,7 +261,7 @@ const iconoAie = (a, i) => ICONOS_AIE[a.icono]
   ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONOS_AIE[a.icono]}</svg>`
   : String(i + 1);
 
-aieLista.innerHTML = aie.map((a, i) => `
+const sobresHTML = (lista) => lista.map((a, i) => `
   <div class="sobre-item fade"${a.color ? ` style="--sobre-c:${esc(a.color)}"` : ''}>
     <button class="sobre" type="button" data-aie="${i}" aria-haspopup="dialog" aria-label="Abrir: ${esc(a.titulo)}">
       <span class="sobre__fondo" aria-hidden="true"></span>
@@ -228,6 +280,7 @@ aieLista.innerHTML = aie.map((a, i) => `
     </button>
     <p class="sobre__titulo">${esc(a.titulo)}</p>
   </div>`).join('');
+aieListas.forEach((el) => { el.innerHTML = sobresHTML(datosAie(el)); });
 
 // Texto blanco u oscuro sobre el color del sobre, según qué tan claro sea (el amarillo y el naranja llevan oscuro)
 function tintaSobre(hex) {
@@ -244,8 +297,7 @@ lector.className = 'lector';
 lector.setAttribute('aria-labelledby', 'lectorTitulo');
 document.body.appendChild(lector);
 
-function abrirLector(i) {
-  const a = aie[i];
+function abrirLector(a, i) {
   lector.style.setProperty('--sobre-c', a.color || 'var(--destacado)');
   lector.style.setProperty('--sobre-tinta', tintaSobre(a.color));
   lector.innerHTML = `
@@ -280,14 +332,14 @@ function cerrarSobre() {
   setTimeout(() => sobre.classList.remove('is-closing'), 1000);
 }
 
-aieLista.addEventListener('click', (e) => {
+aieListas.forEach((lista) => lista.addEventListener('click', (e) => {
   const sobre = e.target.closest('.sobre');
   if (!sobre || sobreAbierto) return;
   sobreAbierto = sobre;
   sobre.classList.add('is-open');
   // Se deja ver la animación del sobre y después se abre el panel
-  setTimeout(() => abrirLector(Number(sobre.dataset.aie)), sinAnimaciones ? 0 : 850);
-});
+  setTimeout(() => abrirLector(datosAie(lista)[sobre.dataset.aie], Number(sobre.dataset.aie)), sinAnimaciones ? 0 : 850);
+}));
 function cerrarLector() {
   if (lector.open) lector.close();
   cerrarSobre();
@@ -352,7 +404,7 @@ document.getElementById('huellasLista').addEventListener('click', (e) => {
   if (head) abrirHuella(head.closest('.huella'), head.getAttribute('aria-expanded') !== 'true');
 });
 // "Ver huella" desde una parada de la ruta: abre esa huella antes de bajar hasta ella
-rutaEl.addEventListener('click', (e) => {
+document.addEventListener('click', (e) => {
   const link = e.target.closest('.ruta__huella');
   if (link) abrirHuella(document.querySelector(link.getAttribute('href')));
 });
@@ -393,39 +445,109 @@ visor.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') mostrarFoto(visorI + 1);
 });
 
-// El camino se pinta hasta la altura de 2/3 de la pantalla, y los hitos alcanzados se encienden.
-// El pintado no copia el scroll de golpe: lo persigue suavemente (rápido al principio, frena al llegar).
-const sinAnimaciones = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let caminoActual = null;
-let caminoObjetivo = 0;
-let caminoRaf = 0;
-
-function pintarCamino() {
-  const avance = caminoSvg.querySelector('.ruta__avance');
-  if (!avance) return;
-  avance.setAttribute('height', caminoActual);
-  hitosEls.forEach((hito, i) => hito.classList.toggle('is-done', hitosY[i] <= caminoActual));
+// =========================================================
+// 1er ciclo · Huellas de aprendizaje en video. Mientras no haya link,
+// se ve el reproductor vacío con un aviso.
+// =========================================================
+const videoEl = document.getElementById('c1-video');
+const linkVideo = primerCiclo.video;
+// YouTube y Drive se insertan con su propio reproductor; un .mp4 con el del navegador
+function videoEmbebido(url) {
+  const yt = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+  if (yt) return `https://www.youtube-nocookie.com/embed/${yt[1]}`;
+  const drive = url.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+  if (drive) return `https://drive.google.com/file/d/${drive[1]}/preview`;
+  return null;
+}
+if (!linkVideo) {
+  videoEl.innerHTML = `
+    <div class="video__pantalla video__pantalla--vacia">
+      <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></svg></span>
+      <p class="video__aviso">El video de las huellas de aprendizaje va a estar acá muy pronto</p>
+    </div>`;
+} else if (videoEmbebido(linkVideo)) {
+  videoEl.innerHTML = `<div class="video__pantalla"><iframe src="${esc(videoEmbebido(linkVideo))}" title="Huellas de aprendizaje de 1er ciclo" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>`;
+} else {
+  videoEl.innerHTML = `<div class="video__pantalla"><video src="${esc(linkVideo)}" controls preload="metadata"></video></div>`;
 }
 
-function animarCamino() {
-  caminoRaf = 0;
-  const falta = caminoObjetivo - caminoActual;
-  if (Math.abs(falta) < 0.5) {
-    caminoActual = caminoObjetivo;
-  } else {
-    caminoActual += falta * 0.08;
-    caminoRaf = requestAnimationFrame(animarCamino);
+// =========================================================
+// Toggle de ciclos: 1er y 2do ciclo tienen las mismas secciones y se
+// muestra uno a la vez. Al cambiar, te quedás en la misma sección del otro ciclo.
+// =========================================================
+const ciclosEl = document.getElementById('ciclos');
+const paneles = [...document.querySelectorAll('.ciclo')];
+const toggles = [...document.querySelectorAll('.ciclo-toggle')];
+const cicloFlotante = document.getElementById('cicloFlotante');
+const panelDe = (n) => paneles.find((p) => p.dataset.ciclo === String(n));
+let cicloActual = null;
+
+// Sección (curso, planificación...) que está en el medio de la pantalla dentro de un panel
+function seccionEnPantalla(panel) {
+  return [...panel.querySelectorAll('[data-sec]')].find((sec) => {
+    const r = sec.getBoundingClientRect();
+    return r.top <= innerHeight / 2 && r.bottom > innerHeight / 2;
+  });
+}
+
+function elegirCiclo(n, { mantenerLugar = false } = {}) {
+  if (cicloActual === n) return;
+  const anterior = cicloActual && panelDe(cicloActual);
+  // Antes de cambiar: dónde estabas, para quedar en la misma sección del otro ciclo
+  const secAntes = mantenerLugar && anterior && seccionEnPantalla(anterior);
+  const desfase = secAntes ? secAntes.getBoundingClientRect().top : 0;
+
+  cicloActual = n;
+  paneles.forEach((p) => {
+    const activo = p.dataset.ciclo === String(n);
+    p.hidden = !activo;
+    p.classList.toggle('is-entrando', activo && anterior !== null && !sinAnimaciones);
+  });
+  toggles.forEach((t) => {
+    // Al cargar, la pastilla aparece directo en su lugar (sin deslizarse)
+    t.classList.toggle('sin-transicion', !anterior);
+    t.dataset.activo = n;
+    t.querySelectorAll('.ciclo-toggle__btn').forEach((b) => b.setAttribute('aria-pressed', b.dataset.ciclo === String(n)));
+  });
+  // Los puntitos de la derecha apuntan a las secciones del ciclo elegido
+  // (y se ocultan las que ese ciclo no tiene, como los desempeños en 1er ciclo)
+  subnavLinks.forEach((a) => {
+    a.setAttribute('href', `#${n === 1 ? 'c1-' : ''}${a.dataset.sec}`);
+    a.hidden = !document.querySelector(a.getAttribute('href'));
+  });
+
+  if (secAntes) {
+    // Misma sección en el otro ciclo; si no la tiene, la siguiente que sí tenga
+    const orden = subnavLinks.map((a) => a.dataset.sec);
+    const sec = orden.slice(orden.indexOf(secAntes.dataset.sec)).find((x) => panelDe(n).querySelector(`[data-sec="${x}"]`));
+    const destino = panelDe(n).querySelector(`[data-sec="${sec}"]`);
+    window.scrollTo(0, destino.getBoundingClientRect().top + scrollY - (sec === secAntes.dataset.sec ? desfase : 0));
   }
-  pintarCamino();
+  dibujarCaminos();
+  requestUpdate();
+  if (!anterior) requestAnimationFrame(() => requestAnimationFrame(() => toggles.forEach((t) => t.classList.remove('sin-transicion'))));
 }
+paneles.forEach((p) => p.addEventListener('animationend', () => p.classList.remove('is-entrando')));
 
-function actualizarCamino() {
-  if (!caminoSvg.querySelector('.ruta__avance')) return;
-  caminoObjetivo = clamp(innerHeight * 0.66 - rutaEl.getBoundingClientRect().top, 0, rutaEl.offsetHeight);
-  // Al cargar la página (o sin animaciones) arranca directo en su lugar
-  if (caminoActual === null || sinAnimaciones) caminoActual = caminoObjetivo;
-  pintarCamino(); // el camino se redibuja al abrir una parada: se repinta ya, sin esperar al próximo cuadro
-  if (!caminoRaf) caminoRaf = requestAnimationFrame(animarCamino);
+toggles.forEach((t) => t.addEventListener('click', (e) => {
+  const btn = e.target.closest('.ciclo-toggle__btn');
+  if (btn) elegirCiclo(Number(btn.dataset.ciclo), { mantenerLugar: true });
+}));
+// Los links del menú a "1er ciclo" / "2do ciclo" (y a cualquier sección de un ciclo) eligen ese
+// ciclo antes de que el desplazamiento suave calcule a dónde ir
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href^="#"]');
+  const destino = link && document.querySelector(link.getAttribute('href'));
+  const panel = destino?.closest('.ciclo');
+  if (panel) elegirCiclo(Number(panel.dataset.ciclo));
+}, true);
+
+// El toggle flotante aparece abajo mientras recorrés los ciclos y el grande ya quedó atrás
+const toggleGrande = document.querySelector('.ciclo-toggle--grande');
+function actualizarFlotante() {
+  const grande = toggleGrande.getBoundingClientRect();
+  const ciclos = ciclosEl.getBoundingClientRect();
+  cicloFlotante.classList.toggle('is-visible', grande.bottom < 0 && ciclos.bottom > innerHeight * 0.6);
 }
 
 // =========================================================
@@ -496,7 +618,7 @@ const menuLinks = [...menu.querySelectorAll('a')];
 const subnav = document.getElementById('subnav');
 const subnavLinks = [...subnav.querySelectorAll('a')];
 // Marca en el menú la sección que está en el medio de la pantalla. El submenú de
-// 2do ciclo (a la derecha) se muestra solo dentro de ese capítulo y marca su subsección.
+// los ciclos (a la derecha) se muestra solo dentro de un ciclo y marca su subsección.
 const navTargets = [...document.querySelectorAll('.chapter, [data-nav]')];
 const enElMedio = new Set();
 const chapterObserver = new IntersectionObserver(
@@ -506,7 +628,7 @@ const chapterObserver = new IntersectionObserver(
     const enMedio = (a) => [...enElMedio].some((el) => `#${el.id}` === a.getAttribute('href'));
     menuLinks.forEach((a) => a.classList.toggle('is-active', enMedio(a)));
     subnavLinks.forEach((a) => a.classList.toggle('is-active', enMedio(a)));
-    subnav.classList.toggle('is-visible', [...enElMedio].some((el) => el.id === 'segundo-ciclo'));
+    subnav.classList.toggle('is-visible', [...enElMedio].some((el) => el.classList.contains('ciclo')));
   },
   { rootMargin: '-50% 0px -50% 0px' }
 );
@@ -530,7 +652,8 @@ function update() {
 
   updateStack();
   updateParallax();
-  actualizarCamino();
+  rutas.forEach((r) => r.actualizar());
+  actualizarFlotante();
 
   const max = document.documentElement.scrollHeight - vh;
   progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
@@ -542,34 +665,15 @@ function requestUpdate() {
 }
 
 addEventListener('scroll', requestUpdate, { passive: true });
-addEventListener('resize', () => { dibujarCamino(); requestUpdate(); });
-dibujarCamino();
-document.fonts?.ready.then(dibujarCamino);
+addEventListener('resize', () => { dibujarCaminos(); requestUpdate(); });
+dibujarCaminos();
+document.fonts?.ready.then(dibujarCaminos);
 
 
+const panelInicial = location.hash && document.querySelector(location.hash)?.closest('.ciclo');
+elegirCiclo(panelInicial ? Number(panelInicial.dataset.ciclo) : 1);
 update();
 observarFades();
-
-// =========================================================
-// 1er ciclo: mensajes chistosos
-// =========================================================
-const wipBtn = document.getElementById('wipBtn');
-const wipMsg = document.getElementById('wipMsg');
-const wipCone = document.getElementById('wipCone');
-let wipIndex = 0;
-
-wipBtn.addEventListener('click', () => {
-  wipIndex = (wipIndex + 1) % mensajesPrimerCiclo.length;
-  wipMsg.classList.add('is-changing');
-  wipCone.classList.remove('is-wobbling');
-  void wipCone.offsetWidth;
-  wipCone.classList.add('is-wobbling');
-  setTimeout(() => {
-    wipMsg.textContent = mensajesPrimerCiclo[wipIndex];
-    wipMsg.classList.remove('is-changing');
-  }, 250);
-});
-wipCone.addEventListener('animationend', () => wipCone.classList.remove('is-wobbling'));
 
 // =========================================================
 // Ver CV: abre el PDF en un visor con botón de descarga.
