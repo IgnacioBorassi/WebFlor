@@ -175,6 +175,33 @@ p + p { margin-top: 1em; }
 .subnav a.is-active .subnav__texto { opacity: 1; transform: none; color: var(--destacado); }
 @media (max-width: 1050px) { .subnav { display: none; } }
 
+/* Cartelito fijo que dice en qué ciclo estás */
+.ciclo-tag {
+  position: fixed; left: var(--gutter); bottom: 1.1rem; z-index: 40;
+  display: flex; align-items: center; gap: .65rem;
+  padding: .45rem 1.1rem .45rem .45rem; border-radius: 999px;
+  background: rgba(255, 255, 255, .82);
+  backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px);
+  box-shadow: 0 12px 32px -14px rgba(0, 0, 0, .28), 0 0 0 1px rgba(0, 0, 0, .05);
+  opacity: 0; pointer-events: none; transform: translateY(14px) scale(.96);
+  transition: opacity .35s, transform .45s cubic-bezier(.2, .7, .2, 1);
+}
+.ciclo-tag.is-visible { opacity: 1; pointer-events: auto; transform: none; }
+.ciclo-tag__grado {
+  display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%;
+  background: var(--destacado); color: #fff; font-weight: 900; font-size: 1.05rem; letter-spacing: -0.03em;
+}
+.ciclo-tag__texto { display: flex; flex-direction: column; line-height: 1.15; }
+.ciclo-tag__texto strong { font-weight: 900; font-size: .95rem; color: var(--ink); }
+.ciclo-tag__texto small { font-weight: 700; font-size: .72rem; color: var(--ink-2); }
+.ciclo-tag__grado, .ciclo-tag__texto { transition: opacity .22s, transform .22s; }
+.ciclo-tag.is-cambiando .ciclo-tag__grado { opacity: 0; transform: rotateY(90deg); }
+.ciclo-tag.is-cambiando .ciclo-tag__texto { opacity: 0; transform: translateY(6px); }
+@media (max-width: 640px) {
+  .ciclo-tag { bottom: .8rem; padding: .35rem .9rem .35rem .35rem; gap: .5rem; }
+  .ciclo-tag__grado { width: 2rem; height: 2rem; font-size: .9rem; }
+}
+
 .bar__nav a:hover { color: var(--ink); background: rgba(0, 0, 0, .05); }
 .bar__nav a.is-active { color: #fff; background: var(--destacado); }
 

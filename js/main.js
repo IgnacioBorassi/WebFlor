@@ -552,6 +552,27 @@ function apuntarSubnav(ciclo) {
     a.hidden = !document.querySelector(a.getAttribute('href'));
   });
 }
+// Cartelito fijo abajo a la izquierda: dice en qué ciclo (y grado) estás
+const cicloTag = document.getElementById('cicloTag');
+let cicloMarcado = null;
+function marcarCiclo(ciclo) {
+  cicloTag.classList.toggle('is-visible', Boolean(ciclo));
+  if (!ciclo || ciclo === cicloMarcado) return;
+  const primeraVez = !cicloMarcado;
+  cicloMarcado = ciclo;
+  const poner = () => {
+    const n = ciclo.dataset.ciclo;
+    document.getElementById('cicloTagGrado').textContent = ciclo.dataset.grado;
+    document.getElementById('cicloTagCiclo').textContent = n === '1' ? '1er ciclo' : '2do ciclo';
+    document.getElementById('cicloTagNombre').textContent = ciclo.dataset.gradoNombre;
+    cicloTag.href = `#${ciclo.id}`;
+    cicloTag.classList.remove('is-cambiando');
+  };
+  if (primeraVez) return poner();
+  // Al pasar de un ciclo al otro, el contenido se da vuelta
+  cicloTag.classList.add('is-cambiando');
+  setTimeout(poner, 220);
+}
 const enElMedio = new Set();
 const chapterObserver = new IntersectionObserver(
   (entries) => {
@@ -563,6 +584,7 @@ const chapterObserver = new IntersectionObserver(
     if (ciclo) apuntarSubnav(ciclo);
     subnavLinks.forEach((a) => a.classList.toggle('is-active', enMedio(a)));
     subnav.classList.toggle('is-visible', Boolean(ciclo));
+    marcarCiclo(ciclo);
   },
   { rootMargin: '-50% 0px -50% 0px' }
 );
