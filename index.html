@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=146">
+  <link rel="stylesheet" href="css/styles.css?v=150">
 </head>
 <body>
 
@@ -33,22 +33,23 @@
     <div class="bar__progress" id="progress"></div>
   </header>
 
-  <!-- Submenú de los ciclos: puntitos a la derecha con las secciones del ciclo elegido -->
+  <!-- Submenú de los ciclos: cápsula abajo al centro. La parte violeta dice en qué
+       ciclo estás y al lado van los puntitos con las secciones de ese ciclo. -->
   <nav class="subnav" id="subnav" aria-label="Secciones del ciclo">
-    <a href="#curso" data-sec="curso"><span class="subnav__texto">El curso</span></a>
-    <a href="#planificacion" data-sec="planificacion"><span class="subnav__texto">Planificación</span></a>
-    <a href="#marcos" data-sec="marcos"><span class="subnav__texto">Marcos teóricos</span></a>
-    <a href="#desempenos" data-sec="desempenos"><span class="subnav__texto">Desempeños</span></a>
-    <a href="#huellas" data-sec="huellas"><span class="subnav__texto">Huellas</span></a>
-    <a href="#reflexion" data-sec="reflexion"><span class="subnav__texto">Reflexión</span></a>
-    <a href="#identidad" data-sec="identidad"><span class="subnav__texto">Identidad AIE</span></a>
+    <a class="ciclo-tag" id="cicloTag" href="#primer-ciclo" aria-live="polite">
+      <span class="ciclo-tag__grado" id="cicloTagGrado">3°</span>
+      <span class="ciclo-tag__texto"><strong id="cicloTagCiclo">1er ciclo</strong><small id="cicloTagNombre">Tercer grado</small></span>
+    </a>
+    <div class="subnav__puntos">
+      <a href="#curso" data-sec="curso"><span class="subnav__texto">El curso</span></a>
+      <a href="#planificacion" data-sec="planificacion"><span class="subnav__texto">Planificación</span></a>
+      <a href="#marcos" data-sec="marcos"><span class="subnav__texto">Marcos teóricos</span></a>
+      <a href="#desempenos" data-sec="desempenos"><span class="subnav__texto">Desempeños</span></a>
+      <a href="#huellas" data-sec="huellas"><span class="subnav__texto">Huellas</span></a>
+      <a href="#reflexion" data-sec="reflexion"><span class="subnav__texto">Reflexión</span></a>
+      <a href="#identidad" data-sec="identidad"><span class="subnav__texto">Identidad AIE</span></a>
+    </div>
   </nav>
-
-  <!-- Cartelito fijo que indica en qué ciclo estás (aparece solo dentro de un ciclo) -->
-  <a class="ciclo-tag" id="cicloTag" href="#primer-ciclo" aria-live="polite">
-    <span class="ciclo-tag__grado" id="cicloTagGrado">3°</span>
-    <span class="ciclo-tag__texto"><strong id="cicloTagCiclo">1er ciclo</strong><small id="cicloTagNombre">Tercer grado</small></span>
-  </a>
 
   <main>
 
@@ -531,8 +532,8 @@
 
   </main>
 
-  <script src="js/datos.js?v=146"></script>
-  <script src="js/comun.js?v=146"></script>
-  <script src="js/main.js?v=146"></script>
+  <script src="js/datos.js?v=150"></script>
+  <script src="js/comun.js?v=150"></script>
+  <script src="js/main.js?v=150"></script>
 </body>
 </html>

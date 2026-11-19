@@ -539,7 +539,7 @@ menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
 
 const menuLinks = [...menu.querySelectorAll('a')];
 const subnav = document.getElementById('subnav');
-const subnavLinks = [...subnav.querySelectorAll('a')];
+const subnavLinks = [...subnav.querySelectorAll('a[data-sec]')];
 // Marca en el menú la sección que está en el medio de la pantalla. El submenú de
 // los ciclos (a la derecha) se muestra solo dentro de un ciclo y marca su subsección.
 const navTargets = [...document.querySelectorAll('.chapter, [data-nav]')];
@@ -552,11 +552,10 @@ function apuntarSubnav(ciclo) {
     a.hidden = !document.querySelector(a.getAttribute('href'));
   });
 }
-// Cartelito fijo abajo a la izquierda: dice en qué ciclo (y grado) estás
+// Cartel que encabeza el submenú: dice en qué ciclo (y grado) estás
 const cicloTag = document.getElementById('cicloTag');
 let cicloMarcado = null;
 function marcarCiclo(ciclo) {
-  cicloTag.classList.toggle('is-visible', Boolean(ciclo));
   if (!ciclo || ciclo === cicloMarcado) return;
   const primeraVez = !cicloMarcado;
   cicloMarcado = ciclo;
