@@ -148,67 +148,69 @@ p + p { margin-top: 1em; }
   .bar__nav { gap: 0; }
   .bar__nav a { font-size: .8rem; padding: .4rem .55rem; }
 }
-/* Submenú de los ciclos: cápsula horizontal abajo al centro. A la izquierda, la parte
-   violeta dice el ciclo y el grado; a la derecha, los puntitos de sus secciones. El nombre
-   de cada sección aparece arriba del puntito al pasar el mouse (el de la actual queda visible). */
+/* Submenú de los ciclos: tarjeta tipo señalador a la derecha. El lomo violeta dice el
+   ciclo y el grado; al lado, los puntitos de sus secciones. El nombre de cada sección
+   aparece afuera de la tarjeta, al pasar el mouse (y el de la actual queda visible). */
 .subnav {
-  position: fixed; left: 50%; bottom: 1.1rem; z-index: 40;
-  display: flex; align-items: center; gap: .3rem;
-  padding: .35rem; border-radius: 999px;
+  position: fixed; right: 1.1rem; top: 50%; z-index: 40;
+  display: flex; flex-direction: row-reverse; align-items: stretch; gap: .2rem;
+  padding: .35rem; border-radius: 22px;
   background: rgba(255, 255, 255, .82);
   backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px);
   box-shadow: 0 12px 32px -14px rgba(0, 0, 0, .28), 0 0 0 1px rgba(0, 0, 0, .05);
-  opacity: 0; pointer-events: none; transform: translate(-50%, 16px);
+  opacity: 0; pointer-events: none; transform: translate(12px, -50%);
   transition: opacity .3s, transform .4s cubic-bezier(.2, .7, .2, 1);
 }
-.subnav.is-visible { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
+.subnav.is-visible { opacity: 1; pointer-events: auto; transform: translate(0, -50%); }
 
-.subnav__puntos { display: flex; align-items: center; padding: 0 .55rem 0 .35rem; }
-.subnav__puntos a { position: relative; display: grid; place-items: center; height: 1.6rem; padding: 0 .35rem; }
+.subnav__puntos { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: .4rem .45rem; }
+.subnav__puntos a { position: relative; display: grid; place-items: center; width: 1rem; padding: .35rem 0; }
 .subnav__puntos a[hidden] { display: none; }
 .subnav__puntos a::after {
   content: ""; width: 7px; height: 7px; border-radius: 999px;
   background: color-mix(in srgb, var(--ink-2) 40%, transparent);
-  transition: width .25s, background .25s;
+  transition: height .25s, background .25s;
 }
 .subnav__texto {
-  position: absolute; bottom: calc(100% + .9rem); left: 50%;
+  position: absolute; right: calc(100% + 1.1rem); top: 50%;
   font-size: .72rem; font-weight: 800; color: var(--ink-2); white-space: nowrap;
-  padding: .2rem .6rem; border-radius: 999px; background: rgba(255, 255, 255, .92);
-  box-shadow: 0 6px 18px -10px rgba(0, 0, 0, .3), 0 0 0 1px rgba(0, 0, 0, .04);
-  opacity: 0; transform: translate(-50%, 4px); transition: opacity .2s, transform .2s, color .2s;
+  padding: .2rem .55rem; border-radius: 999px; background: rgba(255, 255, 255, .9);
+  box-shadow: 0 6px 18px -10px rgba(0, 0, 0, .3);
+  opacity: 0; transform: translate(6px, -50%); transition: opacity .2s, transform .2s, color .2s;
   pointer-events: none;
 }
-.subnav__puntos a:hover .subnav__texto, .subnav__puntos a:focus-visible .subnav__texto { opacity: 1; transform: translate(-50%, 0); z-index: 1; }
+.subnav__puntos a:hover .subnav__texto, .subnav__puntos a:focus-visible .subnav__texto { opacity: 1; transform: translate(0, -50%); }
 .subnav__puntos a:hover::after { background: var(--ink-2); }
-.subnav__puntos a.is-active::after { width: 20px; background: var(--destacado); }
-.subnav__puntos a.is-active .subnav__texto { opacity: 1; transform: translate(-50%, 0); color: var(--destacado); }
-/* Si pasás el mouse por otro puntito, se esconde el nombre de la sección actual */
-.subnav__puntos:hover a.is-active:not(:hover) .subnav__texto { opacity: 0; }
+.subnav__puntos a.is-active::after { height: 20px; background: var(--destacado); }
+.subnav__puntos a.is-active .subnav__texto { opacity: 1; transform: translate(0, -50%); color: var(--destacado); }
 
-/* La parte violeta: ciclo y grado */
+/* Lomo del señalador: texto vertical que se lee de abajo hacia arriba */
 .ciclo-tag {
-  display: flex; align-items: center; gap: .55rem;
-  padding: .3rem 1rem .3rem .3rem; border-radius: 999px;
+  display: flex; align-items: center; gap: .7rem;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  padding: 1rem .4rem; border-radius: 16px;
   background: var(--destacado); color: #fff;
 }
 .ciclo-tag__grado {
+  writing-mode: horizontal-tb; transform: rotate(180deg);
   display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%;
   background: #fff; color: var(--destacado); font-weight: 900; font-size: .85rem; letter-spacing: -0.03em;
 }
 .ciclo-tag__texto { display: flex; align-items: baseline; gap: .45rem; white-space: nowrap; line-height: 1; }
-.ciclo-tag__texto strong { font-weight: 900; font-size: .88rem; }
-.ciclo-tag__texto small { font-weight: 700; font-size: .72rem; opacity: .8; }
+.ciclo-tag__texto strong { font-weight: 900; font-size: .85rem; }
+.ciclo-tag__texto small { font-weight: 700; font-size: .7rem; opacity: .8; }
 .ciclo-tag__grado, .ciclo-tag__texto { transition: opacity .22s; }
 .ciclo-tag.is-cambiando .ciclo-tag__grado, .ciclo-tag.is-cambiando .ciclo-tag__texto { opacity: 0; }
 
-/* En el celular: más compacto y sin el nombre del grado (ya lo dice el círculo) */
-@media (max-width: 640px) {
-  .subnav { bottom: .8rem; }
-  .ciclo-tag { padding-right: .8rem; }
-  .ciclo-tag__texto small { display: none; }
-  .subnav__puntos { padding: 0 .3rem 0 .1rem; }
-  .subnav__puntos a { padding: 0 .28rem; }
+/* En pantallas chicas no hay puntitos: queda solo el lomo, acostado, abajo a la izquierda */
+@media (max-width: 1050px) {
+  .subnav { top: auto; bottom: .8rem; right: auto; left: var(--gutter); padding: 0; background: none; box-shadow: none;
+            backdrop-filter: none; -webkit-backdrop-filter: none; transform: translateY(14px); }
+  .subnav.is-visible { transform: none; }
+  .subnav__puntos { display: none; }
+  .ciclo-tag { writing-mode: horizontal-tb; transform: none; padding: .35rem .9rem .35rem .35rem; border-radius: 999px; gap: .55rem;
+               box-shadow: 0 12px 28px -12px color-mix(in srgb, var(--destacado) 70%, transparent); }
+  .ciclo-tag__grado { transform: none; }
 }
 
 .bar__nav a:hover { color: var(--ink); background: rgba(0, 0, 0, .05); }
