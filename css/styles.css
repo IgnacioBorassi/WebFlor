@@ -444,6 +444,14 @@ p + p { margin-top: 1em; }
 
 /* 1er ciclo · Huellas de aprendizaje en video */
 .video { max-width: 980px; margin: 0 auto; }
+/* Aviso temporal arriba del video (por ejemplo, mientras se muestra un Canva en su lugar) */
+.video__temporal {
+  max-width: 980px; margin: 0 auto 1rem; padding: .75rem 1.1rem; border-radius: 14px;
+  display: flex; gap: .6rem; align-items: flex-start;
+  background: color-mix(in srgb, var(--destacado) 9%, var(--card, #fff)); color: var(--ink-2);
+  font-weight: 700; font-size: .92rem; line-height: 1.45;
+  border: 1px dashed color-mix(in srgb, var(--destacado) 45%, transparent);
+}
 .video__pantalla {
   position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden;
   background: #15121f; box-shadow: 0 30px 60px -30px rgba(30, 20, 70, .45);
@@ -558,7 +566,7 @@ p + p { margin-top: 1em; }
 .plan-table .plan-table__capacidades { list-style: none; padding-left: 0; }
 .plan-table .plan-table__capacidades li { display: flex; align-items: flex-start; gap: .9rem; }
 
-.plan-doc { max-width: 1100px; margin: 2rem auto 0; text-align: center; }
+.plan-doc { max-width: 1100px; margin: 2rem auto 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0 1rem; }
 
 /* Marcos teóricos */
 /* Título en dos niveles: frase chica arriba y "Marcos teóricos" grande */

@@ -469,6 +469,8 @@ function videoEmbebido(url) {
   if (yt) return `https://www.youtube-nocookie.com/embed/${yt[1]}`;
   const drive = url.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
   if (drive) return `https://drive.google.com/file/d/${drive[1]}/preview`;
+  const canva = url.match(/canva\.com\/design\/([\w-]+)\/([\w-]+)/);
+  if (canva) return `https://www.canva.com/design/${canva[1]}/${canva[2]}/view?embed`;
   return null;
 }
 if (!linkVideo) {
@@ -481,6 +483,10 @@ if (!linkVideo) {
   videoEl.innerHTML = `<div class="video__pantalla"><iframe src="${esc(videoEmbebido(linkVideo))}" title="Huellas de aprendizaje de 1er ciclo" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>`;
 } else {
   videoEl.innerHTML = `<div class="video__pantalla"><video src="${esc(linkVideo)}" controls preload="metadata"></video></div>`;
+}
+// Aviso temporal arriba del video (por ejemplo, mientras se muestra el Canva)
+if (linkVideo && primerCiclo.avisoVideo) {
+  videoEl.insertAdjacentHTML('beforebegin', `<p class="video__temporal"><span aria-hidden="true">⏳</span> ${esc(primerCiclo.avisoVideo)}</p>`);
 }
 
 // =========================================================
