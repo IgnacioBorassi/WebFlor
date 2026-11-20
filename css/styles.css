@@ -148,69 +148,58 @@ p + p { margin-top: 1em; }
   .bar__nav { gap: 0; }
   .bar__nav a { font-size: .8rem; padding: .4rem .55rem; }
 }
-/* Submenú de los ciclos: tarjeta tipo señalador a la derecha. El lomo violeta dice el
-   ciclo y el grado; al lado, los puntitos de sus secciones. El nombre de cada sección
-   aparece afuera de la tarjeta, al pasar el mouse (y el de la actual queda visible). */
+/* Submenú de 2do ciclo: columna de puntitos a la derecha; el nombre aparece al pasar
+   el mouse y el de la sección actual queda visible */
 .subnav {
   position: fixed; right: 1.1rem; top: 50%; z-index: 40;
-  display: flex; flex-direction: row-reverse; align-items: stretch; gap: .2rem;
-  padding: .35rem; border-radius: 22px;
-  background: rgba(255, 255, 255, .82);
-  backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px);
-  box-shadow: 0 12px 32px -14px rgba(0, 0, 0, .28), 0 0 0 1px rgba(0, 0, 0, .05);
-  opacity: 0; pointer-events: none; transform: translate(12px, -50%);
-  transition: opacity .3s, transform .4s cubic-bezier(.2, .7, .2, 1);
+  display: flex; flex-direction: column; align-items: flex-end; gap: .15rem;
+  opacity: 0; pointer-events: none; transform: translate(8px, -50%);
+  transition: opacity .3s, transform .3s cubic-bezier(.2, .7, .2, 1);
 }
 .subnav.is-visible { opacity: 1; pointer-events: auto; transform: translate(0, -50%); }
-
-.subnav__puntos { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: .4rem .45rem; }
-.subnav__puntos a { position: relative; display: grid; place-items: center; width: 1rem; padding: .35rem 0; }
-.subnav__puntos a[hidden] { display: none; }
-.subnav__puntos a::after {
-  content: ""; width: 7px; height: 7px; border-radius: 999px;
-  background: color-mix(in srgb, var(--ink-2) 40%, transparent);
+.subnav a { display: flex; align-items: center; justify-content: flex-end; gap: .55rem; padding: .3rem 0; }
+.subnav a[hidden] { display: none; }
+.subnav a::after {
+  content: ""; width: 7px; height: 7px; border-radius: 999px; flex-shrink: 0;
+  background: color-mix(in srgb, var(--ink-2) 45%, transparent);
   transition: height .25s, background .25s;
 }
 .subnav__texto {
-  position: absolute; right: calc(100% + 1.1rem); top: 50%;
   font-size: .72rem; font-weight: 800; color: var(--ink-2); white-space: nowrap;
-  padding: .2rem .55rem; border-radius: 999px; background: rgba(255, 255, 255, .9);
-  box-shadow: 0 6px 18px -10px rgba(0, 0, 0, .3);
-  opacity: 0; transform: translate(6px, -50%); transition: opacity .2s, transform .2s, color .2s;
-  pointer-events: none;
+  padding: .15rem .45rem; border-radius: 6px; background: color-mix(in srgb, var(--bg) 85%, transparent);
+  opacity: 0; transform: translateX(4px); transition: opacity .2s, transform .2s, color .2s;
 }
-.subnav__puntos a:hover .subnav__texto, .subnav__puntos a:focus-visible .subnav__texto { opacity: 1; transform: translate(0, -50%); }
-.subnav__puntos a:hover::after { background: var(--ink-2); }
-.subnav__puntos a.is-active::after { height: 20px; background: var(--destacado); }
-.subnav__puntos a.is-active .subnav__texto { opacity: 1; transform: translate(0, -50%); color: var(--destacado); }
+.subnav a:hover .subnav__texto, .subnav a:focus-visible .subnav__texto { opacity: 1; transform: none; }
+.subnav a:hover::after { background: var(--ink-2); }
+.subnav a.is-active::after { height: 20px; background: var(--destacado); }
+.subnav a.is-active .subnav__texto { opacity: 1; transform: none; color: var(--destacado); }
+@media (max-width: 1050px) { .subnav { display: none; } }
 
-/* Lomo del señalador: texto vertical que se lee de abajo hacia arriba */
+/* Cartelito fijo que dice en qué ciclo estás */
 .ciclo-tag {
-  display: flex; align-items: center; gap: .7rem;
-  writing-mode: vertical-rl; transform: rotate(180deg);
-  padding: 1rem .4rem; border-radius: 16px;
-  background: var(--destacado); color: #fff;
+  position: fixed; right: var(--gutter); bottom: 1.1rem; z-index: 40;
+  display: flex; align-items: center; gap: .65rem;
+  padding: .45rem 1.1rem .45rem .45rem; border-radius: 999px;
+  background: rgba(255, 255, 255, .82);
+  backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px);
+  box-shadow: 0 12px 32px -14px rgba(0, 0, 0, .28), 0 0 0 1px rgba(0, 0, 0, .05);
+  opacity: 0; pointer-events: none; transform: translateY(14px) scale(.96);
+  transition: opacity .35s, transform .45s cubic-bezier(.2, .7, .2, 1);
 }
+.ciclo-tag.is-visible { opacity: 1; pointer-events: auto; transform: none; }
 .ciclo-tag__grado {
-  writing-mode: horizontal-tb; transform: rotate(180deg);
-  display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%;
-  background: #fff; color: var(--destacado); font-weight: 900; font-size: .85rem; letter-spacing: -0.03em;
+  display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%;
+  background: var(--destacado); color: #fff; font-weight: 900; font-size: 1.05rem; letter-spacing: -0.03em;
 }
-.ciclo-tag__texto { display: flex; align-items: baseline; gap: .45rem; white-space: nowrap; line-height: 1; }
-.ciclo-tag__texto strong { font-weight: 900; font-size: .85rem; }
-.ciclo-tag__texto small { font-weight: 700; font-size: .7rem; opacity: .8; }
-.ciclo-tag__grado, .ciclo-tag__texto { transition: opacity .22s; }
-.ciclo-tag.is-cambiando .ciclo-tag__grado, .ciclo-tag.is-cambiando .ciclo-tag__texto { opacity: 0; }
-
-/* En pantallas chicas no hay puntitos: queda solo el lomo, acostado, abajo a la izquierda */
-@media (max-width: 1050px) {
-  .subnav { top: auto; bottom: .8rem; right: auto; left: var(--gutter); padding: 0; background: none; box-shadow: none;
-            backdrop-filter: none; -webkit-backdrop-filter: none; transform: translateY(14px); }
-  .subnav.is-visible { transform: none; }
-  .subnav__puntos { display: none; }
-  .ciclo-tag { writing-mode: horizontal-tb; transform: none; padding: .35rem .9rem .35rem .35rem; border-radius: 999px; gap: .55rem;
-               box-shadow: 0 12px 28px -12px color-mix(in srgb, var(--destacado) 70%, transparent); }
-  .ciclo-tag__grado { transform: none; }
+.ciclo-tag__texto { display: flex; flex-direction: column; line-height: 1.15; }
+.ciclo-tag__texto strong { font-weight: 900; font-size: .95rem; color: var(--ink); }
+.ciclo-tag__texto small { font-weight: 700; font-size: .72rem; color: var(--ink-2); }
+.ciclo-tag__grado, .ciclo-tag__texto { transition: opacity .22s, transform .22s; }
+.ciclo-tag.is-cambiando .ciclo-tag__grado { opacity: 0; transform: rotateY(90deg); }
+.ciclo-tag.is-cambiando .ciclo-tag__texto { opacity: 0; transform: translateY(6px); }
+@media (max-width: 640px) {
+  .ciclo-tag { bottom: .8rem; padding: .35rem .9rem .35rem .35rem; gap: .5rem; }
+  .ciclo-tag__grado { width: 2rem; height: 2rem; font-size: .9rem; }
 }
 
 .bar__nav a:hover { color: var(--ink); background: rgba(0, 0, 0, .05); }
@@ -531,7 +520,7 @@ p + p { margin-top: 1em; }
 }
 
 /* Objetivos (izquierda) + Capacidades (derecha) */
-.plan-fila { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 1rem; }
+.plan-fila { display: grid; grid-template-columns: var(--fila, minmax(0, 3fr) minmax(0, 2fr)); gap: 1rem; }
 .plan-card__titulo { display: flex; align-items: center; gap: .55rem; }
 .plan-card__titulo svg { color: var(--destacado); }
 .plan-card--capacidades { display: flex; flex-direction: column; background: linear-gradient(160deg, color-mix(in srgb, var(--destacado) 10%, var(--card)), var(--card)); }
@@ -550,7 +539,8 @@ p + p { margin-top: 1em; }
 .plan-contenidos cite { display: block; margin-top: .25rem; font-style: normal; font-size: .8rem; font-weight: 700; color: color-mix(in srgb, var(--destacado) 75%, var(--ink-2)); }
 
 /* Cuadro: igual al documento original */
-.plan-table-wrap { overflow-x: auto; background: #fff; border-radius: 12px; }
+/* Sin bordes redondeados: si no, las esquinas del cuadro quedan recortadas */
+.plan-table-wrap { overflow-x: auto; background: #fff; }
 .plan-table {
   width: 100%; min-width: 640px; border-collapse: collapse;
   font-family: "Times New Roman", Times, serif; font-size: 1rem; line-height: 1.45; color: #111;

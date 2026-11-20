@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=151">
+  <link rel="stylesheet" href="css/styles.css?v=155">
 </head>
 <body>
 
@@ -33,24 +33,22 @@
     <div class="bar__progress" id="progress"></div>
   </header>
 
-  <!-- Submenú de los ciclos: una tarjeta tipo señalador. El lomo violeta dice en qué
-       ciclo estás y al lado van los puntitos con las secciones de ese ciclo.
-       En el celular queda solo el lomo, acostado, abajo a la izquierda. -->
+  <!-- Submenú de los ciclos: puntitos a la derecha con las secciones del ciclo elegido -->
   <nav class="subnav" id="subnav" aria-label="Secciones del ciclo">
-    <a class="ciclo-tag" id="cicloTag" href="#primer-ciclo" aria-live="polite">
-      <span class="ciclo-tag__grado" id="cicloTagGrado">3°</span>
-      <span class="ciclo-tag__texto"><strong id="cicloTagCiclo">1er ciclo</strong><small id="cicloTagNombre">Tercer grado</small></span>
-    </a>
-    <div class="subnav__puntos">
-      <a href="#curso" data-sec="curso"><span class="subnav__texto">El curso</span></a>
-      <a href="#planificacion" data-sec="planificacion"><span class="subnav__texto">Planificación</span></a>
-      <a href="#marcos" data-sec="marcos"><span class="subnav__texto">Marcos teóricos</span></a>
-      <a href="#desempenos" data-sec="desempenos"><span class="subnav__texto">Desempeños</span></a>
-      <a href="#huellas" data-sec="huellas"><span class="subnav__texto">Huellas</span></a>
-      <a href="#reflexion" data-sec="reflexion"><span class="subnav__texto">Reflexión</span></a>
-      <a href="#identidad" data-sec="identidad"><span class="subnav__texto">Identidad AIE</span></a>
-    </div>
+    <a href="#curso" data-sec="curso"><span class="subnav__texto">El curso</span></a>
+    <a href="#planificacion" data-sec="planificacion"><span class="subnav__texto">Planificación</span></a>
+    <a href="#marcos" data-sec="marcos"><span class="subnav__texto">Marcos teóricos</span></a>
+    <a href="#desempenos" data-sec="desempenos"><span class="subnav__texto">Desempeños</span></a>
+    <a href="#huellas" data-sec="huellas"><span class="subnav__texto">Huellas</span></a>
+    <a href="#reflexion" data-sec="reflexion"><span class="subnav__texto">Reflexión</span></a>
+    <a href="#identidad" data-sec="identidad"><span class="subnav__texto">Identidad AIE</span></a>
   </nav>
+
+  <!-- Cartelito fijo que indica en qué ciclo estás (aparece solo dentro de un ciclo) -->
+  <a class="ciclo-tag" id="cicloTag" href="#primer-ciclo" aria-live="polite">
+    <span class="ciclo-tag__grado" id="cicloTagGrado">3°</span>
+    <span class="ciclo-tag__texto"><strong id="cicloTagCiclo">1er ciclo</strong><small id="cicloTagNombre">Tercer grado</small></span>
+  </a>
 
   <main>
 
@@ -254,8 +252,9 @@
             <p class="kicker fade">Planificación</p>
             <h3 class="h-lg fade">Propuesta de enseñanza</h3>
             <div class="texto-justificado">
-              <p class="fade"><span class="relleno">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>
-              <p class="fade"><span class="relleno">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>
+              <p class="fade">A continuación, se presenta una de las secuencias didácticas implementadas durante mi residencia en tercer grado, centrada en la enseñanza de la división en el área de Matemática. En primer lugar, se explicitan los contenidos, las capacidades y los objetivos que orientaron la propuesta, junto con el hilo conductor y el recorte didáctico.</p>
+              <p class="fade">Luego, se presenta un video en el que se recuperan diferentes huellas de aprendizaje, a través de imágenes y dichos de los niños. El recorrido comienza mostrando los aprendizajes alcanzados por los estudiantes al finalizar la secuencia, cuyo producto final se realizó en articulación con el área de Lengua. Posteriormente, se reconstruye el camino que permitió llegar a esos resultados, haciendo visible cómo avanzaron desde sus estrategias iniciales de reparto hasta la incorporación de procedimientos de cálculo más complejos.</p>
+              <p class="fade">Finalmente, se incluye una reflexión sobre mi propia práctica a partir del análisis de estas evidencias, reconociendo fortalezas, aspectos a revisar y aprendizajes construidos durante la implementación de la secuencia.</p>
             </div>
           </div>
           <div class="plan-head fade">
@@ -274,9 +273,11 @@
             <svg class="garabato  fade" viewBox="0 0 100 80" aria-hidden="true"><g><path pathLength="1" d="M14 76 H86 V64 H14 Z"/><path pathLength="1" d="M20 64 H80 V52 H20 Z"/><path pathLength="1" d="M16 52 H76 V40 H16 Z"/><path pathLength="1" d="M24 76 V64 M72 64 V52 M26 52 V40"/></g><g class="garabato__acento"><path pathLength="1" d="M47 40 C38 40 36 27 44 25 C46 26 48 26 50 25 C58 27 56 40 48 40 Z"/><path pathLength="1" d="M48 25 q2 -7 9 -7 q-2 7 -9 7"/></g></svg>
             <h3 class="marco__titulo fade"><span>Fundamentación desde los</span> <span class="destacado">Marcos Teóricos</span></h3>
             <div class="texto-justificado">
-              <p class="fade"><span class="relleno">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>
-              <p class="fade"><span class="relleno">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>
-              <p class="fade"><span class="relleno">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>
+              <p class="fade">En esta secuencia, se buscó que los niños avanzaran en la comprensión de la división a partir de la resolución de diferentes situaciones problemáticas, reconociendo cuándo resultaba necesario utilizar esta operación y qué estrategias podían emplear para encontrar una solución. Para ello, se propuso partir de los conocimientos que los niños tenían disponibles, favoreciendo la utilización de procedimientos como dibujos, repartos, sumas, restas y multiplicaciones. También se buscó que pudieran analizar la información presentada en los problemas, identificar los datos necesarios para resolverlos y reconocer cuándo la información disponible no permitía determinar una única respuesta. Esta decisión se relacionó con las Progresiones de los aprendizajes de Matemática (CABA, 2018), documento que pone el foco en que resolver problemas no consiste solamente en realizar cálculos, sino también en comprender las situaciones, seleccionar y organizar la información, elegir procedimientos pertinentes y analizar la razonabilidad de los resultados. Desde estas orientaciones, se consideró importante ofrecer actividades específicas de análisis de enunciados, en las que el objetivo principal no fuera necesariamente encontrar un resultado numérico.</p>
+              <p class="fade">Por otro lado, la propuesta buscó que los niños avanzaran desde procedimientos iniciales de resolución (como el uso de material concreto y los dibujos) hacia estrategias de cálculo más económicas y organizadas. Broitman (1997) destaca la importancia de recuperar los procedimientos que los niños utilizan para resolver problemas de reparto, ya que constituyen conocimientos sobre los cuales pueden apoyarse para construir nuevas estrategias. A partir de situaciones que involucraban cantidades mayores, se buscó que los alumnos reconocieran las limitaciones de algunos procedimientos, como los dibujos o los repartos “de a uno”, y comenzaran a explorar otras formas de cálculo. Este recorrido permitió avanzar progresivamente hacia la comprensión del algoritmo convencional de la división, estableciendo relaciones con las estrategias utilizadas previamente.</p>
+              <p class="fade">En relación con estas decisiones, también se recuperaron los aportes de Brousseau (2007) sobre las variables didácticas, entendidas como aspectos de una situación que el docente puede modificar y que influyen en los procedimientos que utilizan los estudiantes. En esta secuencia, la elección de las cantidades, la disponibilidad de materiales concretos y las características de los repartos constituyeron decisiones claves para favorecer la exploración de diferentes estrategias. Por ejemplo, al aumentar progresivamente las cantidades que debían distribuirse, se buscó que los niños reconocieran que algunos procedimientos podían resultar adecuados para determinadas situaciones, pero poco convenientes para otras. Durante esta planificación, las condiciones de los problemas se seleccionaron intencionalmente para promover la construcción de nuevos conocimientos.</p>
+              <p class="fade">Además, se promovieron instancias de intercambio y reflexión sobre los procedimientos utilizados por ellos mismos y por otros, de manera que los alumnos pudieran explicar razonamientos, comparar diferentes estrategias y revisar sus propias resoluciones. Esta decisión se relacionó con los aportes de Quaranta y Wolman (2003), quienes sostienen que los momentos de discusión “son potencialmente fructíferos para la generación de confrontaciones, reflexiones y argumentaciones” (p. 4). Por lo tanto, las puestas en común no se plantearon únicamente como momentos para comunicar respuestas correctas, sino como espacios en los que los niños pudieron analizar diferentes formas de resolución, reconocer posibles errores y construir conclusiones colectivas.</p>
+              <p class="fade">Estas situaciones contribuyeron al desarrollo de la capacidad de resolución de problemas, ya que los niños tuvieron que interpretar diferentes situaciones, reconocer la información necesaria y seleccionar estrategias que les permitieran encontrar una solución. También se favoreció el pensamiento crítico y reflexivo al proponerles analizar la validez de sus procedimientos y de otros, reconocer sus posibilidades y limitaciones y considerar otras formas de resolución a partir de los intercambios con sus compañeros. Por ello, considero que la secuencia permitió que los niños construyeran nuevos conocimientos sobre la división y ampliaran sus recursos para resolver problemas.</p>
             </div>
           </div>
         </section>
@@ -533,8 +534,8 @@
 
   </main>
 
-  <script src="js/datos.js?v=151"></script>
-  <script src="js/comun.js?v=151"></script>
-  <script src="js/main.js?v=151"></script>
+  <script src="js/datos.js?v=155"></script>
+  <script src="js/comun.js?v=155"></script>
+  <script src="js/main.js?v=155"></script>
 </body>
 </html>

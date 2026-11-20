@@ -19,6 +19,16 @@ const conCita = (txt) => {
   return m ? `${esc(m[1])} <cite>${esc(m[2])}</cite>` : esc(txt);
 };
 
+// Reparte el ancho entre Objetivos y Capacidades según cuánto texto tiene cada una,
+// para que las dos tarjetas queden de alto parecido y no sobre espacio en blanco
+const anchoFila = (P) => {
+  const largo = (xs) => xs.join(' ').length;
+  const obj = largo(P.objetivos) + 150 * P.objetivos.length;
+  const cap = largo(P.capacidades.map((c) => `${c.nombre} ${c.descripcion}`)) + 250 * P.capacidades.length;
+  const r = clamp(obj / cap, 0.7, 1.8);
+  return `minmax(0, ${r.toFixed(2)}fr) minmax(0, 1fr)`;
+};
+
 // Arma la planificación de un ciclo dentro de su sección (resumen, cuadro y el switch entre los dos)
 function armarPlanificacion(seccion, P) {
   // Con "relleno: true" los textos se ven como barras grises: queda el diseño armado sin texto de mentira
@@ -43,7 +53,7 @@ function armarPlanificacion(seccion, P) {
         </article>
       </div>
 
-      <div class="plan-fila">
+      <div class="plan-fila" style="--fila:${anchoFila(P)}">
         <article class="plan-card">
           <h4 class="plan-card__titulo">${ICONOS.check} Objetivos</h4>
           <ol class="plan-objetivos">${P.objetivos.map((o, i) => `<li><span class="plan-card__num">${i + 1}</span><p>${tx(o)}</p></li>`).join('')}</ol>
@@ -539,7 +549,7 @@ menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
 
 const menuLinks = [...menu.querySelectorAll('a')];
 const subnav = document.getElementById('subnav');
-const subnavLinks = [...subnav.querySelectorAll('a[data-sec]')];
+const subnavLinks = [...subnav.querySelectorAll('a')];
 // Marca en el menú la sección que está en el medio de la pantalla. El submenú de
 // los ciclos (a la derecha) se muestra solo dentro de un ciclo y marca su subsección.
 const navTargets = [...document.querySelectorAll('.chapter, [data-nav]')];
@@ -552,10 +562,11 @@ function apuntarSubnav(ciclo) {
     a.hidden = !document.querySelector(a.getAttribute('href'));
   });
 }
-// Cartel que encabeza el submenú: dice en qué ciclo (y grado) estás
+// Cartelito fijo abajo a la derecha: dice en qué ciclo (y grado) estás
 const cicloTag = document.getElementById('cicloTag');
 let cicloMarcado = null;
 function marcarCiclo(ciclo) {
+  cicloTag.classList.toggle('is-visible', Boolean(ciclo));
   if (!ciclo || ciclo === cicloMarcado) return;
   const primeraVez = !cicloMarcado;
   cicloMarcado = ciclo;

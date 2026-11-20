@@ -415,24 +415,31 @@ const aie = [
 // Lo que todavía es texto de relleno (Lorem ipsum) se reemplaza cuando esté la información.
 const primerCiclo = {
   planificacion: {
-    relleno: true, // sacalo cuando cargues la planificación real
-    areas: ['Lorem ipsum', 'Dolor sit amet'],
-    ejes: ['Consectetur adipiscing elit', 'Sed do eiusmod tempor'],
-    hiloConductor: '¿Lorem ipsum dolor sit amet, consectetur adipiscing elit?',
-    recorte: 'Lorem ipsum dolor sit amet: ¿consectetur adipiscing elit sed do eiusmod tempor?',
+    areas: ["Matemática"],
+    ejes: ["Números y operaciones: Números naturales y sistema de numeración"],
+    hiloConductor: "¿Cómo podemos reconocer cuándo necesitamos dividir y qué estrategias nos ayudan a encontrar una solución?",
+    recorte: "¿Qué estrategias necesitamos conocer para resolver problemas de reparto?",
     capacidades: [
-      { nombre: 'Lorem ipsum', icono: 'img/capacidades/resolucion-problemas.png', descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-      { nombre: 'Dolor sit amet', icono: 'img/capacidades/pensamiento-critico.png', descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+      {
+        nombre: 'Resolución de Problemas',
+        icono: 'img/capacidades/resolucion-problemas.png',
+        descripcion: "Se les propusieron a los niños situaciones problemáticas de reparto en las que debieron recuperar sus conocimientos y estrategias disponibles, explorar diferentes formas de resolución y seleccionar aquellas que consideraron adecuadas según las características de cada situación. A lo largo de la secuencia, se favoreció la construcción y utilización de nuevos procedimientos de cálculo, incluyendo el algoritmo convencional de la división, para resolver problemas que involucraban cantidades cada vez mayores.",
+      },
+      {
+        nombre: 'Pensamiento Crítico y Reflexivo',
+        icono: 'img/capacidades/pensamiento-critico.png',
+        descripcion: "Se trabajó a partir del análisis de situaciones matemáticas para reconocer qué información permitía responder las preguntas planteadas, evaluar la validez de diferentes procedimientos, identificar posibles errores y reconocer las limitaciones de algunas estrategias frente a cantidades mayores, favoreciendo la reflexión sobre la necesidad de incorporar procedimientos de cálculo más económicos, como el algoritmo convencional de la división.",
+      },
     ],
     objetivos: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      "Reconocer diferentes situaciones problemáticas que pueden resolverse mediante la división, identificando qué se necesita averiguar y recuperando los conocimientos disponibles para encontrar una solución.",
+      "Utilizar diferentes estrategias de cálculo para resolver problemas de división, considerando las posibilidades y limitaciones de los procedimientos conocidos e incorporando progresivamente el algoritmo convencional.",
+      "Analizar diferentes procedimientos de resolución, considerando su validez y conveniencia, fundamentando las propias decisiones mediante argumentos matemáticos y respetando las ideas de sus compañeros.",
     ],
     contenidos: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. (CABA, 2024, p. 1)',
-      'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. (CABA, 2024, p. 2)',
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. (CABA, 2024, p. 3)',
+      "“Problemas de reparto equitativo y no equitativo y partición, series proporcionales.” (CABA, 2024, p.65)",
+      "“Cálculo mental: uso de estrategias para resolver multiplicaciones y divisiones.” (CABA, 2024, p.65)",
+      "“Estrategias de cálculo para resolver divisiones: sumas o restas sucesivas, aproximaciones mediante productos y uso de resultados multiplicativos en combinación con restas.” (CABA, 2024, p.65)",
     ],
   },
   // Sobres de Construcción de identidad docente AIE de 1er ciclo (mismos campos que "aie", más arriba)
