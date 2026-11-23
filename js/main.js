@@ -127,11 +127,11 @@ function crearRuta(rutaEl, paradas, prefijo) {
     <svg class="ruta__camino" aria-hidden="true"></svg>
     <ol class="ruta__paradas">
       ${paradas.map((t, i) => `
-        <li class="ruta__parada ruta__parada--${i % 2 ? 'der' : 'izq'} fade" style="--c:${colorFase(t.fase)}">
+        <li class="ruta__parada ruta__parada--${i % 2 ? 'der' : 'izq'} fade" style="--c:${t.fase ? colorFase(t.fase) : 'var(--destacado)'}">
           <button class="ruta__boton" type="button" aria-expanded="false" aria-controls="${prefijo}parada-${i}">
             <span class="ruta__hito">${i === n - 1 ? HITO_BANDERA : HITO_PIN}</span>
             <span class="ruta__textos">
-              <span class="ruta__fase">${esc(t.fase)}</span>
+              ${t.fase ? `<span class="ruta__fase">${esc(t.fase)}</span>` : ''}
               <span class="ruta__titulo">${esc(t.titulo)}</span>
               ${FLECHA}
             </span>
@@ -244,9 +244,189 @@ function crearRuta(rutaEl, paradas, prefijo) {
   return { dibujar, actualizar };
 }
 
-// La ruta de los desempeños es solo de 2do ciclo
+// La ruta de los desempeños es de 2do ciclo (en 1er ciclo es la montaña, más abajo)
 const rutas = [crearRuta(document.querySelector('#desempenos .ruta'), trayectoria, '')];
 const dibujarCaminos = () => rutas.forEach((r) => r.dibujar());
+
+// =========================================================
+// 1er ciclo · Desempeños: la docente ayuda a los chicos a escalar una montaña.
+// Al bajar con el scroll, el grupo sube por el sendero; en cada parada se ve
+// su desempeño en la tarjeta. La cima (con la bandera) es la última parada.
+// =========================================================
+const SVG_NS = 'http://www.w3.org/2000/svg';
+// Personitas dibujadas con los pies en (0, 0) y mirando hacia la derecha
+const FIGURA_DOCENTE = `
+  <g class="m-cuerpo">
+    <path class="m-piernas" d="M-2.5 0 L-1.2 -9 M2.5 0 L1.2 -9"/>
+    <path class="m-guardapolvo" d="M-5 -8 L5 -8 L4 -21 Q0 -23.5 -4 -21 Z"/>
+    <path class="m-brazo" d="M-2.5 -18 L-9 -13"/>
+    <path class="m-pelo" d="M-4.6 -27 Q-5 -32.5 0 -32.5 Q5 -32.5 4.6 -27 Q2 -30 -4.6 -27 Z M-4 -28 Q-8 -24 -6.5 -19"/>
+    <circle class="m-cara" cx="0" cy="-27" r="4.3"/>
+  </g>`;
+const figuraNene = (color) => `
+  <g class="m-cuerpo">
+    <path class="m-piernas" d="M-2 0 L-1 -7 M2 0 L1 -7"/>
+    <path class="m-remera" style="fill:${color}" d="M-4 -6.5 L4 -6.5 L3.4 -15 Q0 -16.6 -3.4 -15 Z"/>
+    <path class="m-brazo" d="M2 -13 L7.5 -16.5"/>
+    <circle class="m-cara" cx="0" cy="-19.6" r="3.6"/>
+    <path class="m-pelo" d="M-3.7 -20.4 Q-3.5 -24.6 0 -24.6 Q3.5 -24.6 3.7 -20.4 Q1 -22.6 -3.7 -20.4 Z"/>
+  </g>`;
+// Dónde está la mano de cada uno (para la soga), relativo a los pies, mirando a la derecha
+const MANO_DOCENTE = [-9, -13];
+const MANO_NENE = [7.5, -16.5];
+const ESCALA = 1.7; // tamaño de las personitas en la montaña
+
+function crearMontana(raiz, paradas) {
+  const n = paradas.length;
+  raiz.innerHTML = `
+    <div class="montana__pista" style="--paradas:${n}">
+      <div class="montana__escena">
+        <svg class="montana__svg" viewBox="0 0 600 700" role="img" aria-label="Montaña con ${n} paradas: la docente sube junto a los chicos">
+          <circle class="m-cielo" cx="300" cy="400" r="330"/>
+          <circle class="m-sol" cx="505" cy="120" r="42"/>
+          <g class="m-nube"><ellipse cx="110" cy="150" rx="48" ry="16"/><ellipse cx="140" cy="138" rx="30" ry="18"/></g>
+          <g class="m-nube m-nube--2"><ellipse cx="470" cy="250" rx="40" ry="13"/><ellipse cx="492" cy="240" rx="24" ry="14"/></g>
+          <path class="m-fondo" d="M-20 700 L120 360 L210 470 L330 250 L470 430 L540 330 L640 700 Z"/>
+          <path class="m-frente" d="M-10 700 L300 88 L610 700 Z"/>
+          <path class="m-nieve" d="M300 88 L352 190 L330 178 L312 196 L292 176 L270 192 L250 185 Z"/>
+          <path class="m-sendero" d="M110 655 Q300 645 455 602 Q525 582 420 545 Q262 500 192 470 Q128 444 232 410 Q362 368 408 336 Q448 306 360 280 Q266 252 252 226 Q240 200 310 182 Q350 166 322 140 L301 104"/>
+          <path class="m-sendero-avance" d="M110 655 Q300 645 455 602 Q525 582 420 545 Q262 500 192 470 Q128 444 232 410 Q362 368 408 336 Q448 306 360 280 Q266 252 252 226 Q240 200 310 182 Q350 166 322 140 L301 104"/>
+          <g class="m-bandera"><path d="M301 104 V58" class="m-mastil"/><path d="M302 59 H330 L322 68 L330 77 H302 Z"/></g>
+          <g class="m-hitos"></g>
+          <polyline class="m-soga" points=""/>
+          <g class="m-grupo">
+            <g class="m-persona m-nene" data-atras="0.06">${figuraNene('#3b6fd8')}</g>
+            <g class="m-persona m-nene" data-atras="0.032">${figuraNene('#f2a541')}</g>
+            <g class="m-persona m-docente" data-atras="0">${FIGURA_DOCENTE}</g>
+          </g>
+        </svg>
+        <div class="montana__tarjeta" aria-live="polite">
+          <p class="montana__paso">Parada <strong class="montana__num">1</strong> de ${n}</p>
+          <h4 class="montana__titulo"></h4>
+          <p class="montana__texto"></p>
+          <div class="montana__puntos">
+            ${paradas.map((t, i) => `<button type="button" data-i="${i}" aria-label="Ir a la parada ${i + 1}: ${esc(t.titulo)}"></button>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  const pista = raiz.querySelector('.montana__pista');
+  const svg = raiz.querySelector('.montana__svg');
+  const sendero = svg.querySelector('.m-sendero');
+  const avance = svg.querySelector('.m-sendero-avance');
+  const largo = sendero.getTotalLength();
+  const punto = (f) => sendero.getPointAtLength(clamp(f) * largo);
+  avance.style.strokeDasharray = `${largo} ${largo}`;
+
+  // Hitos numerados a lo largo del sendero (el último es la cima)
+  const hitos = svg.querySelector('.m-hitos');
+  // El primer tramo del sendero queda antes de la parada 1, para que los chicos entren enteros
+  const INICIO = 0.08;
+  const enSendero = (a) => INICIO + a * (1 - INICIO);
+  const fraccion = (i) => enSendero(i / (n - 1));
+  paradas.forEach((t, i) => {
+    const p = punto(fraccion(i));
+    const g = document.createElementNS(SVG_NS, 'g');
+    g.setAttribute('class', 'm-hito');
+    g.setAttribute('transform', `translate(${p.x} ${p.y})`);
+    g.innerHTML = `<circle r="11"/><text y="4">${i + 1}</text>`;
+    g.addEventListener('click', () => irAParada(i));
+    hitos.appendChild(g);
+  });
+  const hitosEls = [...hitos.children];
+
+  const personas = [...svg.querySelectorAll('.m-persona')];
+  const soga = svg.querySelector('.m-soga');
+  const titulo = raiz.querySelector('.montana__titulo');
+  const texto = raiz.querySelector('.montana__texto');
+  const num = raiz.querySelector('.montana__num');
+  const tarjeta = raiz.querySelector('.montana__tarjeta');
+  const puntos = [...raiz.querySelectorAll('.montana__puntos button')];
+
+  let actual = 0;      // dónde está dibujado el grupo (0..1 del sendero)
+  let objetivo = 0;    // hacia dónde va, según el scroll
+  let parada = -1;
+  let animando = false;
+
+  function mostrarParada(i) {
+    if (i === parada) return;
+    const primera = parada === -1;
+    parada = i;
+    const poner = () => {
+      num.textContent = i + 1;
+      titulo.textContent = paradas[i].titulo;
+      texto.textContent = paradas[i].texto;
+      tarjeta.classList.remove('is-cambiando');
+    };
+    puntos.forEach((b, k) => b.classList.toggle('is-actual', k === i));
+    if (primera || sinAnimaciones) return poner();
+    tarjeta.classList.add('is-cambiando');
+    clearTimeout(mostrarParada.t);
+    mostrarParada.t = setTimeout(poner, 180);
+  }
+
+  function dibujarGrupo() {
+    const manos = [];
+    personas.forEach((el) => {
+      const f = enSendero(actual) - Number(el.dataset.atras);
+      const p = punto(f);
+      const q = punto(f + 0.004);
+      const mira = q.x >= p.x ? 1 : -1;
+      el.setAttribute('transform', `translate(${p.x} ${p.y}) scale(${mira * ESCALA} ${ESCALA})`);
+      const mano = el.classList.contains('m-docente') ? MANO_DOCENTE : MANO_NENE;
+      manos.push(`${p.x + mano[0] * ESCALA * mira},${p.y + mano[1] * ESCALA}`);
+    });
+    // La soga va de la mano de cada chico a la de la docente
+    soga.setAttribute('points', manos.join(' '));
+    avance.style.strokeDashoffset = largo * (1 - enSendero(actual));
+    hitosEls.forEach((h, i) => h.classList.toggle('is-pasado', enSendero(actual) >= fraccion(i) - 0.002));
+  }
+
+  function paso() {
+    const falta = objetivo - actual;
+    actual = Math.abs(falta) < 0.0005 || sinAnimaciones ? objetivo : actual + falta * 0.1;
+    svg.classList.toggle('is-caminando', Math.abs(falta) > 0.002);
+    dibujarGrupo();
+    if (actual !== objetivo) requestAnimationFrame(paso);
+    else animando = false;
+  }
+
+  const escena = raiz.querySelector('.montana__escena');
+  const enCelular = matchMedia('(max-width: 800px)');
+  // En pantallas anchas la escena queda fija en el medio (sin taparse con el menú)
+  function centrar() {
+    escena.style.top = enCelular.matches ? '' : `${Math.max(80, (innerHeight - escena.offsetHeight) / 2)}px`;
+  }
+  const arriba = () => parseFloat(getComputedStyle(escena).top) || 0;
+  const recorridoTotal = () => pista.offsetHeight - escena.offsetHeight;
+
+  function actualizar() {
+    const recorrido = recorridoTotal();
+    if (recorrido <= 0) return;
+    const prog = clamp((arriba() - pista.getBoundingClientRect().top) / recorrido);
+    // Suben parejo: lo que bajás con el scroll es lo que avanzan
+    const tramo = prog * (n - 1);
+    objetivo = prog;
+    mostrarParada(Math.min(n - 1, Math.round(tramo)));
+    if (!animando) { animando = true; requestAnimationFrame(paso); }
+  }
+
+  function irAParada(i) {
+    const y = pista.getBoundingClientRect().top + scrollY - arriba() + recorridoTotal() * (i / (n - 1));
+    window.scrollTo({ top: y, behavior: sinAnimaciones ? 'auto' : 'smooth' });
+  }
+  puntos.forEach((b) => b.addEventListener('click', () => irAParada(Number(b.dataset.i))));
+
+  addEventListener('scroll', actualizar, { passive: true });
+  addEventListener('resize', () => { centrar(); actualizar(); });
+  centrar();
+  mostrarParada(0);
+  dibujarGrupo();
+  actualizar();
+}
+crearMontana(document.getElementById('montana'), primerCiclo.trayectoria);
+
 
 // =========================================================
 // Construcción de identidad docente AIE: tarjetas compactas que abren
