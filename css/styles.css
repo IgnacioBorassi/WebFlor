@@ -1234,10 +1234,10 @@ html:has(.lector[open]) { overflow: hidden; }
 
 /* Paradas numeradas */
 .m-hito { cursor: pointer; }
-.m-hito circle { fill: #fff; stroke: color-mix(in srgb, var(--destacado) 60%, #2b2140); stroke-width: 2.5; transition: fill .3s; }
-.m-hito text { fill: var(--destacado); font: 900 12px Nunito, sans-serif; text-anchor: middle; transition: fill .3s; }
-.m-hito.is-pasado circle { fill: #ffd166; }
-.m-hito.is-pasado text { fill: #2b2140; }
+.m-hito circle { fill: #fff; stroke: var(--c); stroke-width: 2.5; transition: fill .3s; }
+.m-hito text { fill: color-mix(in srgb, var(--c) 75%, #2b2140); font: 900 12px Nunito, sans-serif; text-anchor: middle; transition: fill .3s; }
+.m-hito.is-pasado circle { fill: var(--c); }
+.m-hito.is-pasado text { fill: #fff; }
 .m-hito:hover circle { stroke-width: 4; }
 
 /* La docente (con guardapolvo) y los chicos, unidos por una soga */
@@ -1257,9 +1257,11 @@ html:has(.lector[open]) { overflow: hidden; }
 /* Tarjeta con el desempeño de la parada actual */
 .montana__tarjeta {
   background: var(--card); border-radius: var(--radius); padding: 2rem 2.2rem;
-  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, .35), 0 0 0 1px rgba(0, 0, 0, .04);
+  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, .35);
+  /* El contorno lleva el color con el que Flor resaltó el título en el doc */
+  border: 3px solid var(--c, var(--destacado)); transition: border-color .3s;
 }
-.montana__paso { font-size: .8rem; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; color: var(--destacado); margin-bottom: .6rem; }
+.montana__paso { font-size: .8rem; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; color: color-mix(in srgb, var(--c, var(--destacado)) 80%, #2b2140); margin-bottom: .6rem; }
 .montana__titulo { font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 900; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: .9rem; }
 .montana__texto { color: var(--ink-2); text-align: justify; }
 .montana__titulo, .montana__texto { transition: opacity .18s, transform .18s; }
@@ -1267,9 +1269,9 @@ html:has(.lector[open]) { overflow: hidden; }
 .montana__puntos { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1.4rem; }
 .montana__puntos button {
   width: 9px; height: 9px; padding: 0; border: 0; border-radius: 999px; cursor: pointer;
-  background: color-mix(in srgb, var(--ink-2) 30%, transparent); transition: width .25s, background .25s;
+  background: color-mix(in srgb, var(--c, var(--ink-2)) 40%, transparent); transition: width .25s, background .25s;
 }
-.montana__puntos button.is-actual { width: 24px; background: var(--destacado); }
+.montana__puntos button.is-actual { width: 24px; background: var(--c, var(--destacado)); }
 
 @media (max-width: 800px) {
   .montana__pista { height: calc(var(--paradas) * 70vh + 100vh); }

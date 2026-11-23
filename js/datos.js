@@ -443,42 +443,42 @@ const primerCiclo = {
     ],
   },
   // Recorrido de los desempeños más significativos de 1er ciclo (misma ruta que en 2do ciclo).
-  // Sin "fase": todas las paradas van en violeta.
+  // etapa: el color con el que Flor resaltó cada título en el doc (1 amarillo, 2 celeste, 3 lila = colores de las fases).
   trayectoria: [
     {
-      titulo: "Exploramos nuestras estrategias para repartir",
+      etapa: 1, titulo: "Exploramos nuestras estrategias para repartir",
       texto: "Los alumnos resolvieron diferentes desafíos de reparto y de iteración utilizando material concreto, dibujos, sumas y multiplicaciones conocidas. A través del trabajo grupal, pusieron en juego sus conocimientos previos y registraron diferentes procedimientos.",
     },
     {
-      titulo: "¿Qué información necesitamos para resolver un problema?",
+      etapa: 2, titulo: "¿Qué información necesitamos para resolver un problema?",
       texto: "Los niños analizaron diferentes situaciones problemáticas para reconocer qué datos eran necesarios, innecesarios o insuficientes en problemas de reparto. Trabajaron en parejas, explicaron cuándo era posible encontrar una respuesta y exploraron la formulación de nuevas preguntas a partir de la información disponible.",
     },
     {
-      titulo: "¿Siempre conviene dibujar para dividir?",
+      etapa: 2, titulo: "¿Siempre conviene dibujar para dividir?",
       texto: "A partir del problema de repartir 90 libros entre 6 estantes, los estudiantes recuperaron sus estrategias de resolución y comenzaron a reconocer las dificultades de utilizar dibujos frente a cantidades mayores. Mediante el intercambio y los tickets de salida, reflexionaron sobre la conveniencia de los procedimientos y se hicieron preguntas.",
     },
     {
-      titulo: "Descubrimos una nueva estrategia: la descomposición aditiva",
+      etapa: 2, titulo: "Descubrimos una nueva estrategia: la descomposición aditiva",
       texto: "Los estudiantes analizaron procedimientos de otros niños para comprender cómo descomponer una cantidad en partes más sencillas de dividir, utilizando multiplicaciones conocidas. También exploraron una división con resto, que permitió identificar dificultades para interpretar las cantidades que no podían repartirse completamente.",
     },
     {
-      titulo: "Ponemos en práctica lo aprendido",
+      etapa: 2, titulo: "Ponemos en práctica lo aprendido",
       texto: "Los estudiantes resolvieron divisiones individualmente mediante descomposiciones aditivas y multiplicaciones conocidas. Posteriormente, revisaron sus procedimientos a partir de una autocorrección colectiva y reflexionaron sobre sus avances y dificultades mediante la rutina “El árbol del aprendizaje”.",
     },
     {
-      titulo: "¿Necesitamos una estrategia más económica?",
+      etapa: 2, titulo: "¿Necesitamos una estrategia más económica?",
       texto: "Frente a divisiones con cantidades progresivamente mayores, los niños comenzaron a reconocer las limitaciones de la descomposición aditiva, ya que requería organizar numerosos cálculos. Sus intervenciones dieron sentido a la introducción del algoritmo convencional, que exploraron mediante resoluciones guiadas y ejercicios de práctica.",
     },
     {
-      titulo: "Utilizamos el algoritmo convencional de la división",
+      etapa: 2, titulo: "Utilizamos el algoritmo convencional de la división",
       texto: "Los estudiantes recuperaron los pasos del algoritmo convencional y resolvieron divisiones de manera individual, utilizando la tabla pitagórica como herramienta de apoyo. Mediante la corrección colectiva y los tickets de salida, revisaron sus procedimientos e identificaron conocimientos importantes para resolver divisiones.",
     },
     {
-      titulo: "Analizamos procedimientos y descubrimos errores",
+      etapa: 3, titulo: "Analizamos procedimientos y descubrimos errores",
       texto: "Los niños analizaron tres resoluciones de estudiantes ficticios para identificar datos innecesarios, reconocer procedimientos correctos y detectar errores en el algoritmo convencional. A partir del intercambio y la justificación de sus respuestas, comenzaron a construir criterios para evaluar la validez de diferentes resoluciones.",
     },
     {
-      titulo: "Un desafío final: ayudamos a los duendes",
+      etapa: 3, titulo: "Un desafío final: ayudamos a los duendes",
       texto: "Como cierre de la secuencia, los estudiantes integraron los aprendizajes de Matemática y Lengua mediante la creación de nuevas historias protagonizadas por personajes de cuentos previamente leídos. Escribieron cartas con instrucciones para resolver divisiones, aplicaron el algoritmo convencional a un problema de reparto y revisaron sus producciones utilizando una lista de cotejo.",
     },
   ],
@@ -571,5 +571,4 @@ const primerCiclo = {
   // Las huellas de aprendizaje de 1er ciclo son un video: pegá acá el link (YouTube, Drive, Canva o un .mp4)
   video: 'https://www.canva.com/design/DAHbHSMTVQw/mH_u-Y0nmcvWmKDODmpoAQ/view',
   // Cartelito arriba del video (dejalo vacío '' cuando ya esté el video definitivo)
-  avisoVideo: 'Por ahora vas a ver acá una presentación en Canva con las huellas de aprendizaje. Muy pronto la reemplazo por el video.',
 };

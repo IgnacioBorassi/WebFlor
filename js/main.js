@@ -276,6 +276,9 @@ const MANO_DOCENTE = [-9, -13];
 const MANO_NENE = [7.5, -16.5];
 const ESCALA = 1.7; // tamaño de las personitas en la montaña
 
+// Cada título lleva el color con el que Flor lo resaltó en el doc (mismos colores que las fases)
+const colorEtapa = (t) => (t.etapa ? `var(--fase-${t.etapa})` : 'var(--destacado)');
+
 function crearMontana(raiz, paradas) {
   const n = paradas.length;
   raiz.innerHTML = `
@@ -305,7 +308,7 @@ function crearMontana(raiz, paradas) {
           <h4 class="montana__titulo"></h4>
           <p class="montana__texto"></p>
           <div class="montana__puntos">
-            ${paradas.map((t, i) => `<button type="button" data-i="${i}" aria-label="Ir a la parada ${i + 1}: ${esc(t.titulo)}"></button>`).join('')}
+            ${paradas.map((t, i) => `<button type="button" data-i="${i}" style="--c:${colorEtapa(t)}" aria-label="Ir a la parada ${i + 1}: ${esc(t.titulo)}"></button>`).join('')}
           </div>
         </div>
       </div>
@@ -329,6 +332,7 @@ function crearMontana(raiz, paradas) {
     const p = punto(fraccion(i));
     const g = document.createElementNS(SVG_NS, 'g');
     g.setAttribute('class', 'm-hito');
+    g.style.setProperty('--c', colorEtapa(t));
     g.setAttribute('transform', `translate(${p.x} ${p.y})`);
     g.innerHTML = `<circle r="11"/><text y="4">${i + 1}</text>`;
     g.addEventListener('click', () => irAParada(i));
@@ -355,7 +359,8 @@ function crearMontana(raiz, paradas) {
     parada = i;
     const poner = () => {
       num.textContent = i + 1;
-      titulo.textContent = paradas[i].titulo;
+      titulo.innerHTML = `<span>${esc(paradas[i].titulo)}</span>`;
+      tarjeta.style.setProperty('--c', colorEtapa(paradas[i]));
       texto.textContent = paradas[i].texto;
       tarjeta.classList.remove('is-cambiando');
     };
