@@ -304,7 +304,7 @@ function crearMontana(raiz, paradas) {
           </g>
         </svg>
         <div class="montana__tarjeta" aria-live="polite">
-          <p class="montana__paso">Parada <strong class="montana__num">1</strong> de ${n}</p>
+          <p class="montana__paso"></p>
           <h4 class="montana__titulo"></h4>
           <p class="montana__texto"></p>
           <div class="montana__puntos">
@@ -344,7 +344,7 @@ function crearMontana(raiz, paradas) {
   const soga = svg.querySelector('.m-soga');
   const titulo = raiz.querySelector('.montana__titulo');
   const texto = raiz.querySelector('.montana__texto');
-  const num = raiz.querySelector('.montana__num');
+  const etiqueta = raiz.querySelector('.montana__paso');
   const tarjeta = raiz.querySelector('.montana__tarjeta');
   const puntos = [...raiz.querySelectorAll('.montana__puntos button')];
 
@@ -358,7 +358,7 @@ function crearMontana(raiz, paradas) {
     const primera = parada === -1;
     parada = i;
     const poner = () => {
-      num.textContent = i + 1;
+      etiqueta.textContent = paradas[i].etapa ? fases[paradas[i].etapa - 1] : `Parada ${i + 1} de ${n}`;
       titulo.innerHTML = `<span>${esc(paradas[i].titulo)}</span>`;
       tarjeta.style.setProperty('--c', colorEtapa(paradas[i]));
       texto.textContent = paradas[i].texto;
